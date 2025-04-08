@@ -1,0 +1,201 @@
+/* Reset di base moderno */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Variabili per animazioni */
+  --transition-speed: 0.3s;
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
+  --border-radius-xl: 24px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --button-hover-transform: scale(1.05);
+}
+
+body {
+  font-family: 'Nunito', 'Arial', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  line-height: 1.5;
+}
+
+/* Contenitore principale dell'app */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+/* Temi di colore migliorati con colori più vivaci e armoniosi */
+.theme-blue {
+  --primary-color: #4a89dc;
+  --primary-color-rgb: 74, 137, 220;
+  --primary-light: #73a7f0;
+  --primary-dark: #3a6cb7;
+  --secondary-color: #6ab7ff;
+  --background-color: #f0f8ff;
+  --card-bg: #ffffff;
+  --text-color: #333333;
+  --text-light: #757575;
+  --button-color: #4a89dc;
+  --button-text: #ffffff;
+  --accent-color: #ff9057;
+}
+
+.theme-green {
+  --primary-color: #4caf50;
+  --primary-color-rgb: 76, 175, 80;
+  --primary-light: #7cd87f;
+  --primary-dark: #3d8c40;
+  --secondary-color: #8ed88e;
+  --background-color: #f4fff4;
+  --card-bg: #ffffff;
+  --text-color: #333333;
+  --text-light: #757575;
+  --button-color: #4caf50;
+  --button-text: #ffffff;
+  --accent-color: #ff7043;
+}
+
+.theme-purple {
+  --primary-color: #8e44ad;
+  --primary-color-rgb: 142, 68, 173;
+  --primary-light: #a76dc2;
+  --primary-dark: #703688;
+  --secondary-color: #b39ddb;
+  --background-color: #f8f0ff;
+  --card-bg: #ffffff;
+  --text-color: #333333;
+  --text-light: #757575;
+  --button-color: #8e44ad;
+  --button-text: #ffffff;
+  --accent-color: #64b5f6;
+}
+
+.theme-orange {
+  --primary-color: #ff9800;
+  --primary-color-rgb: 255, 152, 0;
+  --primary-light: #ffb74d;
+  --primary-dark: #f57c00;
+  --secondary-color: #ffcc80;
+  --background-color: #fff8f0;
+  --card-bg: #ffffff;
+  --text-color: #333333;
+  --text-light: #757575;
+  --button-color: #ff9800;
+  --button-text: #ffffff;
+  --accent-color: #42a5f5;
+}
+
+/* Dimensioni UI */
+.ui-size-standard {
+  --button-size: 130px;
+  --icon-size: 48px;
+  --text-size: 18px;
+  --heading-size: 32px;
+  --spacing-unit: 16px;
+}
+
+.ui-size-large {
+  --button-size: 160px;
+  --icon-size: 64px;
+  --text-size: 22px;
+  --heading-size: 40px;
+  --spacing-unit: 24px;
+}
+
+/* Elementi di base */
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform var(--transition-speed), 
+              background-color var(--transition-speed),
+              box-shadow var(--transition-speed);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Accessibilità migliorata */
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+/* Classi di utilità */
+.card {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--box-shadow);
+  padding: calc(var(--spacing-unit) * 1.25);
+  transition: box-shadow var(--transition-speed), transform var(--transition-speed);
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Animazioni */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+.slide-in {
+  animation: slideIn 0.4s ease-out;
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Responsive design base */
+@media (max-width: 768px) {
+  .ui-size-standard {
+    --button-size: 120px;
+    --icon-size: 42px;
+    --text-size: 16px;
+    --heading-size: 28px;
+    --spacing-unit: 12px;
+  }
+  
+  .ui-size-large {
+    --button-size: 140px;
+    --icon-size: 54px;
+    --text-size: 20px;
+    --heading-size: 34px;
+    --spacing-unit: 18px;
+  }
+}

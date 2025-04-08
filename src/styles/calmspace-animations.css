@@ -1,0 +1,414 @@
+/* STILI PER SIMPLE PATTERNS MIGLIORATI */
+.patterns-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.pattern-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-unit, 1rem);
+  margin: 1.5rem 0;
+  padding: 0 1rem;
+  width: 100%;
+}
+
+.pattern-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 0.8rem;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  background-color: #f5f5f5;
+  color: var(--text-color, #333);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.pattern-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pattern-button.active {
+  border-color: var(--primary-color, #4a90e2);
+  background-color: rgba(74, 144, 226, 0.1);
+  font-weight: 600;
+}
+
+.pattern-icon {
+  font-size: 28px;
+}
+
+/* Controlli di animazione */
+.animation-controls {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+  width: 100%;
+  max-width: 250px;
+}
+
+.speed-button {
+  flex: 1;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-color: #f0f0f0;
+  color: var(--text-color, #333);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.speed-button:hover {
+  background-color: #e5e5e5;
+}
+
+.speed-button.active {
+  border-color: var(--primary-color, #4a90e2);
+  background-color: rgba(74, 144, 226, 0.1);
+}
+
+.pattern-display {
+  flex: 1;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Velocità di animazione */
+.slow {
+  --animation-speed: 0.7;
+}
+
+.medium {
+  --animation-speed: 1;
+}
+
+/* ==================== BOLLE MIGLIORATE ==================== */
+.bubbles-container {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #98c1ff, #5d9cff);
+  position: relative;
+  overflow: hidden;
+}
+
+.bubble {
+  position: absolute;
+  bottom: -100px;
+  border-radius: 50%;
+  box-shadow: 
+    inset 0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 15px rgba(255, 255, 255, 0.5);
+  animation: float 8s infinite;
+  transform-origin: center;
+}
+
+.bubble::after {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  width: 20%;
+  height: 20%;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) scale(0.3) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(-30px) scale(0.9) rotate(5deg);
+  }
+  50% {
+    transform: translateY(-50vh) scale(1) rotate(10deg);
+  }
+  100% {
+    transform: translateY(-100vh) scale(0.8) rotate(20deg);
+    opacity: 0;
+  }
+}
+
+/* ==================== ONDE MIGLIORATE ==================== */
+.waves-container {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #98c1ff, #5d9cff);
+  position: relative;
+  overflow: hidden;
+}
+
+.wave {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 40%;
+  left: -50%;
+  transform-origin: 50% 50%;
+}
+
+.wave1 {
+  top: 80%;
+  animation: wave calc(8s / var(--animation-speed, 1)) infinite ease-in-out;
+  height: 60%;
+  background: rgba(255, 255, 255, 0.3);
+  z-index: 5;
+}
+
+.wave2 {
+  top: 75%;
+  animation: wave calc(10s / var(--animation-speed, 1)) infinite ease-in-out;
+  animation-delay: 0.5s;
+  height: 70%;
+  background: rgba(255, 255, 255, 0.25);
+  z-index: 4;
+}
+
+.wave3 {
+  top: 70%;
+  animation: wave calc(12s / var(--animation-speed, 1)) infinite ease-in-out;
+  animation-delay: 1s;
+  height: 80%;
+  background: rgba(255, 255, 255, 0.2);
+  z-index: 3;
+}
+
+.wave4 {
+  top: 65%;
+  animation: wave calc(14s / var(--animation-speed, 1)) infinite ease-in-out;
+  animation-delay: 1.5s;
+  height: 90%;
+  background: rgba(255, 255, 255, 0.15);
+  z-index: 2;
+}
+
+.wave5 {
+  top: 60%;
+  animation: wave calc(16s / var(--animation-speed, 1)) infinite ease-in-out;
+  animation-delay: 2s;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 1;
+}
+
+@keyframes wave {
+  0% {
+    transform: translateY(0) scaleY(1) rotate(0deg);
+    border-radius: 40%;
+  }
+  25% {
+    transform: translateY(-1%) scaleY(1.05) rotate(1deg);
+    border-radius: 39%;
+  }
+  50% {
+    transform: translateY(-2%) scaleY(1.1) rotate(0deg);
+    border-radius: 38%;
+  }
+  75% {
+    transform: translateY(-1%) scaleY(1.05) rotate(-1deg);
+    border-radius: 39%;
+  }
+  100% {
+    transform: translateY(0) scaleY(1) rotate(0deg);
+    border-radius: 40%;
+  }
+}
+
+/* Elementi fluttuanti sopra le onde */
+.floating-items {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.floating-item {
+  position: absolute;
+  font-size: 24px;
+  animation: float-horizontal calc(15s / var(--animation-speed, 1)) infinite ease-in-out;
+  opacity: 0.8;
+}
+
+.item1 {
+  top: 40%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.item2 {
+  top: 50%;
+  left: 40%;
+  animation-delay: 3s;
+}
+
+.item3 {
+  top: 30%;
+  left: 70%;
+  animation-delay: 6s;
+}
+
+@keyframes float-horizontal {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(30px) translateY(-15px) rotate(10deg);
+  }
+  50% {
+    transform: translateX(60px) translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateX(30px) translateY(15px) rotate(-10deg);
+  }
+  100% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+}
+
+/* ==================== STELLE MIGLIORATE ==================== */
+.stars-container {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #0a1228, #1a2b4a 40%, #2a3d6b);
+  position: relative;
+  overflow: hidden;
+}
+
+.stars-gradient {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at bottom,
+    rgba(30, 60, 120, 0.4) 0%,
+    rgba(10, 18, 40, 0) 70%
+  );
+}
+
+.star {
+  position: absolute;
+  width: var(--size, 3px);
+  height: var(--size, 3px);
+  border-radius: 50%;
+  top: var(--top, 50%);
+  left: var(--left, 50%);
+  background-color: white;
+  animation: twinkle calc(var(--duration, 3s) / var(--animation-speed, 1)) infinite;
+  animation-delay: var(--delay, 0s);
+  opacity: 0.7;
+  filter: brightness(var(--brightness, 100%));
+  box-shadow: 
+    0 0 calc(var(--size, 3px) * 1.5) white,
+    0 0 calc(var(--size, 3px) * 2) rgba(255, 255, 255, 0.3);
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.8);
+    filter: brightness(calc(var(--brightness, 100%) * 0.7));
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+    filter: brightness(var(--brightness, 100%));
+  }
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+    filter: brightness(calc(var(--brightness, 100%) * 0.7));
+  }
+}
+
+/* Stelle cadenti */
+.shooting-star {
+  position: absolute;
+  top: var(--top, 20%);
+  left: var(--left, 50%);
+  width: 1px;
+  height: 1px;
+  background: transparent;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0);
+  animation: shooting calc(7s / var(--animation-speed, 1)) infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+.shooting-star::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 1px;
+  transform: translateX(0) translateY(0);
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.2) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+@keyframes shooting {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 0;
+  }
+  11% {
+    opacity: 1;
+  }
+  15% {
+    transform: translateX(200px) translateY(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(200px) translateY(100px);
+    opacity: 0;
+  }
+}
+
+/* Nebulose */
+.nebula {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    hsla(var(--hue, 240), 70%, 60%, 0.15),
+    hsla(var(--hue, 240), 70%, 40%, 0.05) 60%,
+    transparent 80%
+  );
+  filter: blur(8px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: nebula-pulse calc(20s / var(--animation-speed, 1)) infinite alternate;
+}
+
+@keyframes nebula-pulse {
+  0% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
