@@ -181,16 +181,36 @@ function SimplePatterns({ settings }) {
         
         {activePattern === 'waves' && (
           <div className={`waves-container ${speed}`}>
+            {/* Nuovo sole e riflesso per l'effetto tramonto */}
+            <div className="sun"></div>
+            <div className="sun-reflection"></div>
+            
+            {/* Nuvole nell'aria */}
+            <div className="cloud cloud1"></div>
+            <div className="cloud cloud2"></div>
+            
+            {/* Gabbiani che volano */}
+            <div className="seagull1">v</div>
+            <div className="seagull2">v</div>
+            
+            {/* Oggetti che galleggiano */}
+            <div className="floating-object boat"></div>
+            <div className="floating-object log"></div>
+            
+            {/* Onde in prospettiva */}
             <div className="wave wave1"></div>
             <div className="wave wave2"></div>
             <div className="wave wave3"></div>
             <div className="wave wave4"></div>
             <div className="wave wave5"></div>
-            <div className="floating-items">
-              <div className="floating-item item1">🌿</div>
-              <div className="floating-item item2">🍃</div>
-              <div className="floating-item item3">🌱</div>
-            </div>
+            
+            {/* Effetto schiuma sulle onde */}
+            <div className="foam foam1"></div>
+            <div className="foam foam2"></div>
+            <div className="foam foam3"></div>
+            
+            {/* Effetto di profondità dell'acqua */}
+            <div className="deep-water"></div>
           </div>
         )}
         

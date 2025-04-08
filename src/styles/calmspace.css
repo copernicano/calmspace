@@ -199,52 +199,362 @@
   }
 }
 
-/* Stili per pattern onde */
+/* Mare migliorato con prospettiva e tramonto */
 .waves-container {
   width: 100%;
   height: 100%;
-  background-color: var(--secondary-color);
+  background: linear-gradient(to bottom, #ff9e7d 0%, #ff7e5f 15%, #4a99e9 40%, #1a7edb 100%);
   position: relative;
   overflow: hidden;
+  perspective: 500px;
 }
 
+/* Sole che tramonta */
+.sun {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, #ffee00 30%, #ff8800 70%, #ff5500 100%);
+  border-radius: 50%;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 40px rgba(255, 136, 0, 0.7);
+  animation: sunset 20s infinite alternate;
+  z-index: 1;
+}
+
+@keyframes sunset {
+  0% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    background: radial-gradient(circle, #ffee00 30%, #ff8800 70%, #ff5500 100%);
+  }
+  100% {
+    transform: translateX(-50%) translateY(20px);
+    opacity: 0.7;
+    background: radial-gradient(circle, #ff5500 30%, #ff2200 70%, #ff0000 100%);
+  }
+}
+
+/* Riflesso del sole sull'acqua */
+.sun-reflection {
+  position: absolute;
+  width: 20px;
+  height: 200px;
+  background: linear-gradient(to bottom, rgba(255, 220, 90, 0.7) 0%, rgba(255, 220, 90, 0.1) 100%);
+  top: 23%;
+  left: 50%;
+  transform: translateX(-50%);
+  filter: blur(3px);
+  z-index: 2;
+  animation: reflection 8s infinite alternate;
+}
+
+@keyframes reflection {
+  0% {
+    width: 20px;
+    opacity: 0.7;
+  }
+  50% {
+    width: 40px;
+    opacity: 0.5;
+  }
+  100% {
+    width: 15px;
+    opacity: 0.6;
+  }
+}
+
+/* Onde in diverse file con effetto prospettiva */
 .wave {
   position: absolute;
-  width: 200%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 50%;
+  height: 60px;
   left: -50%;
-  top: 70%;
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  right: -50%;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 40%;
+  transform: rotateX(45deg);
+  z-index: 3;
 }
 
 .wave1 {
-  animation: wave calc(7s / var(--animation-speed)) infinite;
+  bottom: 20%;
+  height: 60px;
+  animation: wave-move 7s infinite ease-in-out;
+  opacity: 0.8;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), rgba(77, 166, 255, 0.7));
 }
 
 .wave2 {
-  animation: wave calc(9s / var(--animation-speed)) infinite;
+  bottom: 18%;
+  height: 50px;
+  animation: wave-move 9s infinite ease-in-out;
   animation-delay: 0.5s;
   opacity: 0.6;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(77, 166, 255, 0.6));
 }
 
 .wave3 {
-  animation: wave calc(11s / var(--animation-speed)) infinite;
+  bottom: 16%;
+  height: 40px;
+  animation: wave-move 11s infinite ease-in-out;
   animation-delay: 1s;
   opacity: 0.4;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(77, 166, 255, 0.5));
 }
 
-@keyframes wave {
+.wave4 {
+  bottom: 12%;
+  height: 35px;
+  animation: wave-move 8s infinite ease-in-out;
+  animation-delay: 0.3s;
+  opacity: 0.5;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.25), rgba(77, 166, 255, 0.55));
+}
+
+.wave5 {
+  bottom: 8%;
+  height: 30px;
+  animation: wave-move 10s infinite ease-in-out;
+  animation-delay: 0.7s;
+  opacity: 0.3;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15), rgba(77, 166, 255, 0.45));
+}
+
+@keyframes wave-move {
   0% {
-    transform: translateY(0) scale(1);
+    transform: rotateX(45deg) translateY(0) scaleX(1);
   }
   50% {
-    transform: translateY(-20%) scale(1.1);
+    transform: rotateX(45deg) translateY(-20px) scaleX(1.1);
   }
   100% {
-    transform: translateY(0) scale(1);
+    transform: rotateX(45deg) translateY(0) scaleX(1);
   }
+}
+
+/* Oggetti galleggianti */
+.floating-object {
+  position: absolute;
+  border-radius: 4px;
+  z-index: 4;
+  transform-style: preserve-3d;
+  animation: float-object calc(15s / var(--animation-speed)) infinite;
+}
+
+.boat {
+  width: 60px;
+  height: 20px;
+  background-color: #964b00;
+  bottom: 22%;
+  left: 30%;
+  animation-delay: 0s;
+  transform-origin: center bottom;
+}
+
+.boat::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom: 20px solid white;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  height: 0;
+  width: 30px;
+}
+
+.log {
+  width: 50px;
+  height: 15px;
+  background-color: #8B4513;
+  bottom: 24%;
+  left: 65%;
+  border-radius: 5px;
+  animation-delay: 2s;
+}
+
+.seagull1, .seagull2 {
+  font-size: 18px;
+  color: white;
+  top: 30%;
+  animation: fly-gull 25s infinite linear;
+}
+
+.seagull1 {
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.seagull2 {
+  left: 20%;
+  top: 25%;
+  animation-delay: 5s;
+}
+
+@keyframes float-object {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-8px) rotate(-2deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes fly-gull {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(100vw + 50px));
+  }
+}
+
+/* Nuvole che fluttuano lentamente */
+.cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  z-index: 1;
+  filter: blur(3px);
+}
+
+.cloud1 {
+  width: 90px;
+  height: 30px;
+  top: 15%;
+  left: 20%;
+  animation: drift 35s infinite linear;
+}
+
+.cloud2 {
+  width: 120px;
+  height: 40px;
+  top: 10%;
+  left: 60%;
+  animation: drift 45s infinite linear;
+}
+
+.cloud1::before,
+.cloud1::after,
+.cloud2::before,
+.cloud2::after {
+  content: '';
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+}
+
+.cloud1::before {
+  width: 40px;
+  height: 40px;
+  top: -20px;
+  left: 15px;
+}
+
+.cloud1::after {
+  width: 30px;
+  height: 30px;
+  top: -15px;
+  left: 40px;
+}
+
+.cloud2::before {
+  width: 60px;
+  height: 60px;
+  top: -30px;
+  left: 20px;
+}
+
+.cloud2::after {
+  width: 45px;
+  height: 45px;
+  top: -20px;
+  left: 60px;
+}
+
+@keyframes drift {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(100vw + 150px));
+  }
+}
+
+/* Velocità di animazione */
+.slow {
+  --animation-speed: 1.3;
+}
+
+.medium {
+  --animation-speed: 1;
+}
+
+/* Effetto schiuma delle onde */
+.foam {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.7);
+  height: 10px;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  filter: blur(1px);
+  transform: rotateX(45deg);
+}
+
+.foam1 {
+  bottom: 21%;
+  animation: foam-move 6s infinite alternate;
+}
+
+.foam2 {
+  bottom: 17%;
+  animation: foam-move 8s infinite alternate;
+  animation-delay: 1s;
+}
+
+.foam3 {
+  bottom: 13%;
+  animation: foam-move 7s infinite alternate;
+  animation-delay: 2s;
+}
+
+@keyframes foam-move {
+  0% {
+    opacity: 0.2;
+    height: 5px;
+  }
+  50% {
+    opacity: 0.7;
+    height: 8px;
+  }
+  100% {
+    opacity: 0.2;
+    height: 5px;
+  }
+}
+
+/* Effetto profondità dell'acqua */
+.deep-water {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(to bottom, rgba(0, 78, 152, 0) 0%, rgba(0, 32, 84, 0.8) 100%);
+  z-index: 0;
 }
 
 /* Stili per pattern stelle */
