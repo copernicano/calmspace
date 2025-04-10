@@ -5,7 +5,7 @@
 
 // Questo andrebbe idealmente in un file .env o gestito lato server
 // Per sviluppo, puoi inserirlo qui ma non committare questo file con la chiave
-const OPENROUTER_API_KEY = "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";
+const OPENROUTER_API_KEY = process.env.REACT_APP_OPENROUTER_API_KEY;
 const SITE_URL = "https://calmspace.app"; // Modifica con il tuo URL effettivo
 const SITE_NAME = "CalmSpace";
 
@@ -47,7 +47,7 @@ export const sendMessage = async (userMessage) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        "model": "qwen/qwen2.5-vl-3b-instruct:free",
+        "model": "meta-llama/llama-4-maverick:free",
         "messages": [
           {
             "role": "system",
