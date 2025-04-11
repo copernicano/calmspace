@@ -1,11 +1,86 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import { SettingsContext } from '../../contexts/SettingsContext';
 import '../../styles/calmspace.css';
 import '../../styles/calmspace-animations.css';
+// Importiamo i suoni
+import bubblesSound from '../../assets/sounds/bubbles.mp3';
+import wavesSound from '../../assets/sounds/waves.mp3';
+import nightSound from '../../assets/sounds/summer-night.mp3';
 
 function SimplePatterns({ settings }) {
+  const { settings: globalSettings } = useContext(SettingsContext);
   const [activePattern, setActivePattern] = useState('bubbles');
-  const [speed, setSpeed] = useState('medium');
+  const [speed, setSpeed] = useState('medium'); // 'slow' o 'medium'
   
+  // Stato per l'audio
+  const [audioEnabled, setAudioEnabled] = useState(true);
+  const [volume, setVolume] = useState(0.5);
+  
+  // Riferimenti agli elementi audio
+  const audioRefs = useRef({
+    bubbles: new Audio(bubblesSound),
+    waves: new Audio(wavesSound),
+    stars: new Audio(nightSound)
+  });
+  
+  // Gestisce la riproduzione dell'audio quando cambia il pattern
+  useEffect(() => {
+    // Funzione per fermare tutti gli audio
+    const stopAllAudio = () => {
+      Object.values(audioRefs.current).forEach(audio => {
+        audio.pause();
+        audio.currentTime = 0;
+      });
+    };
+
+    // Ferma tutti gli audio prima di iniziare
+    stopAllAudio();
+    
+    // Avvia l'audio corrispondente al pattern se abilitato
+    if (audioEnabled) {
+      let currentAudio;
+      switch(activePattern) {
+        case 'bubbles':
+          currentAudio = audioRefs.current.bubbles;
+          break;
+        case 'waves':
+          currentAudio = audioRefs.current.waves;
+          break;
+        case 'stars':
+          currentAudio = audioRefs.current.stars;
+          break;
+        default:
+          currentAudio = null;
+      }
+      
+      if (currentAudio) {
+        currentAudio.volume = volume;
+        currentAudio.loop = true;
+        
+        // Utilizzare una Promise per gestire gli errori di riproduzione (ad es. autoplay bloccato)
+        const playPromise = currentAudio.play();
+        
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            console.log("Riproduzione audio non riuscita:", error);
+          });
+        }
+      }
+    }
+    
+    // Cleanup quando il componente viene smontato o cambia il pattern
+    return () => {
+      stopAllAudio();
+    };
+  }, [activePattern, audioEnabled, volume]);
+  
+  // Configura il volume di tutti gli audio
+  useEffect(() => {
+    Object.values(audioRefs.current).forEach(audio => {
+      audio.volume = volume;
+    });
+  }, [volume]);
+   
   // Genera bolle con dimensioni e posizioni casuali
   const generateBubbles = () => {
     const bubblesCount = 15;
@@ -128,6 +203,16 @@ function SimplePatterns({ settings }) {
   const handleSpeedChange = (newSpeed) => {
     setSpeed(newSpeed);
   };
+
+  // Toggle per abilitare/disabilitare l'audio
+  const toggleAudio = () => {
+    setAudioEnabled(!audioEnabled);
+  };
+  
+  // Gestisce il cambio del volume
+  const handleVolumeChange = (e) => {
+    setVolume(parseFloat(e.target.value));
+  };
   
   return (
     <div className="patterns-container">
@@ -173,6 +258,34 @@ function SimplePatterns({ settings }) {
         >
           Medio
         </button>
+        </div>
+      
+      {/* Controlli audio */}
+      <div className="audio-controls">
+        <button 
+          className={`audio-button ${audioEnabled ? 'active' : ''}`} 
+          onClick={toggleAudio}
+          aria-label={audioEnabled ? "Disattiva audio" : "Attiva audio"}
+        >
+          <span className="audio-icon">
+            {audioEnabled ? "🔊" : "🔇"}
+          </span>
+        </button>
+        
+        {audioEnabled && (
+          <div className="volume-slider-container">
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.1"
+              value={volume}
+              onChange={handleVolumeChange}
+              className="volume-slider"
+              aria-label="Volume"
+            />
+          </div>
+        )}
       </div>
       
       <div className="pattern-display">

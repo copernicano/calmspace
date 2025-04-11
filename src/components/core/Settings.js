@@ -3,8 +3,15 @@ import { SettingsContext } from '../../contexts/SettingsContext';
 import '../../styles/components.css';
 
 function Settings() {
-  const { settings, updateSettings } = useContext(SettingsContext);
+  const context = useContext(SettingsContext);
   
+  if (!context) {
+    console.error('Settings must be used within a SettingsProvider');
+    return null;
+  }
+
+  const { settings, updateSettings } = context;
+
   // Gestori degli eventi per i cambiamenti delle impostazioni
   const handleThemeChange = (e) => {
     updateSettings({ theme: e.target.value });

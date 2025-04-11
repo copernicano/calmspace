@@ -10,7 +10,10 @@ const defaultSettings = {
 };
 
 // Creazione del contesto
-export const SettingsContext = createContext();
+export const SettingsContext = createContext({
+  settings: defaultSettings,
+  updateSettings: () => {} // Funzione vuota come fallback
+});
 
 export const SettingsProvider = ({ children }) => {
   // Stato iniziale caricato dal localStorage o valori predefiniti

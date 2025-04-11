@@ -11,9 +11,9 @@ import VisualTimer from '../timers/VisualTimer';
 import SimpleRoutine from '../timers/SimpleRoutine';
 import Settings from './Settings';
 import Navigation from './Navigation';
-import ChatButton from '../chat/ChatButton'; // Importiamo il componente del chatbot
+import ChatButton from '../chat/ChatButton';
 import '../../styles/global.css';
-import { getFromStorage } from '../../utils/storage';
+import { getFromStorage, saveToStorage } from '../../utils/storage';
 
 function App() {
   // State per le impostazioni utente
@@ -21,6 +21,7 @@ function App() {
     theme: 'blue',
     animationLevel: 'medium',
     uiSize: 'standard',
+    stimulationLevel: 'low',
   });
   
   // State per l'emozione selezionata e la sua intensità
@@ -39,8 +40,18 @@ function App() {
     }
   }, []);
   
+  // Funzione per aggiornare le impostazioni (da passare come updateSettings)
+  const updateSettings = (newSettings) => {
+    setSettings(prevSettings => {
+      const updatedSettings = { ...prevSettings, ...newSettings };
+      // Salva nel localStorage quando vengono aggiornate le impostazioni
+      saveToStorage('calmspace-settings', JSON.stringify(updatedSettings));
+      return updatedSettings;
+    });
+  };
+  
   return (
-    <SettingsContext.Provider value={{ settings, setSettings }}>
+    <SettingsContext.Provider value={{ settings, updateSettings }}>
       <Router>
         <div className={`app-container theme-${settings.theme} ui-size-${settings.uiSize}`}>
           <Routes>
@@ -72,7 +83,6 @@ function App() {
           
           <Navigation />
           
-          {/* Aggiungiamo il pulsante del chatbot */}
           <ChatButton />
         </div>
       </Router>
