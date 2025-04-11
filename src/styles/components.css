@@ -116,13 +116,23 @@
 
 /* Navigation */
 /* Aggiornamento alla classe navigation-container in components.css */
+/* Aggiornamento alla classe navigation-container in components.css */
 .navigation-container {
   position: fixed;
   bottom: calc(var(--spacing-unit) * 2);
-  right: calc(var(--spacing-unit) * 2); /* Posiziona a destra anziché al centro */
+  left: calc(var(--spacing-unit) * 2); /* Posizione iniziale */
   z-index: 100;
   display: flex;
   justify-content: center;
+  /* Aggiunti per supportare il drag */
+  user-select: none;
+  touch-action: none;
+  cursor: grab;
+}
+
+/* Quando viene trascinato */
+.navigation-container.dragging {
+  cursor: grabbing;
 }
 
 .home-button {
@@ -130,36 +140,76 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 60px; /* Ridotta da 70px */
-  height: 60px; /* Ridotta da 70px */
+  width: 56px; 
+  height: 56px;
   border-radius: 50%;
   background-color: var(--primary-color);
   color: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), 0 8px 20px rgba(0, 0, 0, 0.15);
-  transition: all var(--transition-speed);
-  opacity: 0.9; /* Leggermente trasparente */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
+  opacity: 0.9;
 }
 
-.home-button:hover {
-  transform: translateY(-5px);
+.home-button:hover, .home-button:focus {
   opacity: 1;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3), 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 .home-icon {
-  font-size: calc(var(--icon-size) * 0.5); /* Ridotta da 0.6 */
+  font-size: calc(var(--icon-size) * 0.5);
+}
+
+/* Rimuoviamo l'animazione */
+
+/* Tooltip */
+.home-tooltip {
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.home-button:hover .home-tooltip {
+  opacity: 1;
+}
+
+/* Messaggio di guida per il trascinamento - appare solo la prima volta */
+.drag-helper {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  white-space: nowrap;
+  animation: fadeInOut 3s forwards;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 /* Adattamenti responsive */
 @media (max-width: 768px) {
   .navigation-container {
     bottom: calc(var(--spacing-unit) * 1.5);
-    right: calc(var(--spacing-unit) * 1.5);
-  }
-  
-  .home-button {
-    width: 55px;
-    height: 55px;
+    left: calc(var(--spacing-unit) * 1.5);
   }
 }
 
