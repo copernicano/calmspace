@@ -4,7 +4,7 @@ import '../../styles/calmspace-animations.css';
 
 function SimplePatterns({ settings }) {
   const [activePattern, setActivePattern] = useState('bubbles');
-  const [speed, setSpeed] = useState('medium'); // 'slow' o 'medium'
+  const [speed, setSpeed] = useState('medium');
   
   // Genera bolle con dimensioni e posizioni casuali
   const generateBubbles = () => {
@@ -18,7 +18,7 @@ function SimplePatterns({ settings }) {
       const opacity = Math.random() * 0.5 + 0.3; // 0.3-0.8 opacity
       const drift = Math.random() * 100 - 50; // Valore per spostamento laterale
       const hue = Math.floor(Math.random() * 40) + 190; // Tonalità blu/azzurro variabile
-      
+    
       bubbles.push(
         <div 
           key={i}
@@ -73,7 +73,7 @@ function SimplePatterns({ settings }) {
       );
     }
     
-    // Aggiungiamo anche qualche stella cadente occasionale
+    // Aggiungiamo anche qualche stella cadente
     for (let i = 0; i < 3; i++) {
       const top = Math.floor(Math.random() * 50); // Nella metà superiore
       const left = Math.floor(Math.random() * 80) + 10; // 10-90%
@@ -92,28 +92,31 @@ function SimplePatterns({ settings }) {
       );
     }
     
-    // Aggiunge delle nebulose per profondità
-    for (let i = 0; i < 3; i++) {
-      const size = Math.floor(Math.random() * 100) + 100; // 100-200px
-      const top = Math.floor(Math.random() * 100); // 0-100%
-      const left = Math.floor(Math.random() * 100); // 0-100%
-      
-      stars.push(
+    return stars;
+  };
+
+  // Genera onde con proprietà dinamiche
+  const generateWaves = () => {
+    const waves = [];
+    const waveCount = 4; // Numero di onde
+
+    for (let i = 1; i <= waveCount; i++) {
+      waves.push(
         <div 
-          key={`nebula-${i}`}
-          className="nebula"
+          key={`wave-${i}`} 
+          className={`wave wave${i}`} 
           style={{
-            width: `${size}px`,
-            height: `${size}px`,
-            top: `${top}%`,
-            left: `${left}%`,
-            '--hue': `${Math.floor(Math.random() * 60) + 220}`, // Tonalità blu/viola
+            animationDuration: `${12 + i * 2}s`,
+            animationDelay: `${i * 2}s`,
+            top: `${60 + i * 5}%`,
+            height: `${50 + i * 5}%`,
+            background: `rgba(255, 255, 255, ${0.2 - i * 0.05})`
           }}
-        />
+        ></div>
       );
     }
-    
-    return stars;
+
+    return waves;
   };
   
   // Cambia pattern attivo
@@ -181,36 +184,10 @@ function SimplePatterns({ settings }) {
         
         {activePattern === 'waves' && (
           <div className={`waves-container ${speed}`}>
-            {/* Nuovo sole e riflesso per l'effetto tramonto */}
             <div className="sun"></div>
             <div className="sun-reflection"></div>
             
-            {/* Nuvole nell'aria */}
-            <div className="cloud cloud1"></div>
-            <div className="cloud cloud2"></div>
-            
-            {/* Gabbiani che volano */}
-            <div className="seagull1">v</div>
-            <div className="seagull2">v</div>
-            
-            {/* Oggetti che galleggiano */}
-            <div className="floating-object boat"></div>
-            <div className="floating-object log"></div>
-            
-            {/* Onde in prospettiva */}
-            <div className="wave wave1"></div>
-            <div className="wave wave2"></div>
-            <div className="wave wave3"></div>
-            <div className="wave wave4"></div>
-            <div className="wave wave5"></div>
-            
-            {/* Effetto schiuma sulle onde */}
-            <div className="foam foam1"></div>
-            <div className="foam foam2"></div>
-            <div className="foam foam3"></div>
-            
-            {/* Effetto di profondità dell'acqua */}
-            <div className="deep-water"></div>
+            {generateWaves()}
           </div>
         )}
         

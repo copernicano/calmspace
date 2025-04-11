@@ -56,7 +56,7 @@ function BasicStrategies({ emotion, intensity, onBack }) {
   
   // Naviga allo spazio calmo
   const goToCalmSpace = () => {
-    navigate('/calm-space');
+    navigate('/calmspace');
   };
   
   return (

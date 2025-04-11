@@ -147,91 +147,112 @@
 
 /* ==================== ONDE MIGLIORATE ==================== */
 .waves-container {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom, #98c1ff, #5d9cff);
+  background: linear-gradient(to bottom, 
+              #a8d8ff 0%, 
+              #69b3ff 40%, 
+              #0288d1 70%, 
+              #01579b 100%);
   position: relative;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 .wave {
   position: absolute;
   width: 200%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 40%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
   left: -50%;
-  transform-origin: 50% 50%;
+  transform-origin: center;
+  animation: wave-motion infinite ease-in-out;
 }
 
 .wave1 {
-  top: 80%;
-  animation: wave calc(8s / var(--animation-speed, 1)) infinite ease-in-out;
-  height: 60%;
-  background: rgba(255, 255, 255, 0.3);
-  z-index: 5;
+  top: 60%;
+  height: 50%;
+  animation-duration: 12s;
+  animation-delay: 0s;
 }
 
 .wave2 {
-  top: 75%;
-  animation: wave calc(10s / var(--animation-speed, 1)) infinite ease-in-out;
-  animation-delay: 0.5s;
-  height: 70%;
-  background: rgba(255, 255, 255, 0.25);
-  z-index: 4;
+  top: 65%;
+  height: 55%;
+  background: rgba(255, 255, 255, 0.15);
+  animation-duration: 14s;
+  animation-delay: 2s;
 }
 
 .wave3 {
   top: 70%;
-  animation: wave calc(12s / var(--animation-speed, 1)) infinite ease-in-out;
-  animation-delay: 1s;
-  height: 80%;
-  background: rgba(255, 255, 255, 0.2);
-  z-index: 3;
+  height: 60%;
+  background: rgba(255, 255, 255, 0.1);
+  animation-duration: 16s;
+  animation-delay: 4s;
 }
 
 .wave4 {
-  top: 65%;
-  animation: wave calc(14s / var(--animation-speed, 1)) infinite ease-in-out;
-  animation-delay: 1.5s;
-  height: 90%;
-  background: rgba(255, 255, 255, 0.15);
-  z-index: 2;
+  top: 75%;
+  height: 65%;
+  background: rgba(255, 255, 255, 0.08);
+  animation-duration: 18s;
+  animation-delay: 6s;
 }
 
-.wave5 {
-  top: 60%;
-  animation: wave calc(16s / var(--animation-speed, 1)) infinite ease-in-out;
-  animation-delay: 2s;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  z-index: 1;
-}
-
-@keyframes wave {
+/* Animazione migliorata per le onde */
+@keyframes wave-motion {
   0% {
-    transform: translateY(0) scaleY(1) rotate(0deg);
-    border-radius: 40%;
-  }
-  25% {
-    transform: translateY(-1%) scaleY(1.05) rotate(1deg);
-    border-radius: 39%;
+    transform: translateX(-50%) translateY(0) rotate(0deg);
   }
   50% {
-    transform: translateY(-2%) scaleY(1.1) rotate(0deg);
-    border-radius: 38%;
-  }
-  75% {
-    transform: translateY(-1%) scaleY(1.05) rotate(-1deg);
-    border-radius: 39%;
+    transform: translateX(50%) translateY(0) rotate(0deg);
   }
   100% {
-    transform: translateY(0) scaleY(1) rotate(0deg);
-    border-radius: 40%;
+    transform: translateX(-50%) translateY(0) rotate(0deg);
   }
 }
 
-/* Elementi fluttuanti sopra le onde */
+/* Stili per sole e riflesso (già presenti, li includo per completezza) */
+.sun {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, 
+              #fffde7 10%, /* Centro più luminoso */
+              #ffee58 30%, 
+              #ffb74d 60%, 
+              #ff9800 100%);
+  box-shadow: 0 0 30px rgba(255, 160, 0, 0.5); /* Bagliore più naturale */
+  opacity: 0.9; /* Leggermente più tenue */
+  z-index: 3;
+}
+
+.sun-reflection {
+  position: absolute;
+  width: 100px; /* Più ampio alla base */
+  height: 300px; /* Più lungo per arrivare più in basso */
+  background: radial-gradient(
+    ellipse at top,
+    rgba(255, 236, 179, 0.6) 0%, 
+    rgba(255, 236, 179, 0.3) 30%,
+    rgba(255, 236, 179, 0.1) 70%,
+    rgba(255, 236, 179, 0) 100%
+  );
+  top: 23%; 
+  left: 50%;
+  transform: translateX(-50%);
+  filter: blur(8px);
+  z-index: 2;
+  opacity: 0.7;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Elementi fluttuanti (esempio, puoi personalizzarli) */
 .floating-items {
   position: absolute;
   width: 100%;
@@ -242,8 +263,9 @@
 .floating-item {
   position: absolute;
   font-size: 24px;
+  color: white;
   animation: float-horizontal calc(15s / var(--animation-speed, 1)) infinite ease-in-out;
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 .item1 {
@@ -269,13 +291,13 @@
     transform: translateX(0) translateY(0) rotate(0deg);
   }
   25% {
-    transform: translateX(30px) translateY(-15px) rotate(10deg);
+    transform: translateX(20px) translateY(-10px) rotate(5deg);
   }
   50% {
-    transform: translateX(60px) translateY(0) rotate(0deg);
+    transform: translateX(40px) translateY(0) rotate(0deg);
   }
   75% {
-    transform: translateX(30px) translateY(15px) rotate(-10deg);
+    transform: translateX(20px) translateY(10px) rotate(-5deg);
   }
   100% {
     transform: translateX(0) translateY(0) rotate(0deg);
@@ -412,3 +434,279 @@
     transform: scale(1.1);
   }
 }
+
+/* Miglioramenti sottili per il pattern bolle - da aggiungere a calmspace-animations.css */
+
+/* ==================== MIGLIORAMENTI BOLLE ==================== */
+.bubbles-container {
+  /* Gradiente leggermente migliorato senza perdere la stabilità */
+  background: linear-gradient(to bottom, #a8d8ff, #69b3ff);
+}
+
+/* Miglioramenti sottili alle bolle */
+.bubble {
+  /* Utilizziamo un radial-gradient più sottile per migliorare l'aspetto */
+  background: radial-gradient(circle at 30% 30%, 
+    rgba(255, 255, 255, 0.8) 10%, 
+    rgba(255, 255, 255, 0.4) 50%, 
+    rgba(255, 255, 255, 0.1) 100%);
+  /* Manteniamo il bordo sottile per definire meglio la bolla */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  /* Aggiungiamo un riflesso molto leggero */
+  box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.7);
+}
+
+/* Miglioriamo l'animazione originale senza cambiare troppo */
+@keyframes float {
+  0% {
+    transform: translateY(0) scale(0.3);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+    transform: translateY(-30px) scale(0.9);
+  }
+  50% {
+    transform: translateY(-50vh) scale(1);
+  }
+  100% {
+    transform: translateY(-100vh) scale(0.8);
+    opacity: 0;
+  }
+}
+
+/* Miglioramenti sottili per il pattern stelle - da aggiungere a calmspace-animations.css */
+
+/* ==================== MIGLIORAMENTI STELLE ==================== */
+.stars-container {
+  /* Gradiente leggermente migliorato per dare più profondità */
+  background: linear-gradient(to bottom, #0a1228, #1a2b48 40%, #2a3d69);
+}
+
+/* Miglioriamo l'aspetto delle stelle senza compromettere il rendering */
+.star {
+  /* Manteniamo il colore bianco ma miglioriamo il bagliore */
+  background-color: white;
+  /* Box shadow sottile per il bagliore senza flickering */
+  box-shadow: 0 0 calc(var(--size, 3px) * 1.5) rgba(255, 255, 255, 0.7);
+  /* Aggiungiamo un leggero blur per renderle più naturali */
+  filter: brightness(var(--brightness, 100%));
+}
+
+/* Animazione twinkle leggermente migliorata */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(0.8);
+    filter: brightness(90%);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+    filter: brightness(110%);
+  }
+}
+
+/* Aggiungiamo una stella cadente occasionale più realistica */
+/* Correzione delle stelle cadenti per renderle fisicamente credibili */
+
+.shooting-star {
+  position: absolute;
+  top: var(--top, 20%);
+  left: var(--left, 50%);
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.8);
+  animation: shooting-star-move calc(8s / var(--animation-speed, 1)) infinite;
+  animation-delay: var(--delay, 0s);
+  opacity: 0;
+  z-index: 5;
+}
+
+/* La scia segue correttamente la direzione del movimento */
+.shooting-star::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0; /* La scia parte dalla stella */
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(
+    to left, /* La scia sfuma allontanandosi dalla stella */
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  transform-origin: right center;
+  transform: rotate(-30deg); /* Inclina la scia di 30 gradi verso l'alto */
+}
+
+@keyframes shooting-star-move {
+  0% {
+    opacity: 0;
+    transform: translateX(0) translateY(0);
+  }
+  10% {
+    opacity: 0;
+  }
+  11% {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+  20% {
+    transform: translateX(300px) translateY(150px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(300px) translateY(150px);
+    opacity: 0;
+  }
+}
+
+/* Miglioramenti sottili per il pattern onde - da aggiungere a calmspace-animations.css */
+
+/* Miglioramenti barchette e raggio solare - da aggiungere a calmspace-animations.css */
+
+/* Raggio solare migliorato */
+.sun-reflection {
+  position: absolute;
+  width: 100px; /* Più ampio alla base */
+  height: 300px; /* Più lungo per arrivare più in basso */
+  background: radial-gradient(
+    ellipse at top,
+    rgba(255, 236, 179, 0.6) 0%, 
+    rgba(255, 236, 179, 0.3) 30%,
+    rgba(255, 236, 179, 0.1) 70%,
+    rgba(255, 236, 179, 0) 100%
+  );
+  top: 23%; 
+  left: 50%;
+  transform: translateX(-50%);
+  filter: blur(8px);
+  z-index: 2;
+  opacity: 0.7;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Onde stilizzate ispirate all'immagine di riferimento */
+
+.waves-container {
+  background: linear-gradient(to bottom, 
+              #ffecd9 0%, 
+              #ffb88d 15%, 
+              #4fb4e6 35%, 
+              #0288d1 70%, 
+              #01579b 100%);
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+/* Contenitore pattern onde */
+.wave-pattern {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70%;
+  background: transparent;
+  z-index: 5;
+  overflow: hidden;
+}
+
+/* Stile base per le righe di onde */
+.wave-row {
+  position: absolute;
+  width: 200%;
+  height: 60px;
+  left: -50%;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+}
+
+/* Posizionamento delle righe */
+.wave-row-1 { bottom: 0; }
+.wave-row-2 { bottom: 50px; }
+.wave-row-3 { bottom: 100px; }
+.wave-row-4 { bottom: 150px; }
+.wave-row-5 { bottom: 200px; }
+.wave-row-6 { bottom: 250px; }
+
+/* Onde stilizzate singole */
+.stylized-wave {
+  position: relative;
+  width: 100px;
+  height: 60px;
+  background: transparent;
+  margin: 0 -20px;
+}
+
+/* Onde con gradiente e bordo */
+.stylized-wave::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50% 50% 0 0;
+  background: linear-gradient(to bottom, #64b5f6 0%, #2196f3 100%);
+  border: 2px solid #0d47a1;
+  border-bottom: none;
+  transform: scaleX(2) scaleY(0.5);
+  box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Effetto riflesso sull'onda */
+.stylized-wave::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 25%;
+  right: 25%;
+  height: 15%;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: scaleX(2);
+}
+
+/* Colori alternati per le righe di onde */
+.wave-row:nth-child(odd) .stylized-wave::before {
+  background: linear-gradient(to bottom, #90caf9 0%, #42a5f5 100%);
+}
+
+.wave-row:nth-child(even) .stylized-wave::before {
+  background: linear-gradient(to bottom, #64b5f6 0%, #1e88e5 100%);
+}
+
+/* Animazione per movimento leggero */
+@keyframes wave-sway {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-20px); }
+  100% { transform: translateX(0); }
+}
+
+.wave-row-1 { animation: wave-sway 8s infinite ease-in-out; }
+.wave-row-2 { animation: wave-sway 8s infinite ease-in-out reverse; }
+.wave-row-3 { animation: wave-sway 9s infinite ease-in-out; }
+.wave-row-4 { animation: wave-sway 9s infinite ease-in-out reverse; }
+.wave-row-5 { animation: wave-sway 10s infinite ease-in-out; }
+.wave-row-6 { animation: wave-sway 10s infinite ease-in-out reverse; }
+
+/* Funzione helper per generare onde in JavaScript */
+/* 
+  Per ogni riga, dovresti generare molteplici elementi 'stylized-wave'
+  Esempio:
+  function createStylizedWaves() {
+    const waveCount = 10; // Numero di onde per riga
+    const waves = [];
+    
+    for (let i = 0; i < waveCount; i++) {
+      waves.push(<div key={i} className="stylized-wave"></div>);
+    }
+    
+    return waves;
+  }
+*/
