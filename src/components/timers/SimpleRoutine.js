@@ -39,37 +39,45 @@ function SimpleRoutine({ settings }) {
   // Nome temporaneo per la nuova routine
   const [newRoutineName, setNewRoutineName] = useState('');
   
-  // Attività predefinite per routine nuove
+  // Modificare anche le attività predefinite per nuove routine
   const defaultActivities = [
-    { id: 1, name: 'Lavarsi i denti', icon: '🪥' },
-    { id: 2, name: 'Fare colazione', icon: '🍳' },
-    { id: 3, name: 'Prepararsi per la scuola', icon: '🎒' }
+    { id: 1, name: 'Routine di igiene', icon: '🪥' },
+    { id: 2, name: 'Momento di mindfulness', icon: '🧘' },
+    { id: 3, name: 'Pausa programmata', icon: '⏱️' }
   ];
   
-  // Routine predefinite
-  function getDefaultRoutines() {
-    return [
-      {
-        id: 1,
-        name: 'Mattina',
-        activities: [
-          { id: 1, name: 'Lavarsi i denti', icon: '🪥' },
-          { id: 2, name: 'Fare colazione', icon: '🍳' },
-          { id: 3, name: 'Prepararsi per la scuola', icon: '🎒' }
-        ]
-      },
-      {
-        id: 2,
-        name: 'Sera',
-        activities: [
-          { id: 1, name: 'Fare i compiti', icon: '📚' },
-          { id: 2, name: 'Cena', icon: '🍽️' },
-          { id: 3, name: 'Lavarsi i denti', icon: '🪥' },
-          { id: 4, name: 'Indossare il pigiama', icon: '👕' }
-        ]
-      }
-    ];
-  }
+function getDefaultRoutines() {
+  return [
+    {
+      id: 1,
+      name: 'Mattina',
+      activities: [
+        { id: 1, name: 'Routine di igiene', icon: '🪥' },
+        { id: 2, name: 'Colazione', icon: '🍳' },
+        { id: 3, name: 'Pianificazione giornata', icon: '📝' }
+      ]
+    },
+    {
+      id: 2,
+      name: 'Sera',
+      activities: [
+        { id: 1, name: 'Relax', icon: '🧘' },
+        { id: 2, name: 'Cena', icon: '🍽️' },
+        { id: 3, name: 'Routine di igiene', icon: '🪥' },
+        { id: 4, name: 'Ridurre gli stimoli', icon: '🌙' }
+      ]
+    },
+    {
+      id: 3,
+      name: 'Pausa',
+      activities: [
+        { id: 1, name: 'Esercizi di respirazione', icon: '🫁' },
+        { id: 2, name: 'Stretching', icon: '🧠' },
+        { id: 3, name: 'Idratazione', icon: '💧' }
+      ]
+    }
+  ];
+}
   
   // Salva le routine quando cambiano
   useEffect(() => {

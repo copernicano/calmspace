@@ -380,3 +380,74 @@
   background-color: rgba(var(--primary-color-rgb), 0.1);
   transform: translateY(-3px);
 }
+
+/* Stile per la spiegazione della strategia */
+.strategy-explanation {
+  font-size: calc(var(--text-size) * 0.85);
+  color: var(--text-light);
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: var(--border-radius-sm);
+  border-left: 3px solid var(--primary-color);
+  line-height: 1.4;
+}
+
+/* Miglioramenti alla card della strategia per supportare più contenuto */
+.strategy-card {
+  padding: calc(var(--spacing-unit) * 1.25);
+  margin-bottom: var(--spacing-unit);
+  transition: all var(--transition-speed);
+}
+
+.strategy-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Miglioriamo la descrizione per renderla più leggibile */
+.strategy-description {
+  font-size: var(--text-size);
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* Aggiungiamo un'animazione subtile al hover per l'icona */
+.strategy-card:hover .strategy-icon {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+/* Rendiamo lo scroll più fluido nella lista strategie */
+.strategies-list {
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-light) transparent;
+}
+
+.strategies-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.strategies-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.strategies-list::-webkit-scrollbar-thumb {
+  background-color: var(--primary-light);
+  border-radius: 10px;
+}
+
+/* Adattamenti per dimensioni dello schermo più piccole */
+@media (max-width: 480px) {
+  .strategy-explanation {
+    font-size: calc(var(--text-size) * 0.8);
+    padding: 0.4rem;
+  }
+  
+  .strategy-card {
+    padding: calc(var(--spacing-unit) * 1);
+  }
+}
