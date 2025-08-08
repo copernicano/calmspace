@@ -1,10 +1,11 @@
-/* STILI PER SIMPLE PATTERNS MIGLIORATI */
+/* ======================= MODERN CALMSPACE ANIMATIONS ======================= */
 .patterns-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   height: 100%;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .pattern-options {
@@ -96,617 +97,1284 @@
   --animation-speed: 1;
 }
 
-/* ==================== BOLLE MIGLIORATE ==================== */
+/* ======================= MODERN BUBBLE ANIMATIONS ======================= */
+
+/* Container migliorato con gradiente più sofisticato */
 .bubbles-container {
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, #98c1ff, #5d9cff);
+  background: linear-gradient(135deg, 
+    #667eea 0%, 
+    #764ba2 50%, 
+    #667eea 100%);
   position: relative;
   overflow: hidden;
+  animation: gentle-color-shift 20s ease-in-out infinite alternate;
 }
 
+@keyframes gentle-color-shift {
+  0% { filter: hue-rotate(0deg) saturate(1); }
+  100% { filter: hue-rotate(15deg) saturate(1.1); }
+}
+
+/* Bolle principali moderne - forma perfettamente circolare */
 .bubble {
   position: absolute;
   bottom: -100px;
   border-radius: 50%;
-  box-shadow: 
-    inset 0 0 10px rgba(255, 255, 255, 0.8),
-    0 0 15px rgba(255, 255, 255, 0.5);
-  animation: float 8s infinite;
-  transform-origin: center;
+  backdrop-filter: blur(2px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  animation: modern-float var(--float-duration, 12s) infinite ease-out;
+  transform-origin: center center;
+  will-change: transform, opacity;
+  /* Forza forma perfettamente circolare */
+  aspect-ratio: 1 / 1;
+  box-sizing: border-box;
+  overflow: visible;
+  /* Previeni deformazione */
+  min-width: var(--size, 20px);
+  min-height: var(--size, 20px);
+  max-width: var(--size, 20px);
+  max-height: var(--size, 20px);
+  /* Centra perfettamente */
+  transform-style: preserve-3d;
+}
+
+.bubble::before {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 20%;
+  width: 25%;
+  height: 25%;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  filter: blur(1px);
+  aspect-ratio: 1;
 }
 
 .bubble::after {
   content: '';
   position: absolute;
-  top: 20%;
-  left: 25%;
-  width: 20%;
-  height: 20%;
-  background: rgba(255, 255, 255, 0.7);
+  top: 25%;
+  left: 35%;
+  width: 15%;
+  height: 15%;
+  background: rgba(255, 255, 255, 0.6);
   border-radius: 50%;
+  filter: blur(0.5px);
+  aspect-ratio: 1;
 }
 
-@keyframes float {
+/* Varianti di bolle - tutte perfettamente circolari */
+.bubble-large {
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 
+    0 0 25px hsla(var(--hue, 210), 70%, 80%, 0.6),
+    inset 0 0 15px rgba(255, 255, 255, 0.2);
+  animation: large-bubble-float var(--float-duration, 15s) infinite ease-out;
+  /* Eredita dimensioni perfette dal parent */
+}
+
+.bubble-micro {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  animation: micro-bubble-swarm var(--float-duration, 8s) infinite linear;
+  opacity: 0.7;
+  /* Eredita dimensioni perfette dal parent */
+}
+
+.bubble-sparkly {
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  animation: sparkly-float var(--float-duration, 10s) infinite ease-out,
+             sparkle-effect 2s infinite ease-in-out;
+  box-shadow: 
+    0 0 15px hsla(var(--hue, 210), 80%, 90%, 0.8),
+    inset 0 0 10px rgba(255, 255, 255, 0.3);
+  /* Eredita dimensioni perfette dal parent */
+}
+
+/* Schiuma - piccole bolle perfettamente circolari */
+.bubble-foam {
+  position: absolute;
+  bottom: -20px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  animation: foam-rise var(--duration, 8s) infinite linear;
+  opacity: 0.8;
+  /* Dimensioni controllate da variabile CSS */
+  width: var(--size, 6px);
+  height: var(--size, 6px);
+  min-width: var(--size, 6px);
+  min-height: var(--size, 6px);
+  max-width: var(--size, 6px);
+  max-height: var(--size, 6px);
+  box-sizing: border-box;
+  aspect-ratio: 1 / 1;
+}
+
+@keyframes modern-float {
   0% {
-    transform: translateY(0) scale(0.3) rotate(0deg);
+    transform: translateY(0) translateX(0) scale(0.3) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.9;
+    transform: translateY(-60px) translateX(var(--drift-x, 0px)) scale(0.7) rotate(3deg);
+  }
+  25% {
+    transform: translateY(-25vh) translateX(calc(var(--drift-x, 0px) * 0.8)) scale(var(--final-scale, 1)) rotate(6deg);
+  }
+  50% {
+    transform: translateY(-50vh) translateX(calc(var(--drift-x, 0px) * 0.6)) scale(var(--final-scale, 1)) rotate(10deg);
+  }
+  75% {
+    transform: translateY(-75vh) translateX(calc(var(--drift-x, 0px) * 0.4)) scale(calc(var(--final-scale, 1) * 0.9)) rotate(15deg);
+  }
+  100% {
+    transform: translateY(-110vh) translateX(0px) scale(0.2) rotate(25deg);
+    opacity: 0;
+  }
+}
+
+@keyframes large-bubble-float {
+  0% {
+    transform: translateY(0) scale(0.2) rotate(0deg);
     opacity: 0;
   }
   10% {
-    opacity: 1;
-    transform: translateY(-30px) scale(0.9) rotate(5deg);
+    opacity: 0.8;
+    transform: translateY(-70px) scale(0.6) rotate(2deg);
   }
   50% {
     transform: translateY(-50vh) scale(1) rotate(10deg);
+    opacity: 1;
   }
   100% {
-    transform: translateY(-100vh) scale(0.8) rotate(20deg);
+    transform: translateY(-110vh) scale(0.4) rotate(20deg);
     opacity: 0;
   }
 }
 
-/* ==================== ONDE MIGLIORATE ==================== */
+@keyframes micro-bubble-swarm {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.4);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.7;
+    transform: translateY(-40px) translateX(5px) scale(0.8);
+  }
+  85% {
+    opacity: 0.4;
+    transform: translateY(-80vh) translateX(15px) scale(0.6);
+  }
+  100% {
+    transform: translateY(-100vh) translateX(20px) scale(0.2);
+    opacity: 0;
+  }
+}
+
+@keyframes sparkly-float {
+  0% {
+    transform: translateY(0) scale(0.4) rotate(0deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(-100px) scale(0.8) rotate(5deg);
+  }
+  50% {
+    transform: translateY(-50vh) scale(1) rotate(15deg);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(-80vh) scale(0.9) rotate(25deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100vh) scale(0.3) rotate(35deg);
+    opacity: 0;
+  }
+}
+
+@keyframes sparkle-effect {
+  0%, 100% { filter: brightness(1) contrast(1); }
+  50% { filter: brightness(1.3) contrast(1.2); }
+}
+
+@keyframes foam-rise {
+  0% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}
+
+/* ======================= POETIC FLUID WAVES ======================= */
+
+/* Container oceanico poetico con sfumature profonde */
 .waves-container {
-  background: linear-gradient(to bottom, 
-              #a8d8ff 0%, 
-              #69b3ff 40%, 
-              #0288d1 70%, 
-              #01579b 100%);
+  background: linear-gradient(180deg,
+    #1e3c72 0%,     /* Blu profondo del cielo */
+    #2a5298 15%,    /* Blu intermedio */
+    #3498db 30%,    /* Azzurro chiaro */
+    #74b9ff 50%,    /* Celeste */
+    #0984e3 70%,    /* Blu oceano */
+    #2d3436 85%,    /* Grigio blu profondo */
+    #0c2461 100%    /* Blu notte */
+  );
   position: relative;
   overflow: hidden;
   width: 100%;
   height: 100%;
+  animation: serene-ocean-atmosphere 45s ease-in-out infinite alternate;
 }
 
-.wave {
+@keyframes serene-ocean-atmosphere {
+  0% { filter: hue-rotate(0deg) saturate(1) brightness(1) contrast(1); }
+  25% { filter: hue-rotate(3deg) saturate(1.1) brightness(1.02) contrast(1.05); }
+  50% { filter: hue-rotate(-2deg) saturate(0.95) brightness(1.05) contrast(0.98); }
+  75% { filter: hue-rotate(4deg) saturate(1.05) brightness(0.98) contrast(1.02); }
+  100% { filter: hue-rotate(0deg) saturate(1) brightness(1) contrast(1); }
+}
+
+/* Onde principali fluide con forme organiche */
+.fluid-wave-layer {
   position: absolute;
-  width: 200%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  left: -50%;
-  transform-origin: center;
-  animation: wave-motion infinite ease-in-out;
-}
-
-.wave1 {
-  top: 60%;
-  height: 50%;
-  animation-duration: 12s;
-  animation-delay: 0s;
-}
-
-.wave2 {
-  top: 65%;
-  height: 55%;
-  background: rgba(255, 255, 255, 0.15);
-  animation-duration: 14s;
-  animation-delay: 2s;
-}
-
-.wave3 {
-  top: 70%;
-  height: 60%;
-  background: rgba(255, 255, 255, 0.1);
-  animation-duration: 16s;
-  animation-delay: 4s;
-}
-
-.wave4 {
-  top: 75%;
-  height: 65%;
-  background: rgba(255, 255, 255, 0.08);
-  animation-duration: 18s;
-  animation-delay: 6s;
-}
-
-/* Animazione migliorata per le onde */
-@keyframes wave-motion {
-  0% {
-    transform: translateX(-50%) translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateX(50%) translateY(0) rotate(0deg);
-  }
-  100% {
-    transform: translateX(-50%) translateY(0) rotate(0deg);
-  }
-}
-
-/* Stili per sole e riflesso (già presenti, li includo per completezza) */
-.sun {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: radial-gradient(circle, 
-              #fffde7 10%, /* Centro più luminoso */
-              #ffee58 30%, 
-              #ffb74d 60%, 
-              #ff9800 100%);
-  box-shadow: 0 0 30px rgba(255, 160, 0, 0.5); /* Bagliore più naturale */
-  opacity: 0.9; /* Leggermente più tenue */
-  z-index: 3;
-}
-
-.sun-reflection {
-  position: absolute;
-  width: 100px; /* Più ampio alla base */
-  height: 300px; /* Più lungo per arrivare più in basso */
-  background: radial-gradient(
-    ellipse at top,
-    rgba(255, 236, 179, 0.6) 0%, 
-    rgba(255, 236, 179, 0.3) 30%,
-    rgba(255, 236, 179, 0.1) 70%,
-    rgba(255, 236, 179, 0) 100%
+  bottom: var(--wave-bottom, 0%);
+  left: -10%;
+  width: 120%;
+  height: var(--wave-height, 50px);
+  background: linear-gradient(90deg,
+    hsla(var(--wave-hue, 210), 70%, 60%, 0) 0%,
+    hsla(var(--wave-hue, 210), 70%, 65%, var(--wave-opacity, 0.4)) 20%,
+    hsla(var(--wave-hue, 210), 80%, 70%, var(--wave-opacity, 0.4)) 50%,
+    hsla(var(--wave-hue, 210), 70%, 65%, var(--wave-opacity, 0.4)) 80%,
+    hsla(var(--wave-hue, 210), 70%, 60%, 0) 100%
   );
-  top: 23%; 
-  left: 50%;
-  transform: translateX(-50%);
-  filter: blur(8px);
-  z-index: 2;
-  opacity: 0.7;
-  border-radius: 50%;
-  pointer-events: none;
+  clip-path: polygon(
+    0% 100%,
+    5% 85%,
+    15% 75%,
+    25% 80%,
+    35% 70%,
+    45% 75%,
+    55% 65%,
+    65% 70%,
+    75% 60%,
+    85% 65%,
+    95% 55%,
+    100% 60%,
+    100% 100%
+  );
+  animation: organic-wave-flow var(--wave-speed, 15s) infinite ease-in-out;
+  animation-delay: var(--wave-delay, 0s);
+  mix-blend-mode: normal;
+  filter: blur(1px);
+  z-index: calc(10 + var(--wave-index, 0));
 }
 
-/* Elementi fluttuanti (esempio, puoi personalizzarli) */
-.floating-items {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-}
-
-.floating-item {
-  position: absolute;
-  font-size: 24px;
-  color: white;
-  animation: float-horizontal calc(15s / var(--animation-speed, 1)) infinite ease-in-out;
-  opacity: 0.7;
-}
-
-.item1 {
-  top: 40%;
-  left: 10%;
-  animation-delay: 0s;
-}
-
-.item2 {
-  top: 50%;
-  left: 40%;
-  animation-delay: 3s;
-}
-
-.item3 {
-  top: 30%;
-  left: 70%;
-  animation-delay: 6s;
-}
-
-@keyframes float-horizontal {
+@keyframes organic-wave-flow {
   0% {
-    transform: translateX(0) translateY(0) rotate(0deg);
+    transform: translateX(-8%) scaleY(1);
+    clip-path: polygon(
+      0% 100%,
+      5% 85%,
+      15% 75%,
+      25% 80%,
+      35% 70%,
+      45% 75%,
+      55% 65%,
+      65% 70%,
+      75% 60%,
+      85% 65%,
+      95% 55%,
+      100% 60%,
+      100% 100%
+    );
   }
   25% {
-    transform: translateX(20px) translateY(-10px) rotate(5deg);
+    transform: translateX(-2%) scaleY(1.1);
+    clip-path: polygon(
+      0% 100%,
+      8% 80%,
+      18% 70%,
+      28% 85%,
+      38% 65%,
+      48% 80%,
+      58% 60%,
+      68% 75%,
+      78% 55%,
+      88% 70%,
+      98% 50%,
+      100% 55%,
+      100% 100%
+    );
   }
   50% {
-    transform: translateX(40px) translateY(0) rotate(0deg);
+    transform: translateX(4%) scaleY(1);
+    clip-path: polygon(
+      0% 100%,
+      7% 90%,
+      17% 80%,
+      27% 75%,
+      37% 85%,
+      47% 70%,
+      57% 75%,
+      67% 65%,
+      77% 70%,
+      87% 60%,
+      97% 65%,
+      100% 70%,
+      100% 100%
+    );
   }
   75% {
-    transform: translateX(20px) translateY(10px) rotate(-5deg);
+    transform: translateX(-1%) scaleY(1.05);
+    clip-path: polygon(
+      0% 100%,
+      6% 85%,
+      16% 90%,
+      26% 70%,
+      36% 80%,
+      46% 85%,
+      56% 70%,
+      66% 80%,
+      76% 65%,
+      86% 75%,
+      96% 70%,
+      100% 65%,
+      100% 100%
+    );
   }
   100% {
-    transform: translateX(0) translateY(0) rotate(0deg);
+    transform: translateX(-8%) scaleY(1);
+    clip-path: polygon(
+      0% 100%,
+      5% 85%,
+      15% 75%,
+      25% 80%,
+      35% 70%,
+      45% 75%,
+      55% 65%,
+      65% 70%,
+      75% 60%,
+      85% 65%,
+      95% 55%,
+      100% 60%,
+      100% 100%
+    );
   }
 }
 
-/* ==================== STELLE MIGLIORATE ==================== */
+/* Onde di superficie con riflessi delicati */
+.surface-wave {
+  position: absolute;
+  bottom: var(--surface-bottom, 25%);
+  left: -5%;
+  width: 110%;
+  height: var(--surface-height, 20px);
+  background: linear-gradient(90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 25%,
+    rgba(173, 216, 230, 0.4) 50%,
+    rgba(255, 255, 255, 0.3) 75%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  border-radius: 50% / 100%;
+  animation: gentle-surface-ripple var(--surface-speed, 10s) infinite ease-in-out;
+  animation-delay: var(--surface-delay, 0s);
+  filter: blur(0.5px);
+  z-index: 20;
+  opacity: 0.7;
+}
+
+@keyframes gentle-surface-ripple {
+  0% {
+    transform: translateX(-3%) scaleX(1) scaleY(1);
+    opacity: 0.5;
+  }
+  25% {
+    transform: translateX(1%) scaleX(1.05) scaleY(1.2);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateX(3%) scaleX(1) scaleY(1);
+    opacity: 0.9;
+  }
+  75% {
+    transform: translateX(0%) scaleX(0.95) scaleY(0.8);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(-3%) scaleX(1) scaleY(1);
+    opacity: 0.5;
+  }
+}
+
+/* Particelle galleggianti organiche */
+.floating-particle {
+  position: absolute;
+  width: var(--particle-size, 3px);
+  height: var(--particle-size, 3px);
+  background: radial-gradient(circle,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(173, 216, 230, 0.6) 40%,
+    rgba(135, 206, 235, 0.3) 70%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  animation: organic-float var(--float-duration, 12s) infinite ease-in-out;
+  animation-delay: var(--float-delay, 0s);
+  z-index: 15;
+  filter: blur(0.5px);
+}
+
+@keyframes organic-float {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.8);
+    opacity: 0.4;
+  }
+  25% {
+    transform: translateY(-15px) translateX(8px) scale(1.2);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-5px) translateX(15px) scale(1);
+    opacity: 1;
+  }
+  75% {
+    transform: translateY(-20px) translateX(10px) scale(1.1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(0) translateX(0) scale(0.8);
+    opacity: 0.4;
+  }
+}
+
+/* Riflessi luminosi sull'acqua */
+.water-shimmer {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(ellipse,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0.6) 30%,
+    rgba(135, 206, 235, 0.4) 60%,
+    transparent 100%
+  );
+  border-radius: 50% / 80%;
+  animation: water-shimmer-dance var(--shimmer-duration, 4s) infinite ease-in-out;
+  animation-delay: var(--shimmer-delay, 0s);
+  z-index: 25;
+  filter: blur(0.3px);
+}
+
+@keyframes water-shimmer-dance {
+  0% {
+    transform: scale(0.5) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    transform: scale(1.2) rotate(45deg);
+    opacity: 0.9;
+  }
+  30% {
+    transform: scale(0.8) rotate(90deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5) rotate(135deg);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1) rotate(180deg);
+    opacity: 0.8;
+  }
+  85% {
+    transform: scale(1.3) rotate(225deg);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(0.5) rotate(270deg);
+    opacity: 0;
+  }
+}
+
+/* ======================= SPECTACULAR STAR UNIVERSE ======================= */
+
+/* Container del cielo stellato moderno */
 .stars-container {
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, #0a1228, #1a2b4a 40%, #2a3d6b);
+  background: linear-gradient(180deg,
+    #0B0D1E 0%,
+    #1A1C35 25%,
+    #2D1B69 50%,
+    #1E0A3C 75%,
+    #0F0A1A 100%);
   position: relative;
   overflow: hidden;
+  animation: cosmic-atmosphere 50s ease-in-out infinite alternate;
 }
 
-.stars-gradient {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(
-    ellipse at bottom,
-    rgba(30, 60, 120, 0.4) 0%,
-    rgba(10, 18, 40, 0) 70%
-  );
+@keyframes cosmic-atmosphere {
+  0% { filter: hue-rotate(0deg) brightness(1) saturate(1); }
+  25% { filter: hue-rotate(3deg) brightness(1.05) saturate(1.1); }
+  50% { filter: hue-rotate(-2deg) brightness(0.98) saturate(1.05); }
+  75% { filter: hue-rotate(5deg) brightness(1.02) saturate(1.08); }
+  100% { filter: hue-rotate(0deg) brightness(1) saturate(1); }
 }
 
-.star {
+/* Stelle principali moderne con forma a croce */
+.modern-star {
   position: absolute;
-  width: var(--size, 3px);
-  height: var(--size, 3px);
+  top: var(--star-top, 50%);
+  left: var(--star-left, 50%);
+  width: var(--star-size, 3px);
+  height: var(--star-size, 3px);
+  background: var(--star-color, #FFFFFF);
+  animation: modern-star-twinkle var(--star-duration, 4s) infinite ease-in-out;
+  animation-delay: var(--star-delay, 0s);
+  z-index: 15;
+  filter: brightness(var(--star-intensity, 1));
+}
+
+.modern-star::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  width: 1px;
+  height: calc(var(--star-size, 3px) * 2);
+  background: var(--star-color, #FFFFFF);
+  transform: translateX(-50%);
+  box-shadow: 0 0 8px var(--star-color, #FFFFFF);
+}
+
+.modern-star::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -50%;
+  width: calc(var(--star-size, 3px) * 2);
+  height: 1px;
+  background: var(--star-color, #FFFFFF);
+  transform: translateY(-50%);
+  box-shadow: 0 0 8px var(--star-color, #FFFFFF);
+}
+
+/* Varianti di stelle colorate */
+.modern-star-red {
+  background: #FF4757;
+  box-shadow: 0 0 15px rgba(255, 71, 87, 0.8);
+}
+
+.modern-star-red::before,
+.modern-star-red::after {
+  background: #FF4757;
+  box-shadow: 0 0 10px rgba(255, 71, 87, 0.9);
+}
+
+.modern-star-blue {
+  background: #3742FA;
+  box-shadow: 0 0 15px rgba(55, 66, 250, 0.8);
+}
+
+.modern-star-blue::before,
+.modern-star-blue::after {
+  background: #3742FA;
+  box-shadow: 0 0 10px rgba(55, 66, 250, 0.9);
+}
+
+.modern-star-gold {
+  background: #FFD700;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+}
+
+.modern-star-gold::before,
+.modern-star-gold::after {
+  background: #FFD700;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.9);
+}
+
+.modern-star-pink {
+  background: #FF6B9D;
+  box-shadow: 0 0 15px rgba(255, 107, 157, 0.8);
+}
+
+.modern-star-pink::before,
+.modern-star-pink::after {
+  background: #FF6B9D;
+  box-shadow: 0 0 10px rgba(255, 107, 157, 0.9);
+}
+
+/* Stelle delle costellazioni */
+.constellation-star-modern {
+  position: absolute;
+  top: var(--star-top, 50%);
+  left: var(--star-left, 50%);
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #FFFFFF 0%, #E3F2FD 100%);
   border-radius: 50%;
-  top: var(--top, 50%);
-  left: var(--left, 50%);
-  background-color: white;
-  animation: twinkle calc(var(--duration, 3s) / var(--animation-speed, 1)) infinite;
-  animation-delay: var(--delay, 0s);
-  opacity: 0.7;
-  filter: brightness(var(--brightness, 100%));
-  box-shadow: 
-    0 0 calc(var(--size, 3px) * 1.5) white,
-    0 0 calc(var(--size, 3px) * 2) rgba(255, 255, 255, 0.3);
+  animation: constellation-pulse 3s infinite ease-in-out;
+  animation-delay: var(--star-delay, 0s);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+  z-index: 20;
 }
 
-@keyframes twinkle {
+/* Linee di collegamento costellazioni */
+.constellation-line {
+  position: absolute;
+  top: var(--line-top, 50%);
+  left: var(--line-left, 50%);
+  width: var(--line-width, 10%);
+  height: 1px;
+  background: linear-gradient(to right, 
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.6) 100%);
+  transform: rotate(var(--line-angle, 0deg));
+  transform-origin: left center;
+  animation: constellation-line-glow 6s infinite ease-in-out;
+  animation-delay: var(--line-delay, 0s);
+  z-index: 18;
+}
+
+/* Meteore spettacolari */
+.spectacular-meteor {
+  position: absolute;
+  top: var(--meteor-start-top, 10%);
+  left: var(--meteor-start-left, 20%);
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #FFFFFF 0%, #87CEEB 100%);
+  border-radius: 50%;
+  animation: spectacular-meteor-trail var(--meteor-duration, 3s) infinite linear;
+  animation-delay: var(--meteor-delay, 0s);
+  opacity: 0;
+  z-index: 25;
+}
+
+.spectacular-meteor::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  width: var(--meteor-trail-length, 200px);
+  height: 4px;
+  background: linear-gradient(to left,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(135, 206, 235, 0.9) 15%,
+    rgba(173, 216, 230, 0.7) 35%,
+    rgba(176, 196, 222, 0.4) 60%,
+    transparent 100%);
+  transform: translateY(-50%) rotate(-25deg);
+  transform-origin: right center;
+  border-radius: 2px 0 0 2px;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+/* Nebulose vibranti */
+.vibrant-nebula {
+  position: absolute;
+  top: var(--nebula-top, 50%);
+  left: var(--nebula-left, 50%);
+  width: var(--nebula-size, 200px);
+  height: var(--nebula-size, 200px);
+  background: radial-gradient(ellipse,
+    hsla(var(--nebula-hue), var(--nebula-saturation), var(--nebula-lightness), 0.4) 0%,
+    hsla(var(--nebula-hue), var(--nebula-saturation), var(--nebula-lightness), 0.2) 30%,
+    hsla(var(--nebula-hue), var(--nebula-saturation), var(--nebula-lightness), 0.1) 60%,
+    transparent 100%);
+  border-radius: 50%;
+  animation: nebula-breathe var(--nebula-duration, 30s) infinite ease-in-out;
+  filter: blur(20px);
+  mix-blend-mode: screen;
+  z-index: 8;
+  transform: translate(-50%, -50%);
+}
+
+/* Pulviscolo stellare scintillante */
+.sparkling-dust {
+  position: absolute;
+  top: var(--dust-top, 50%);
+  left: var(--dust-left, 50%);
+  width: var(--dust-size, 1px);
+  height: var(--dust-size, 1px);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  animation: sparkling-dust-twinkle 8s infinite ease-in-out;
+  animation-delay: var(--dust-delay, 0s);
+  box-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+  z-index: 12;
+}
+
+/* Animazioni principali stelle moderne */
+@keyframes modern-star-twinkle {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+    filter: brightness(var(--star-intensity, 1)) blur(0px);
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1.3);
+    filter: brightness(calc(var(--star-intensity, 1) * 1.4)) blur(0.5px);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(0.8);
+    filter: brightness(calc(var(--star-intensity, 1) * 1.2)) blur(0px);
+  }
+  75% {
+    opacity: 1;
+    transform: scale(1.1);
+    filter: brightness(calc(var(--star-intensity, 1) * 1.3)) blur(0.3px);
+  }
+}
+
+@keyframes constellation-pulse {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+  }
+  33% {
+    opacity: 1;
+    transform: scale(1.2);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+  }
+  66% {
+    opacity: 0.9;
+    transform: scale(1.1);
+    box-shadow: 0 0 16px rgba(255, 255, 255, 0.8);
+  }
+}
+
+@keyframes constellation-line-glow {
+  0%, 100% {
+    opacity: 0.5;
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.6);
+  }
+  50% {
+    opacity: 0.8;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+  }
+}
+
+@keyframes spectacular-meteor-trail {
   0% {
+    opacity: 0;
+    transform: translateX(0) translateY(0) scale(0.5);
+  }
+  5% {
+    opacity: 1;
+    transform: translateX(20px) translateY(15px) scale(1);
+  }
+  25% {
+    opacity: 1;
+    transform: translateX(100px) translateY(75px) scale(1.2);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateX(200px) translateY(150px) scale(1);
+  }
+  75% {
+    opacity: 0.4;
+    transform: translateX(300px) translateY(225px) scale(0.8);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(400px) translateY(300px) scale(0.3);
+  }
+}
+
+@keyframes nebula-breathe {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    opacity: 0.3;
+    filter: blur(20px) hue-rotate(0deg);
+  }
+  25% {
+    transform: translate(-50%, -50%) scale(1.1) rotate(90deg);
+    opacity: 0.5;
+    filter: blur(22px) hue-rotate(5deg);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2) rotate(180deg);
+    opacity: 0.4;
+    filter: blur(25px) hue-rotate(10deg);
+  }
+  75% {
+    transform: translate(-50%, -50%) scale(1.15) rotate(270deg);
+    opacity: 0.45;
+    filter: blur(23px) hue-rotate(7deg);
+  }
+}
+
+@keyframes sparkling-dust-twinkle {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.5);
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.4);
+  }
+  20% {
+    opacity: 0.8;
+    transform: scale(1.5);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+  }
+  40% {
+    opacity: 0.4;
+    transform: scale(0.8);
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.2);
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  }
+  80% {
+    opacity: 0.6;
+    transform: scale(0.9);
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
+  }
+}
+
+@keyframes stellar-twinkle {
+  0%, 100% {
     opacity: 0.3;
     transform: scale(0.8);
-    filter: brightness(calc(var(--brightness, 100%) * 0.7));
   }
   50% {
     opacity: 1;
     transform: scale(1.2);
-    filter: brightness(var(--brightness, 100%));
-  }
-  100% {
-    opacity: 0.3;
-    transform: scale(0.8);
-    filter: brightness(calc(var(--brightness, 100%) * 0.7));
   }
 }
 
-/* Stelle cadenti */
-.shooting-star {
-  position: absolute;
-  top: var(--top, 20%);
-  left: var(--left, 50%);
-  width: 1px;
-  height: 1px;
-  background: transparent;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0);
-  animation: shooting calc(7s / var(--animation-speed, 1)) infinite;
-  animation-delay: var(--delay, 0s);
+@keyframes color-pulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.3); }
 }
 
-.shooting-star::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100px;
-  height: 1px;
-  transform: translateX(0) translateY(0);
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0.8) 0%,
-    rgba(255, 255, 255, 0.2) 60%,
-    rgba(255, 255, 255, 0) 100%
-  );
+@keyframes warm-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(255, 217, 61, 0.6); }
+  50% { box-shadow: 0 0 15px rgba(255, 217, 61, 1); }
 }
 
-@keyframes shooting {
+@keyframes cool-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(116, 192, 252, 0.6); }
+  50% { box-shadow: 0 0 12px rgba(116, 192, 252, 0.9); }
+}
+
+@keyframes constellation-glow {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+@keyframes constellation-connect {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes meteor-trail {
   0% {
+    transform: translateX(0) translateY(0);
     opacity: 0;
   }
   10% {
-    opacity: 0;
-  }
-  11% {
     opacity: 1;
   }
-  15% {
-    transform: translateX(200px) translateY(100px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(200px) translateY(100px);
-    opacity: 0;
-  }
-}
-
-/* Nebulose */
-.nebula {
-  position: absolute;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at center,
-    hsla(var(--hue, 240), 70%, 60%, 0.15),
-    hsla(var(--hue, 240), 70%, 40%, 0.05) 60%,
-    transparent 80%
-  );
-  filter: blur(8px);
-  mix-blend-mode: screen;
-  pointer-events: none;
-  animation: nebula-pulse calc(20s / var(--animation-speed, 1)) infinite alternate;
-}
-
-@keyframes nebula-pulse {
-  0% {
+  90% {
     opacity: 0.3;
-    transform: scale(1);
   }
   100% {
-    opacity: 0.6;
-    transform: scale(1.1);
-  }
-}
-
-/* Miglioramenti sottili per il pattern bolle - da aggiungere a calmspace-animations.css */
-
-/* ==================== MIGLIORAMENTI BOLLE ==================== */
-.bubbles-container {
-  /* Gradiente leggermente migliorato senza perdere la stabilità */
-  background: linear-gradient(to bottom, #a8d8ff, #69b3ff);
-}
-
-/* Miglioramenti sottili alle bolle */
-.bubble {
-  /* Utilizziamo un radial-gradient più sottile per migliorare l'aspetto */
-  background: radial-gradient(circle at 30% 30%, 
-    rgba(255, 255, 255, 0.8) 10%, 
-    rgba(255, 255, 255, 0.4) 50%, 
-    rgba(255, 255, 255, 0.1) 100%);
-  /* Manteniamo il bordo sottile per definire meglio la bolla */
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  /* Aggiungiamo un riflesso molto leggero */
-  box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.7);
-}
-
-/* Miglioriamo l'animazione originale senza cambiare troppo */
-@keyframes float {
-  0% {
-    transform: translateY(0) scale(0.3);
+    transform: translateX(200px) translateY(150px);
     opacity: 0;
   }
-  10% {
-    opacity: 0.9;
-    transform: translateY(-30px) scale(0.9);
+}
+
+@keyframes nebula-drift {
+  0% {
+    transform: rotate(0deg) scale(1);
+    opacity: var(--opacity, 0.1);
   }
   50% {
-    transform: translateY(-50vh) scale(1);
+    transform: rotate(180deg) scale(1.1);
+    opacity: calc(var(--opacity, 0.1) * 1.5);
   }
   100% {
-    transform: translateY(-100vh) scale(0.8);
-    opacity: 0;
+    transform: rotate(360deg) scale(1);
+    opacity: var(--opacity, 0.1);
   }
 }
 
-/* Miglioramenti sottili per il pattern stelle - da aggiungere a calmspace-animations.css */
-
-/* ==================== MIGLIORAMENTI STELLE ==================== */
-.stars-container {
-  /* Gradiente leggermente migliorato per dare più profondità */
-  background: linear-gradient(to bottom, #0a1228, #1a2b48 40%, #2a3d69);
-}
-
-/* Miglioriamo l'aspetto delle stelle senza compromettere il rendering */
-.star {
-  /* Manteniamo il colore bianco ma miglioriamo il bagliore */
-  background-color: white;
-  /* Box shadow sottile per il bagliore senza flickering */
-  box-shadow: 0 0 calc(var(--size, 3px) * 1.5) rgba(255, 255, 255, 0.7);
-  /* Aggiungiamo un leggero blur per renderle più naturali */
-  filter: brightness(var(--brightness, 100%));
-}
-
-/* Animazione twinkle leggermente migliorata */
-@keyframes twinkle {
+@keyframes dust-float {
   0%, 100% {
-    opacity: 0.5;
-    transform: scale(0.8);
-    filter: brightness(90%);
+    transform: translateY(0) translateX(0);
+    opacity: 0.4;
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px);
+    opacity: 0.8;
   }
   50% {
+    transform: translateY(-10px) translateX(20px);
     opacity: 1;
-    transform: scale(1.1);
-    filter: brightness(110%);
+  }
+  75% {
+    transform: translateY(-30px) translateX(15px);
+    opacity: 0.6;
   }
 }
 
-/* Aggiungiamo una stella cadente occasionale più realistica */
-/* Correzione delle stelle cadenti per renderle fisicamente credibili */
+/* ======================= MODERN GEOMETRIC ANIMATIONS ======================= */
 
-.shooting-star {
-  position: absolute;
-  top: var(--top, 20%);
-  left: var(--left, 50%);
-  width: 3px;
-  height: 3px;
-  background: white;
-  border-radius: 50%;
-  box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.8);
-  animation: shooting-star-move calc(8s / var(--animation-speed, 1)) infinite;
-  animation-delay: var(--delay, 0s);
-  opacity: 0;
-  z-index: 5;
+/* Container geometrico moderno */
+.abstract-container {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg,
+    #667eea 0%,
+    #764ba2 25%,
+    #f093fb 50%,
+    #f5576c 75%,
+    #4facfe 100%);
+  position: relative;
+  overflow: hidden;
+  animation: geometric-atmosphere 30s ease-in-out infinite alternate;
 }
 
-/* La scia segue correttamente la direzione del movimento */
-.shooting-star::after {
+@keyframes geometric-atmosphere {
+  0% { filter: hue-rotate(0deg) saturate(0.9); }
+  50% { filter: hue-rotate(10deg) saturate(1.1); }
+  100% { filter: hue-rotate(-5deg) saturate(1); }
+}
+
+/* Griglia esagonale */
+.hex-cell {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: var(--x, 50%);
+  top: var(--y, 50%);
+  animation: hex-pulse var(--duration, 8s) infinite ease-in-out;
+  animation-delay: var(--delay, 0s);
+  opacity: var(--opacity, 0.2);
+}
+
+.hex-cell::before {
   content: '';
   position: absolute;
-  top: 0;
-  right: 0; /* La scia parte dalla stella */
-  width: 70px;
-  height: 2px;
-  background: linear-gradient(
-    to left, /* La scia sfuma allontanandosi dalla stella */
-    rgba(255, 255, 255, 0.9) 0%,
-    rgba(255, 255, 255, 0.1) 100%
-  );
-  transform-origin: right center;
-  transform: rotate(-30deg); /* Inclina la scia di 30 gradi verso l'alto */
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  animation: hex-glow 6s infinite ease-in-out;
+  animation-delay: var(--delay, 0s);
 }
 
-@keyframes shooting-star-move {
-  0% {
-    opacity: 0;
-    transform: translateX(0) translateY(0);
-  }
-  10% {
-    opacity: 0;
-  }
-  11% {
-    opacity: 1;
-    transform: translateX(0) translateY(0);
-  }
-  20% {
-    transform: translateX(300px) translateY(150px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(300px) translateY(150px);
-    opacity: 0;
-  }
-}
-
-/* Miglioramenti sottili per il pattern onde - da aggiungere a calmspace-animations.css */
-
-/* Miglioramenti barchette e raggio solare - da aggiungere a calmspace-animations.css */
-
-/* Raggio solare migliorato */
-.sun-reflection {
+/* Cerchi concentrici */
+.concentric-circle {
   position: absolute;
-  width: 100px; /* Più ampio alla base */
-  height: 300px; /* Più lungo per arrivare più in basso */
-  background: radial-gradient(
-    ellipse at top,
-    rgba(255, 236, 179, 0.6) 0%, 
-    rgba(255, 236, 179, 0.3) 30%,
-    rgba(255, 236, 179, 0.1) 70%,
-    rgba(255, 236, 179, 0) 100%
-  );
-  top: 23%; 
-  left: 50%;
-  transform: translateX(-50%);
-  filter: blur(8px);
-  z-index: 2;
-  opacity: 0.7;
+  width: var(--size, 50px);
+  height: var(--size, 50px);
+  left: var(--left, 50%);
+  top: var(--top, 50%);
+  border: 2px solid rgba(255, 255, 255, var(--opacity, 0.3));
   border-radius: 50%;
+  animation: concentric-expand 8s infinite ease-in-out;
+  animation-delay: var(--delay, 0s);
+  transform: translate(-50%, -50%);
+}
+
+/* Triangoli rotanti */
+.rotating-triangle {
+  position: absolute;
+  width: var(--size, 30px);
+  height: var(--size, 30px);
+  left: var(--left, 50%);
+  top: var(--top, 50%);
+  animation: triangle-spin var(--rotation-duration, 10s) infinite linear;
+  animation-delay: var(--delay, 0s);
+  transform: translate(-50%, -50%);
+}
+
+.rotating-triangle::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg,
+    rgba(255, 255, 255, 0.6),
+    rgba(255, 255, 255, 0.2));
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* Quadrati pulsanti */
+.pulsing-square {
+  position: absolute;
+  width: var(--size, 20px);
+  height: var(--size, 20px);
+  left: var(--left, 50%);
+  top: var(--top, 50%);
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  animation: square-pulse 4s infinite ease-in-out;
+  animation-delay: var(--delay, 0s);
+  transform: translate(-50%, -50%);
+}
+
+/* Linee curve dinamiche */
+.curved-line {
+  position: absolute;
+  width: 3px;
+  height: 100px;
+  background: linear-gradient(to bottom,
+    hsla(var(--hue, 210), 70%, 60%, 0.8),
+    hsla(var(--hue, 210), 70%, 60%, 0.2));
+  border-radius: 2px;
+  left: var(--start-x, 20%);
+  top: var(--start-y, 20%);
+  animation: curve-flow var(--duration, 8s) infinite ease-in-out;
+  animation-delay: var(--delay, 0s);
+  transform-origin: top center;
+}
+
+/* Punti di connessione */
+.connection-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  left: var(--x, 50%);
+  top: var(--y, 50%);
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: connection-pulse 3s infinite ease-in-out,
+             dot-drift 12s infinite ease-in-out;
+  animation-delay: var(--delay, 0s);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+/* Elementi frattali */
+.fractal-element {
+  position: absolute;
+  width: var(--size, 80px);
+  height: var(--size, 80px);
+  left: var(--x, 50%);
+  top: var(--y, 50%);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  animation: fractal-rotation var(--rotation-speed, 12s) infinite linear,
+             fractal-scale 6s infinite ease-in-out;
+  animation-delay: var(--delay, 0s);
+  transform: translate(-50%, -50%);
+  opacity: calc(0.8 - var(--level, 0) * 0.2);
+}
+
+/* Onde di energia */
+.energy-wave {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: var(--center-x, 50%);
+  top: var(--center-y, 50%);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: energy-expand var(--duration, 4s) infinite ease-out;
+  animation-delay: var(--delay, 0s);
+  transform: translate(-50%, -50%);
+}
+
+/* Particelle orbitanti */
+.orbiting-particle {
+  position: absolute;
+  width: var(--particle-size, 4px);
+  height: var(--particle-size, 4px);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  animation: orbit-motion var(--orbit-duration, 8s) infinite linear;
+  animation-delay: var(--particle-delay, 0s);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.7);
+  transform-origin: calc(var(--orbit-radius, 50px) * -1) 0;
+}
+
+/* Overlay geometrico */
+.geometric-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.1) 70%,
+    rgba(0, 0, 0, 0.2) 100%);
+  mix-blend-mode: multiply;
   pointer-events: none;
 }
 
-/* Onde stilizzate ispirate all'immagine di riferimento */
-
-.waves-container {
-  background: linear-gradient(to bottom, 
-              #ffecd9 0%, 
-              #ffb88d 15%, 
-              #4fb4e6 35%, 
-              #0288d1 70%, 
-              #01579b 100%);
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-}
-
-/* Contenitore pattern onde */
-.wave-pattern {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 70%;
-  background: transparent;
-  z-index: 5;
-  overflow: hidden;
-}
-
-/* Stile base per le righe di onde */
-.wave-row {
-  position: absolute;
-  width: 200%;
-  height: 60px;
-  left: -50%;
-  background: transparent;
-  display: flex;
-  justify-content: center;
-}
-
-/* Posizionamento delle righe */
-.wave-row-1 { bottom: 0; }
-.wave-row-2 { bottom: 50px; }
-.wave-row-3 { bottom: 100px; }
-.wave-row-4 { bottom: 150px; }
-.wave-row-5 { bottom: 200px; }
-.wave-row-6 { bottom: 250px; }
-
-/* Onde stilizzate singole */
-.stylized-wave {
-  position: relative;
-  width: 100px;
-  height: 60px;
-  background: transparent;
-  margin: 0 -20px;
-}
-
-/* Onde con gradiente e bordo */
-.stylized-wave::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50% 50% 0 0;
-  background: linear-gradient(to bottom, #64b5f6 0%, #2196f3 100%);
-  border: 2px solid #0d47a1;
-  border-bottom: none;
-  transform: scaleX(2) scaleY(0.5);
-  box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Effetto riflesso sull'onda */
-.stylized-wave::after {
-  content: '';
-  position: absolute;
-  top: 10%;
-  left: 25%;
-  right: 25%;
-  height: 15%;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  transform: scaleX(2);
-}
-
-/* Colori alternati per le righe di onde */
-.wave-row:nth-child(odd) .stylized-wave::before {
-  background: linear-gradient(to bottom, #90caf9 0%, #42a5f5 100%);
-}
-
-.wave-row:nth-child(even) .stylized-wave::before {
-  background: linear-gradient(to bottom, #64b5f6 0%, #1e88e5 100%);
-}
-
-/* Animazione per movimento leggero */
-@keyframes wave-sway {
-  0% { transform: translateX(0); }
-  50% { transform: translateX(-20px); }
-  100% { transform: translateX(0); }
-}
-
-.wave-row-1 { animation: wave-sway 8s infinite ease-in-out; }
-.wave-row-2 { animation: wave-sway 8s infinite ease-in-out reverse; }
-.wave-row-3 { animation: wave-sway 9s infinite ease-in-out; }
-.wave-row-4 { animation: wave-sway 9s infinite ease-in-out reverse; }
-.wave-row-5 { animation: wave-sway 10s infinite ease-in-out; }
-.wave-row-6 { animation: wave-sway 10s infinite ease-in-out reverse; }
-
-/* Funzione helper per generare onde in JavaScript */
-/* 
-  Per ogni riga, dovresti generare molteplici elementi 'stylized-wave'
-  Esempio:
-  function createStylizedWaves() {
-    const waveCount = 10; // Numero di onde per riga
-    const waves = [];
-    
-    for (let i = 0; i < waveCount; i++) {
-      waves.push(<div key={i} className="stylized-wave"></div>);
-    }
-    
-    return waves;
+/* Animazioni geometriche */
+@keyframes hex-pulse {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: var(--opacity, 0.2);
   }
-*/
+  50% {
+    transform: scale(1.2) rotate(30deg);
+    opacity: calc(var(--opacity, 0.2) * 2);
+  }
+}
+
+@keyframes hex-glow {
+  0%, 100% { box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.3); }
+  50% { box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.6); }
+}
+
+@keyframes concentric-expand {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: var(--opacity, 0.3);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: calc(var(--opacity, 0.3) * 0.5);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes triangle-spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes square-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(var(--pulse-scale, 1.5)) rotate(45deg);
+    opacity: 1;
+  }
+}
+
+@keyframes curve-flow {
+  0% {
+    transform: rotate(0deg) scaleY(1);
+    opacity: 0.4;
+  }
+  25% {
+    transform: rotate(90deg) scaleY(1.2);
+    opacity: 0.8;
+  }
+  50% {
+    transform: rotate(180deg) scaleY(1);
+    opacity: 1;
+  }
+  75% {
+    transform: rotate(270deg) scaleY(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: rotate(360deg) scaleY(1);
+    opacity: 0.4;
+  }
+}
+
+@keyframes connection-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+}
+
+@keyframes dot-drift {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(
+      calc(cos(var(--direction, 0deg)) * var(--move-distance, 30px)),
+      calc(sin(var(--direction, 0deg)) * var(--move-distance, 30px))
+    );
+  }
+  50% {
+    transform: translate(
+      calc(cos(calc(var(--direction, 0deg) + 90deg)) * var(--move-distance, 30px)),
+      calc(sin(calc(var(--direction, 0deg) + 90deg)) * var(--move-distance, 30px))
+    );
+  }
+  75% {
+    transform: translate(
+      calc(cos(calc(var(--direction, 0deg) + 180deg)) * var(--move-distance, 30px)),
+      calc(sin(calc(var(--direction, 0deg) + 180deg)) * var(--move-distance, 30px))
+    );
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes fractal-rotation {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes fractal-scale {
+  0%, 100% {
+    border-width: 2px;
+    opacity: calc(0.8 - var(--level, 0) * 0.2);
+  }
+  50% {
+    border-width: 4px;
+    opacity: calc(1 - var(--level, 0) * 0.1);
+  }
+}
+
+@keyframes energy-expand {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(calc(var(--max-radius, 150px) / 10));
+    opacity: 0;
+  }
+}
+
+@keyframes orbit-motion {
+  from {
+    transform: rotate(0deg) translateX(var(--orbit-radius, 50px)) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(var(--orbit-radius, 50px)) rotate(-360deg);
+  }
+}
+
+/* ======================= FINE ANIMAZIONI MODERNE ======================= */

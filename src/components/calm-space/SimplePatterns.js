@@ -149,37 +149,72 @@ function SimplePatterns({ settings, onFullscreenChange }) {
     };
   }, [isFullscreen]);
    
-  // Genera bolle con dimensioni e posizioni casuali
+  // Genera bolle con effetti moderni e artistici
   const generateBubbles = () => {
-    const bubblesCount = 15;
+    const bubblesCount = 25;
     const bubbles = [];
     
     for (let i = 0; i < bubblesCount; i++) {
-      const size = Math.floor(Math.random() * 60) + 20; // 20-80px
+      const size = Math.floor(Math.random() * 80) + 15; // 15-95px
       const left = Math.floor(Math.random() * 100); // 0-100%
-      const delay = Math.random() * 5; // 0-5s delay
-      const opacity = Math.random() * 0.5 + 0.3; // 0.3-0.8 opacity
-      const drift = Math.random() * 100 - 50; // Valore per spostamento laterale
-      const hue = Math.floor(Math.random() * 40) + 190; // Tonalità blu/azzurro variabile
+      const delay = Math.random() * 8; // 0-8s delay per più varietà
+      const opacity = Math.random() * 0.4 + 0.4; // 0.4-0.8 opacity
+      const drift = Math.random() * 150 - 75; // Movimento laterale più ampio
+      const rotationSpeed = Math.random() * 20 + 10; // Rotazione variabile
+      const floatDuration = Math.random() * 6 + 8; // 8-14s durata variabile
+      const hue = Math.floor(Math.random() * 60) + 180; // Più varietà di colori
+      const saturation = Math.floor(Math.random() * 40) + 60; // Saturazione variabile
+      const scale = Math.random() * 0.5 + 0.75; // Scala finale variabile
+      
+      // Tipi di bolla diversi per varietà
+      const bubbleType = Math.random();
+      let bubbleClass = 'bubble';
+      if (bubbleType > 0.8) bubbleClass = 'bubble-large';
+      else if (bubbleType > 0.6) bubbleClass = 'bubble-micro';
+      else if (bubbleType > 0.4) bubbleClass = 'bubble-sparkly';
     
       bubbles.push(
         <div 
           key={i}
-          className="bubble"
+          className={bubbleClass}
           style={{
-            width: `${size}px`,
-            height: `${size}px`,
+            '--size': `${size}px`,
             left: `${left}%`,
             animationDelay: `${delay}s`,
             opacity: opacity,
             background: `radial-gradient(
-              circle at 30% 30%,
-              hsla(${hue}, 90%, 80%, 0.8),
-              hsla(${hue}, 90%, 70%, 0.3) 70%,
-              hsla(${hue}, 90%, 60%, 0.1)
+              circle at 25% 25%,
+              hsla(${hue}, ${saturation}%, 95%, 0.9),
+              hsla(${hue}, ${saturation}%, 80%, 0.6) 30%,
+              hsla(${hue}, ${saturation}%, 60%, 0.3) 60%,
+              hsla(${hue}, ${saturation}%, 40%, 0.1) 85%,
+              transparent
             )`,
-            animationDuration: `${8 / (speed === 'slow' ? 0.7 : 1)}s`,
-            transform: `translateX(${drift}px)`
+            animationDuration: `${floatDuration / (speed === 'slow' ? 0.7 : 1)}s`,
+            '--drift-x': `${drift}px`,
+            '--rotation-speed': `${rotationSpeed}s`,
+            '--final-scale': scale,
+            '--hue': hue
+          }}
+        />
+      );
+    }
+    
+    // Aggiungiamo particelle di schiuma
+    for (let i = 0; i < 15; i++) {
+      const size = Math.floor(Math.random() * 8) + 2; // Piccole particelle
+      const left = Math.floor(Math.random() * 100);
+      const delay = Math.random() * 10;
+      
+      bubbles.push(
+        <div 
+          key={`foam-${i}`}
+          className="bubble-foam"
+          style={{
+            '--size': `${size}px`,
+            left: `${left}%`,
+            animationDelay: `${delay}s`,
+            animationDuration: `${(Math.random() * 4 + 6) / (speed === 'slow' ? 0.7 : 1)}s`
           }}
         />
       );
@@ -188,48 +223,171 @@ function SimplePatterns({ settings, onFullscreenChange }) {
     return bubbles;
   };
   
-  // Genera stelle con dimensioni e posizioni casuali
+  // Genera un universo stellato moderno e spettacolare
   const generateStars = () => {
-    const starsCount = 50;
     const stars = [];
     
-    for (let i = 0; i < starsCount; i++) {
-      const size = Math.floor(Math.random() * 5) + 2; // 2-7px
-      const top = Math.floor(Math.random() * 100); // 0-100%
-      const left = Math.floor(Math.random() * 100); // 0-100%
-      const delay = Math.random() * 3; // 0-3s delay
-      const duration = Math.random() * 2 + 2; // 2-4s duration
+    // Stelle principali luminose con forme a croce
+    for (let i = 0; i < 60; i++) {
+      const size = Math.random() * 3 + 2; // 2-5px
+      const top = Math.random() * 100;
+      const left = Math.random() * 100;
+      const delay = Math.random() * 8;
+      const duration = Math.random() * 4 + 3; // 3-7s
+      const intensity = Math.random() * 0.8 + 0.4; // 0.4-1.2
+      const color = Math.random();
+      
+      // Tipi di stelle moderne
+      let starType = 'modern-star';
+      let starColor = '#FFFFFF';
+      
+      if (color > 0.85) {
+        starType = 'modern-star-red';
+        starColor = '#FF4757';
+      } else if (color > 0.7) {
+        starType = 'modern-star-blue';
+        starColor = '#3742FA';
+      } else if (color > 0.55) {
+        starType = 'modern-star-gold';
+        starColor = '#FFD700';
+      } else if (color > 0.4) {
+        starType = 'modern-star-pink';
+        starColor = '#FF6B9D';
+      }
       
       stars.push(
         <div 
-          key={i}
-          className="star"
+          key={`modern-star-${i}`}
+          className={starType}
           style={{
-            '--size': `${size}px`,
-            '--top': `${top}%`,
-            '--left': `${left}%`,
-            '--delay': `${delay}s`,
-            '--duration': `${duration}s`,
-            '--brightness': Math.random() * 30 + 70, // Luminosità variabile
+            '--star-size': `${size}px`,
+            '--star-top': `${top}%`,
+            '--star-left': `${left}%`,
+            '--star-delay': `${delay}s`,
+            '--star-duration': `${duration}s`,
+            '--star-intensity': intensity,
+            '--star-color': starColor
           }}
         />
       );
     }
     
-    // Aggiungiamo anche qualche stella cadente
-    for (let i = 0; i < 3; i++) {
-      const top = Math.floor(Math.random() * 50); // Nella metà superiore
-      const left = Math.floor(Math.random() * 80) + 10; // 10-90%
-      const delay = Math.random() * 7 + i * 4; // Delay variabili
+    // Costellazioni con linee di collegamento
+    for (let constellation = 0; constellation < 4; constellation++) {
+      const centerX = 20 + Math.random() * 60; // 20-80%
+      const centerY = 20 + Math.random() * 60; // 20-80%
+      const constellationStars = 5 + Math.floor(Math.random() * 3); // 5-7 stelle
+      const constellationPositions = [];
+      
+      // Genera le posizioni delle stelle della costellazione
+      for (let j = 0; j < constellationStars; j++) {
+        const angle = (j / constellationStars) * Math.PI * 2 + Math.random() * 0.5;
+        const distance = Math.random() * 12 + 8; // 8-20% distance
+        const x = centerX + Math.cos(angle) * distance;
+        const y = centerY + Math.sin(angle) * distance;
+        constellationPositions.push({x, y});
+        
+        stars.push(
+          <div 
+            key={`constellation-star-${constellation}-${j}`}
+            className="constellation-star-modern"
+            style={{
+              '--star-top': `${y}%`,
+              '--star-left': `${x}%`,
+              '--star-delay': `${j * 0.3}s`
+            }}
+          />
+        );
+      }
+      
+      // Linee di collegamento tra stelle della costellazione
+      for (let j = 0; j < constellationPositions.length - 1; j++) {
+        const star1 = constellationPositions[j];
+        const star2 = constellationPositions[j + 1];
+        const distance = Math.sqrt((star2.x - star1.x) ** 2 + (star2.y - star1.y) ** 2);
+        const angle = Math.atan2(star2.y - star1.y, star2.x - star1.x) * 180 / Math.PI;
+        
+        stars.push(
+          <div 
+            key={`constellation-line-${constellation}-${j}`}
+            className="constellation-line"
+            style={{
+              '--line-top': `${star1.y}%`,
+              '--line-left': `${star1.x}%`,
+              '--line-width': `${distance}%`,
+              '--line-angle': `${angle}deg`,
+              '--line-delay': `${j * 0.5}s`
+            }}
+          />
+        );
+      }
+    }
+    
+    // Meteore spettacolari con scie luminose
+    for (let i = 0; i < 8; i++) {
+      const startTop = Math.random() * 30; // Parte alta
+      const startLeft = Math.random() * 70 + 15; // 15-85%
+      const delay = Math.random() * 12 + i * 2; // Distribuiti nel tempo
+      const duration = Math.random() * 1.5 + 2; // 2-3.5s velocità
+      const length = Math.random() * 100 + 150; // 150-250px scia
       
       stars.push(
         <div 
-          key={`shooting-${i}`}
-          className="shooting-star"
+          key={`spectacular-meteor-${i}`}
+          className="spectacular-meteor"
           style={{
-            '--top': `${top}%`,
-            '--left': `${left}%`,
-            '--delay': `${delay}s`,
+            '--meteor-start-top': `${startTop}%`,
+            '--meteor-start-left': `${startLeft}%`,
+            '--meteor-delay': `${delay}s`,
+            '--meteor-duration': `${duration}s`,
+            '--meteor-trail-length': `${length}px`
+          }}
+        />
+      );
+    }
+    
+    // Nebulose colorate vibranti
+    for (let i = 0; i < 6; i++) {
+      const size = Math.random() * 200 + 120; // 120-320px
+      const left = Math.random() * 100;
+      const top = Math.random() * 100;
+      const hue = [270, 300, 180, 210, 330, 60][i]; // Colori specifici
+      const saturation = Math.random() * 30 + 70; // 70-100%
+      const lightness = Math.random() * 20 + 60; // 60-80%
+      
+      stars.push(
+        <div 
+          key={`vibrant-nebula-${i}`}
+          className="vibrant-nebula"
+          style={{
+            '--nebula-size': `${size}px`,
+            '--nebula-left': `${left}%`,
+            '--nebula-top': `${top}%`,
+            '--nebula-hue': hue,
+            '--nebula-saturation': `${saturation}%`,
+            '--nebula-lightness': `${lightness}%`,
+            '--nebula-duration': `${Math.random() * 15 + 25}s`
+          }}
+        />
+      );
+    }
+    
+    // Pulviscolo stellare scintillante
+    for (let i = 0; i < 50; i++) {
+      const left = Math.random() * 100;
+      const top = Math.random() * 100;
+      const delay = Math.random() * 15;
+      const size = Math.random() * 1.5 + 0.5; // 0.5-2px
+      
+      stars.push(
+        <div 
+          key={`sparkling-dust-${i}`}
+          className="sparkling-dust"
+          style={{
+            '--dust-left': `${left}%`,
+            '--dust-top': `${top}%`,
+            '--dust-delay': `${delay}s`,
+            '--dust-size': `${size}px`
           }}
         />
       );
@@ -238,215 +396,300 @@ function SimplePatterns({ settings, onFullscreenChange }) {
     return stars;
   };
 
-  // Genera onde con proprietà dinamiche
+  // Genera onde poetiche e fluide con CSS puro
   const generateWaves = () => {
     const waves = [];
-    const waveCount = 4; // Numero di onde
-
-    for (let i = 1; i <= waveCount; i++) {
+    
+    // Onde principali fluide con CSS clip-path curvato
+    for (let i = 0; i < 6; i++) {
+      const height = 40 + i * 8; // Altezza crescente
+      const speed = 12 + i * 3; // Velocità diversa per ogni onda
+      const delay = i * 1.5; // Delay scaglionato
+      const opacity = 0.6 - i * 0.08; // Trasparenza decrescente
+      const hue = 200 + i * 15; // Sfumatura blu-turchese
+      
       waves.push(
         <div 
-          key={`wave-${i}`} 
-          className={`wave wave${i}`} 
+          key={`fluid-wave-${i}`}
+          className="fluid-wave-layer"
           style={{
-            animationDuration: `${12 + i * 2}s`,
-            animationDelay: `${i * 2}s`,
-            top: `${60 + i * 5}%`,
-            height: `${50 + i * 5}%`,
-            background: `rgba(255, 255, 255, ${0.2 - i * 0.05})`
+            '--wave-height': `${height}px`,
+            '--wave-speed': `${speed}s`,
+            '--wave-delay': `${delay}s`,
+            '--wave-opacity': opacity,
+            '--wave-hue': hue,
+            '--wave-bottom': `${i * 5}%`
           }}
-        ></div>
+        />
+      );
+    }
+    
+    // Onde di superficie con riflessi
+    for (let i = 0; i < 4; i++) {
+      const surfaceHeight = 15 + i * 3;
+      const surfaceSpeed = 8 + i * 2;
+      const surfaceDelay = i * 0.8;
+      
+      waves.push(
+        <div 
+          key={`surface-wave-${i}`}
+          className="surface-wave"
+          style={{
+            '--surface-height': `${surfaceHeight}px`,
+            '--surface-speed': `${surfaceSpeed}s`,
+            '--surface-delay': `${surfaceDelay}s`,
+            '--surface-bottom': `${20 + i * 3}%`
+          }}
+        />
+      );
+    }
+    
+    // Particelle galleggianti organiche
+    for (let i = 0; i < 12; i++) {
+      const particleX = Math.random() * 100;
+      const particleY = 30 + Math.random() * 40; // Zona centrale dell'acqua
+      const particleSize = 2 + Math.random() * 4;
+      const floatDuration = 8 + Math.random() * 8;
+      const floatDelay = Math.random() * 10;
+      
+      waves.push(
+        <div 
+          key={`floating-particle-${i}`}
+          className="floating-particle"
+          style={{
+            left: `${particleX}%`,
+            top: `${particleY}%`,
+            '--particle-size': `${particleSize}px`,
+            '--float-duration': `${floatDuration}s`,
+            '--float-delay': `${floatDelay}s`
+          }}
+        />
+      );
+    }
+    
+    // Riflessi luminosi sull'acqua
+    for (let i = 0; i < 8; i++) {
+      const reflectionX = Math.random() * 100;
+      const reflectionY = 25 + Math.random() * 50;
+      const shimmerDelay = Math.random() * 6;
+      const shimmerDuration = 3 + Math.random() * 3;
+      
+      waves.push(
+        <div 
+          key={`water-shimmer-${i}`}
+          className="water-shimmer"
+          style={{
+            left: `${reflectionX}%`,
+            top: `${reflectionY}%`,
+            '--shimmer-delay': `${shimmerDelay}s`,
+            '--shimmer-duration': `${shimmerDuration}s`
+          }}
+        />
       );
     }
 
     return waves;
   };
   
-  // Genera elementi per il pattern astratto
+  // Genera pattern geometrico moderno e sofisticato
   const generateAbstractPattern = () => {
-    const shapes = [];
-    const lines = [];
-    const intersections = [];
+    const elements = [];
     
-    // Genera linee orizzontali
-    for (let i = 0; i < 5; i++) {
-      const yPos = 20 + i * 15; // Distribuzione delle linee
-      const animDelay = i * 0.5; // Delay per l'animazione
-      
-      lines.push(
-        <div 
-          key={`h-line-${i}`}
-          className="line horizontal-line"
-          style={{
-            top: `${yPos}%`,
-            animationName: 'move-horizontal',
-            animationDuration: `${15 / (speed === 'slow' ? 0.7 : 1)}s`,
-            animationDelay: `${animDelay}s`,
-            animationIterationCount: 'infinite',
-            animationTimingFunction: 'ease-in-out'
-          }}
-        />
-      );
-    }
-    
-    // Genera linee verticali
-    for (let i = 0; i < 5; i++) {
-      const xPos = 20 + i * 15; // Distribuzione delle linee
-      const animDelay = i * 0.7; // Delay per l'animazione
-      
-      lines.push(
-        <div 
-          key={`v-line-${i}`}
-          className="line vertical-line"
-          style={{
-            left: `${xPos}%`,
-            animationName: 'move-vertical',
-            animationDuration: `${17 / (speed === 'slow' ? 0.7 : 1)}s`,
-            animationDelay: `${animDelay}s`,
-            animationIterationCount: 'infinite',
-            animationTimingFunction: 'ease-in-out'
-          }}
-        />
-      );
-    }
-    
-    // Genera alcune linee diagonali
-    for (let i = 0; i < 3; i++) {
-      const pos = 30 + i * 20; // Posizione
-      const animDelay = i * 1.2; // Delay per l'animazione
-      
-      lines.push(
-        <div 
-          key={`d-line-${i}`}
-          className="line diagonal-line"
-          style={{
-            top: `${pos}%`,
-            left: '-25%',
-            animationName: 'move-diagonal',
-            animationDuration: `${19 / (speed === 'slow' ? 0.7 : 1)}s`,
-            animationDelay: `${animDelay}s`,
-            animationIterationCount: 'infinite',
-            animationTimingFunction: 'ease-in-out'
-          }}
-        />
-      );
-      
-      lines.push(
-        <div 
-          key={`d-line-rev-${i}`}
-          className="line diagonal-line-reverse"
-          style={{
-            top: `${pos}%`,
-            left: '-25%',
-            animationName: 'move-diagonal-reverse',
-            animationDuration: `${21 / (speed === 'slow' ? 0.7 : 1)}s`,
-            animationDelay: `${animDelay + 0.5}s`,
-            animationIterationCount: 'infinite',
-            animationTimingFunction: 'ease-in-out'
-          }}
-        />
-      );
-    }
-    
-    // Genera forme geometriche
-    // Cerchi
-    for (let i = 0; i < 3; i++) {
-      const size = 40 + i * 30; // Dimensione in px
-      const animDelay = i * 3.5; // Delay per l'animazione
-      
-      shapes.push(
-        <div 
-          key={`circle-${i}`}
-          className="geometric-shape circle"
-          style={{
-            width: `${size}px`,
-            height: `${size}px`,
-            left: `${30 + i * 20}%`,
-            top: `${40 + (i % 2) * 15}%`,
-            animationName: 'float-shape, pulse-opacity',
-            animationDuration: `${(20 + i * 2) / (speed === 'slow' ? 0.7 : 1)}s, ${(15 + i * 3) / (speed === 'slow' ? 0.7 : 1)}s`,
-            animationDelay: `${animDelay}s, ${animDelay + 1}s`,
-            animationIterationCount: 'infinite',
-            animationTimingFunction: 'ease-in-out'
-          }}
-        />
-      );
-    }
-    
-    // Quadrati
-    for (let i = 0; i < 2; i++) {
-      const size = 30 + i * 25; // Dimensione in px
-      const animDelay = i * 4.2; // Delay per l'animazione
-      
-      shapes.push(
-        <div 
-          key={`square-${i}`}
-          className="geometric-shape square"
-          style={{
-            width: `${size}px`,
-            height: `${size}px`,
-            left: `${25 + i * 40}%`,
-            top: `${25 + (i % 3) * 15}%`,
-            animationName: 'float-shape, rotate-slow',
-            animationDuration: `${(22 + i * 3) / (speed === 'slow' ? 0.7 : 1)}s, ${(90 + i * 10) / (speed === 'slow' ? 0.7 : 1)}s`,
-            animationDelay: `${animDelay}s, ${animDelay + 2}s`,
-            animationIterationCount: 'infinite',
-            animationTimingFunction: 'ease-in-out, linear'
-          }}
-        />
-      );
-    }
-    
-    // Triangoli
-    for (let i = 0; i < 2; i++) {
-      const scale = 0.3 + i * 0.2; // Scala
-      const animDelay = i * 2.8; // Delay per l'animazione
-      
-      shapes.push(
-        <div 
-          key={`triangle-${i}`}
-          className="geometric-shape triangle"
-          style={{
-            left: `${45 + i * 25}%`,
-            top: `${60 + (i % 2) * 10}%`,
-            transform: `scale(${scale})`,
-            animationName: 'float-shape, pulse-opacity',
-            animationDuration: `${(24 + i * 2) / (speed === 'slow' ? 0.7 : 1)}s, ${(18 + i * 3) / (speed === 'slow' ? 0.7 : 1)}s`,
-            animationDelay: `${animDelay}s, ${animDelay + 1.5}s`,
-            animationIterationCount: 'infinite',
-            animationTimingFunction: 'ease-in-out'
-          }}
-        />
-      );
-    }
-    
-    // Aggiungiamo alcuni punti di intersezione
-    // Creiamo punti nelle intersezioni principali
-    for (let h = 0; h < 5; h++) {
-      const yPos = 20 + h * 15;
-      
-      for (let v = 0; v < 5; v++) {
-        const xPos = 20 + v * 15;
+    // Pattern di base con griglia esagonale
+    const hexGrid = [];
+    for (let row = 0; row < 8; row++) {
+      for (let col = 0; col < 12; col++) {
+        const x = col * 8 + (row % 2) * 4; // Offset per righe alternate
+        const y = row * 7;
+        const delay = (row + col) * 0.1;
+        const duration = Math.random() * 4 + 6;
+        const opacity = Math.random() * 0.3 + 0.1;
         
-        intersections.push(
+        if (Math.random() > 0.6) { // Solo alcuni esagoni per spazio
+          hexGrid.push(
+            <div 
+              key={`hex-${row}-${col}`}
+              className="hex-cell"
+              style={{
+                '--x': `${x}%`,
+                '--y': `${y}%`,
+                '--delay': `${delay}s`,
+                '--duration': `${duration}s`,
+                '--opacity': opacity
+              }}
+            />
+          );
+        }
+      }
+    }
+    elements.push(...hexGrid);
+    
+    // Forme geometriche fluttuanti moderne
+    const modernShapes = [
+      // Cerchi concentrici
+      ...Array(6).fill().map((_, i) => (
+        <div 
+          key={`concentric-${i}`}
+          className="concentric-circle"
+          style={{
+            '--size': `${30 + i * 15}px`,
+            '--left': '20%',
+            '--top': '30%',
+            '--delay': `${i * 0.3}s`,
+            '--opacity': 0.8 - i * 0.1
+          }}
+        />
+      )),
+      
+      // Triangoli rotanti
+      ...Array(4).fill().map((_, i) => (
+        <div 
+          key={`rotating-triangle-${i}`}
+          className="rotating-triangle"
+          style={{
+            '--size': `${20 + i * 10}px`,
+            '--left': `${70 + i * 5}%`,
+            '--top': `${20 + i * 15}%`,
+            '--delay': `${i * 0.8}s`,
+            '--rotation-duration': `${8 + i * 2}s`
+          }}
+        />
+      )),
+      
+      // Quadrati pulsanti
+      ...Array(3).fill().map((_, i) => (
+        <div 
+          key={`pulsing-square-${i}`}
+          className="pulsing-square"
+          style={{
+            '--size': `${15 + i * 8}px`,
+            '--left': `${40 + i * 15}%`,
+            '--top': `${60 + i * 10}%`,
+            '--delay': `${i * 1.2}s`,
+            '--pulse-scale': 1.5 + i * 0.3
+          }}
+        />
+      )),
+      
+      // Linee dinamiche curvate
+      ...Array(8).fill().map((_, i) => (
+        <div 
+          key={`curved-line-${i}`}
+          className="curved-line"
+          style={{
+            '--start-x': `${Math.random() * 100}%`,
+            '--start-y': `${Math.random() * 100}%`,
+            '--end-x': `${Math.random() * 100}%`,
+            '--end-y': `${Math.random() * 100}%`,
+            '--delay': `${i * 0.5}s`,
+            '--duration': `${6 + Math.random() * 4}s`,
+            '--hue': Math.random() * 360
+          }}
+        />
+      ))
+    ];
+    elements.push(...modernShapes);
+    
+    // Particelle di connessione
+    const connectionDots = [];
+    for (let i = 0; i < 20; i++) {
+      const x = Math.random() * 100;
+      const y = Math.random() * 100;
+      const delay = Math.random() * 5;
+      const moveDistance = Math.random() * 50 + 20;
+      
+      connectionDots.push(
+        <div 
+          key={`connection-dot-${i}`}
+          className="connection-dot"
+          style={{
+            '--x': `${x}%`,
+            '--y': `${y}%`,
+            '--delay': `${delay}s`,
+            '--move-distance': `${moveDistance}px`,
+            '--direction': `${Math.random() * 360}deg`
+          }}
+        />
+      );
+    }
+    elements.push(...connectionDots);
+    
+    // Pattern frattale semplificato
+    const fractalElements = [];
+    for (let level = 0; level < 3; level++) {
+      const size = 100 - level * 25;
+      const count = Math.pow(2, level);
+      
+      for (let i = 0; i < count; i++) {
+        const angle = (i / count) * 360;
+        const distance = level * 15;
+        const x = 50 + Math.cos(angle * Math.PI / 180) * distance;
+        const y = 50 + Math.sin(angle * Math.PI / 180) * distance;
+        
+        fractalElements.push(
           <div 
-            key={`intersect-${h}-${v}`}
-            className="intersection"
+            key={`fractal-${level}-${i}`}
+            className="fractal-element"
             style={{
-              left: `${xPos}%`,
-              top: `${yPos}%`
+              '--size': `${size}px`,
+              '--x': `${x}%`,
+              '--y': `${y}%`,
+              '--level': level,
+              '--delay': `${level * 0.5 + i * 0.1}s`,
+              '--rotation-speed': `${10 + level * 2}s`
             }}
           />
         );
       }
     }
+    elements.push(...fractalElements);
+    
+    // Onde di energia radiali
+    const energyWaves = [];
+    for (let i = 0; i < 5; i++) {
+      energyWaves.push(
+        <div 
+          key={`energy-wave-${i}`}
+          className="energy-wave"
+          style={{
+            '--delay': `${i * 0.8}s`,
+            '--duration': '4s',
+            '--max-radius': `${150 + i * 30}px`,
+            '--center-x': '50%',
+            '--center-y': '50%'
+          }}
+        />
+      );
+    }
+    elements.push(...energyWaves);
+    
+    // Particelle orbitanti
+    const orbitingParticles = [];
+    for (let orbit = 0; orbit < 3; orbit++) {
+      const particleCount = 4 + orbit * 2;
+      const radius = 30 + orbit * 20;
+      
+      for (let i = 0; i < particleCount; i++) {
+        orbitingParticles.push(
+          <div 
+            key={`orbit-${orbit}-${i}`}
+            className="orbiting-particle"
+            style={{
+              '--orbit-radius': `${radius}px`,
+              '--orbit-duration': `${8 + orbit * 2}s`,
+              '--particle-delay': `${(i / particleCount) * (8 + orbit * 2)}s`,
+              '--particle-size': `${3 + orbit}px`
+            }}
+          />
+        );
+      }
+    }
+    elements.push(...orbitingParticles);
     
     return (
       <>
-        {lines}
-        {shapes}
-        {intersections}
-        <div className="depth-overlay"></div>
+        {elements}
+        <div className="geometric-overlay"></div>
       </>
     );
   };
@@ -676,16 +919,12 @@ function SimplePatterns({ settings, onFullscreenChange }) {
         
         {activePattern === 'waves' && (
           <div className={`waves-container ${speed}`}>
-            <div className="sun"></div>
-            <div className="sun-reflection"></div>
-            
             {generateWaves()}
           </div>
         )}
         
         {activePattern === 'stars' && (
           <div className={`stars-container ${speed}`}>
-            <div className="stars-gradient"></div>
             {generateStars()}
           </div>
         )}
