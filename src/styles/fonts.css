@@ -1,0 +1,81 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════
+ * CalmSpace - Web Font Imports
+ * ═══════════════════════════════════════════════════════════════════
+ *
+ * Fonts optimized for accessibility and readability:
+ * - Atkinson Hyperlegible: Designed for low vision users
+ * - Outfit: Friendly geometric sans-serif
+ * - OpenDyslexic: Dyslexia-friendly (loaded conditionally)
+ */
+
+/* ═══════════════════════════════════════════════════════════════════
+   Atkinson Hyperlegible - Primary Font
+   ═══════════════════════════════════════════════════════════════════
+   Created by Braille Institute for increased legibility
+   Great for: Low vision, general readability
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+/* ═══════════════════════════════════════════════════════════════════
+   Outfit - Display Font
+   ═══════════════════════════════════════════════════════════════════
+   Geometric sans with friendly roundness
+   Great for: Headings, UI elements
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+/* ═══════════════════════════════════════════════════════════════════
+   Lexend - Alternative Readable Font
+   ═══════════════════════════════════════════════════════════════════
+   Designed to improve reading proficiency
+   Used as fallback for Atkinson
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap');
+
+/* ═══════════════════════════════════════════════════════════════════
+   OpenDyslexic - Dyslexia-Friendly Font (loaded conditionally)
+   ═══════════════════════════════════════════════════════════════════
+   Loaded only when dyslexia mode is enabled to save bandwidth
+*/
+
+/* OpenDyslexic from CDN - only loads when .dyslexia-mode class is present */
+.dyslexia-mode {
+  font-family: 'OpenDyslexic', 'Comic Neue', 'Comic Sans MS', cursive, sans-serif;
+}
+
+/* For better performance, we'll host OpenDyslexic locally */
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/otf/OpenDyslexic-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/otf/OpenDyslexic-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/otf/OpenDyslexic-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Comic Neue - Dyslexia Alternative
+   ═══════════════════════════════════════════════════════════════════
+   More accessible version of Comic Sans, good dyslexia alternative
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,400;0,700;1,400&display=swap');

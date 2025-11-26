@@ -1,0 +1,1004 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════
+ * CalmSpace Design System - Autism-Friendly Interface
+ * ═══════════════════════════════════════════════════════════════════
+ *
+ * Philosophy: "Soft Precision"
+ * - Clarity over decoration
+ * - Calm by default, stimulation opt-in
+ * - Total sensory control
+ * - Predictable consistency
+ *
+ * Design for: Autistic users, sensory sensitivities, cognitive accessibility
+ */
+
+/* ═══════════════════════════════════════════════════════════════════
+   🎨 COLOR SYSTEM - Calm & Controlled
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ─────────────────────────────────────────────────────────────────
+     Base Neutrals - Soft, low-stimulation grayscale
+     ───────────────────────────────────────────────────────────────── */
+  --color-white: #FFFFFF;
+  --color-off-white: #FAFBFC;
+  --color-gray-50: #F5F7FA;
+  --color-gray-100: #E8ECF1;
+  --color-gray-200: #D1D9E2;
+  --color-gray-300: #B4BFD0;
+  --color-gray-400: #8C9AB3;
+  --color-gray-500: #677490;
+  --color-gray-600: #4D5B73;
+  --color-gray-700: #3A4559;
+  --color-gray-800: #2A3342;
+  --color-gray-900: #1C232E;
+  --color-black: #0F1419;
+
+  /* ─────────────────────────────────────────────────────────────────
+     Therapeutic Colors - Intentionally muted for calm
+     ───────────────────────────────────────────────────────────────── */
+
+  /* Serene Blue - Primary calm color */
+  --color-blue-50: #EBF5FF;
+  --color-blue-100: #D6EAFF;
+  --color-blue-200: #A3D0FF;
+  --color-blue-300: #6FB3FF;
+  --color-blue-400: #4A9AEB;
+  --color-blue-500: #3B82D6;  /* Primary */
+  --color-blue-600: #2D6AB8;
+  --color-blue-700: #1F5299;
+  --color-blue-800: #173D75;
+  --color-blue-900: #0F2A52;
+
+  /* Gentle Green - Growth & safety */
+  --color-green-50: #F0FDF4;
+  --color-green-100: #DCFCE7;
+  --color-green-200: #BBF7D0;
+  --color-green-300: #86EFAC;
+  --color-green-400: #4ADE80;
+  --color-green-500: #22C55E;  /* Primary */
+  --color-green-600: #16A34A;
+  --color-green-700: #15803D;
+  --color-green-800: #166534;
+  --color-green-900: #14532D;
+
+  /* Warm Amber - Comfort & energy */
+  --color-amber-50: #FFFBEB;
+  --color-amber-100: #FEF3C7;
+  --color-amber-200: #FDE68A;
+  --color-amber-300: #FCD34D;
+  --color-amber-400: #FBBF24;
+  --color-amber-500: #F59E0B;  /* Primary */
+  --color-amber-600: #D97706;
+  --color-amber-700: #B45309;
+  --color-amber-800: #92400E;
+  --color-amber-900: #78350F;
+
+  /* Soft Lavender - Rest & creativity */
+  --color-lavender-50: #F7F5FF;
+  --color-lavender-100: #EDEBFE;
+  --color-lavender-200: #DCD7FE;
+  --color-lavender-300: #CABFFD;
+  --color-lavender-400: #AC94FA;
+  --color-lavender-500: #9061F9;  /* Primary */
+  --color-lavender-600: #7C3AED;
+  --color-lavender-700: #6D28D9;
+  --color-lavender-800: #5B21B6;
+  --color-lavender-900: #4C1D95;
+
+  /* ─────────────────────────────────────────────────────────────────
+     Emotion-Specific Colors (for emotion tracking)
+     ───────────────────────────────────────────────────────────────── */
+  --emotion-happy: #22C55E;      /* Green */
+  --emotion-sad: #3B82D6;        /* Blue */
+  --emotion-angry: #EF4444;      /* Red (intentionally brighter for recognition) */
+  --emotion-worried: #F59E0B;    /* Amber */
+  --emotion-calm: #06B6D4;       /* Cyan */
+  --emotion-confused: #9061F9;   /* Lavender */
+
+  /* ─────────────────────────────────────────────────────────────────
+     Semantic Colors
+     ───────────────────────────────────────────────────────────────── */
+  --color-success: var(--color-green-500);
+  --color-warning: var(--color-amber-500);
+  --color-error: #EF4444;
+  --color-info: var(--color-blue-500);
+
+  /* ─────────────────────────────────────────────────────────────────
+     Theme Variables (default to blue - will be overridden)
+     ───────────────────────────────────────────────────────────────── */
+  --theme-primary: var(--color-blue-500);
+  --theme-primary-light: var(--color-blue-100);
+  --theme-primary-dark: var(--color-blue-700);
+  --theme-background: var(--color-off-white);
+  --theme-surface: var(--color-white);
+  --theme-text: var(--color-gray-900);
+  --theme-text-secondary: var(--color-gray-600);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   Theme Variants - Applied via class on root
+   ───────────────────────────────────────────────────────────────── */
+
+.theme-blue {
+  --theme-primary: var(--color-blue-500);
+  --theme-primary-light: var(--color-blue-100);
+  --theme-primary-dark: var(--color-blue-700);
+}
+
+.theme-green {
+  --theme-primary: var(--color-green-500);
+  --theme-primary-light: var(--color-green-100);
+  --theme-primary-dark: var(--color-green-700);
+}
+
+.theme-amber {
+  --theme-primary: var(--color-amber-500);
+  --theme-primary-light: var(--color-amber-100);
+  --theme-primary-dark: var(--color-amber-700);
+}
+
+.theme-lavender {
+  --theme-primary: var(--color-lavender-500);
+  --theme-primary-light: var(--color-lavender-100);
+  --theme-primary-dark: var(--color-lavender-700);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   High Contrast Mode - For users needing sharp visual boundaries
+   ───────────────────────────────────────────────────────────────── */
+
+.high-contrast {
+  --color-gray-50: #F0F0F0;
+  --color-gray-100: #E0E0E0;
+  --color-gray-900: #000000;
+  --color-black: #000000;
+  --theme-text: #000000;
+  --theme-background: #FFFFFF;
+  --theme-surface: #FFFFFF;
+
+  /* Increase all color saturation and contrast */
+  filter: contrast(1.1);
+}
+
+.high-contrast * {
+  /* Force solid borders, no semi-transparent effects */
+  border-color: currentColor !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   📐 SPACING SYSTEM - Predictable & Consistent
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* 8px base unit for mathematical consistency */
+  --space-0: 0;
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px - base unit */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+
+  /* Semantic spacing (referencing scale above) */
+  --spacing-xs: var(--space-2);
+  --spacing-sm: var(--space-3);
+  --spacing-md: var(--space-4);
+  --spacing-lg: var(--space-6);
+  --spacing-xl: var(--space-8);
+  --spacing-2xl: var(--space-12);
+  --spacing-3xl: var(--space-16);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   ✍️ TYPOGRAPHY SYSTEM - Dyslexia-Friendly & Clear
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ─────────────────────────────────────────────────────────────────
+     Font Families - Prioritize clarity and readability
+     ───────────────────────────────────────────────────────────────── */
+
+  /* Primary: Atkinson Hyperlegible - designed for low vision accessibility */
+  --font-primary: 'Atkinson Hyperlegible', 'Lexend', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Display: Outfit - geometric sans with friendly roundness */
+  --font-display: 'Outfit', 'Atkinson Hyperlegible', sans-serif;
+
+  /* Dyslexia mode: OpenDyslexic font (loaded conditionally) */
+  --font-dyslexia: 'OpenDyslexic', 'Comic Neue', sans-serif;
+
+  /* ─────────────────────────────────────────────────────────────────
+     Font Sizes - Generous scale for readability
+     ───────────────────────────────────────────────────────────────── */
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg: 1.125rem;    /* 18px */
+  --text-xl: 1.25rem;     /* 20px */
+  --text-2xl: 1.5rem;     /* 24px */
+  --text-3xl: 1.875rem;   /* 30px */
+  --text-4xl: 2.25rem;    /* 36px */
+  --text-5xl: 3rem;       /* 48px */
+
+  /* ─────────────────────────────────────────────────────────────────
+     Line Heights - Extra spacing for reduced crowding
+     ───────────────────────────────────────────────────────────────── */
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+
+  /* ─────────────────────────────────────────────────────────────────
+     Letter Spacing - Slight expansion for dyslexia support
+     ───────────────────────────────────────────────────────────────── */
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+
+  /* ─────────────────────────────────────────────────────────────────
+     Font Weights
+     ───────────────────────────────────────────────────────────────── */
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   Typography Modes
+   ───────────────────────────────────────────────────────────────── */
+
+/* Standard (default) */
+body {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-normal);
+  color: var(--theme-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Large Text Mode */
+.text-size-large {
+  --text-xs: 0.875rem;    /* 14px */
+  --text-sm: 1rem;        /* 16px */
+  --text-base: 1.125rem;  /* 18px */
+  --text-lg: 1.25rem;     /* 20px */
+  --text-xl: 1.5rem;      /* 24px */
+  --text-2xl: 1.875rem;   /* 30px */
+  --text-3xl: 2.25rem;    /* 36px */
+  --text-4xl: 3rem;       /* 48px */
+  --text-5xl: 4rem;       /* 64px */
+}
+
+/* Extra Large Text Mode */
+.text-size-xlarge {
+  --text-xs: 1rem;        /* 16px */
+  --text-sm: 1.125rem;    /* 18px */
+  --text-base: 1.25rem;   /* 20px */
+  --text-lg: 1.5rem;      /* 24px */
+  --text-xl: 1.875rem;    /* 30px */
+  --text-2xl: 2.25rem;    /* 36px */
+  --text-3xl: 3rem;       /* 48px */
+  --text-4xl: 4rem;       /* 64px */
+  --text-5xl: 5rem;       /* 80px */
+}
+
+/* Dyslexia Mode */
+.dyslexia-mode {
+  font-family: var(--font-dyslexia);
+  letter-spacing: var(--tracking-wider);
+  line-height: var(--leading-loose);
+  word-spacing: 0.16em;
+}
+
+.dyslexia-mode h1,
+.dyslexia-mode h2,
+.dyslexia-mode h3,
+.dyslexia-mode h4,
+.dyslexia-mode h5,
+.dyslexia-mode h6 {
+  font-family: var(--font-dyslexia);
+  letter-spacing: var(--tracking-wide);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   🎬 ANIMATION SYSTEM - Opt-In & Respectful
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ─────────────────────────────────────────────────────────────────
+     Animation Control Variables
+     ───────────────────────────────────────────────────────────────── */
+
+  /* Duration scale - intentionally slower for calm */
+  --duration-instant: 0ms;
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 800ms;
+  --duration-slowest: 1200ms;
+
+  /* Easing functions - smooth and organic */
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Default animation settings (will be overridden by motion modes) */
+  --animation-duration: var(--duration-normal);
+  --animation-easing: var(--ease-smooth);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   Motion Reduction Modes
+   ───────────────────────────────────────────────────────────────── */
+
+/* System preference: prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Manual override: animations-off (default for autism-friendly) */
+.animations-off *,
+.animations-off *::before,
+.animations-off *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Minimal animations mode */
+.animations-minimal {
+  --animation-duration: var(--duration-fast);
+}
+
+.animations-minimal * {
+  animation-duration: var(--duration-fast) !important;
+  transition-duration: var(--duration-fast) !important;
+}
+
+/* Standard animations mode */
+.animations-standard {
+  --animation-duration: var(--duration-normal);
+}
+
+/* Full animations mode (opt-in only) */
+.animations-full {
+  --animation-duration: var(--duration-slow);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   🎨 SENSORY CONTROL SYSTEM - Granular User Control
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ─────────────────────────────────────────────────────────────────
+     Visual Intensity Controls
+     ───────────────────────────────────────────────────────────────── */
+  --visual-intensity: 1;           /* 0.5 (low) to 1.5 (high) */
+  --color-saturation: 1;           /* 0.7 (muted) to 1.2 (vivid) */
+  --contrast-level: 1;             /* 1 (normal) to 1.3 (high) */
+  --brightness-level: 1;           /* 0.8 (dim) to 1.1 (bright) */
+
+  /* ─────────────────────────────────────────────────────────────────
+     Blur & Effects
+     ───────────────────────────────────────────────────────────────── */
+  --blur-amount: 0px;              /* 0px (off) to 20px (high) */
+  --shadow-intensity: 1;           /* 0 (off) to 1 (full) */
+
+  /* ─────────────────────────────────────────────────────────────────
+     Border & Focus Indicators
+     ───────────────────────────────────────────────────────────────── */
+  --border-width: 1px;             /* 1px (subtle) to 3px (prominent) */
+  --focus-ring-width: 2px;         /* 2px (standard) to 4px (high visibility) */
+  --focus-ring-offset: 2px;
+  --focus-ring-color: var(--theme-primary);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   Sensory Presets
+   ───────────────────────────────────────────────────────────────── */
+
+/* Low Sensory - Maximum calm */
+.sensory-low {
+  --visual-intensity: 0.7;
+  --color-saturation: 0.8;
+  --blur-amount: 0px;
+  --shadow-intensity: 0.3;
+  --animation-duration: var(--duration-instant);
+}
+
+/* Medium Sensory - Balanced */
+.sensory-medium {
+  --visual-intensity: 1;
+  --color-saturation: 1;
+  --blur-amount: 0px;
+  --shadow-intensity: 0.6;
+}
+
+/* High Sensory - Full visual richness (opt-in) */
+.sensory-high {
+  --visual-intensity: 1.2;
+  --color-saturation: 1.1;
+  --blur-amount: 4px;
+  --shadow-intensity: 1;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   🧩 COMPONENT FOUNDATIONS
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────────
+   Border Radius - Soft but not overly rounded
+   ───────────────────────────────────────────────────────────────── */
+:root {
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   Shadows - Subtle depth, adjustable by sensory settings
+   ───────────────────────────────────────────────────────────────── */
+:root {
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / calc(0.05 * var(--shadow-intensity)));
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / calc(0.1 * var(--shadow-intensity))),
+               0 1px 2px -1px rgb(0 0 0 / calc(0.1 * var(--shadow-intensity)));
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / calc(0.1 * var(--shadow-intensity))),
+               0 2px 4px -2px rgb(0 0 0 / calc(0.1 * var(--shadow-intensity)));
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / calc(0.1 * var(--shadow-intensity))),
+               0 4px 6px -4px rgb(0 0 0 / calc(0.1 * var(--shadow-intensity)));
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / calc(0.1 * var(--shadow-intensity))),
+               0 8px 10px -6px rgb(0 0 0 / calc(0.1 * var(--shadow-intensity)));
+
+  /* Focus ring for keyboard navigation */
+  --shadow-focus: 0 0 0 var(--focus-ring-width) var(--focus-ring-color),
+                  0 0 0 calc(var(--focus-ring-width) + var(--focus-ring-offset)) rgba(255, 255, 255, 0.8);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   Z-Index Scale - Predictable layering
+   ───────────────────────────────────────────────────────────────── */
+:root {
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal-backdrop: 400;
+  --z-modal: 500;
+  --z-popover: 600;
+  --z-tooltip: 700;
+  --z-notification: 800;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   🔘 BUTTON COMPONENTS - Autism-Friendly Interactions
+   ═══════════════════════════════════════════════════════════════════ */
+
+.btn {
+  /* Base structure */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+
+  /* Typography */
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  line-height: var(--leading-tight);
+  text-decoration: none;
+
+  /* Spacing - generous touch targets (min 44x44px) */
+  padding: var(--space-3) var(--space-6);
+  min-height: 44px;
+
+  /* Visual */
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-lg);
+  background-color: var(--theme-primary);
+  color: white;
+  box-shadow: var(--shadow-sm);
+
+  /* Interaction */
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  /* Transitions - only when animations enabled */
+  transition: background-color var(--animation-duration) var(--animation-easing),
+              border-color var(--animation-duration) var(--animation-easing),
+              color var(--animation-duration) var(--animation-easing),
+              box-shadow var(--animation-duration) var(--animation-easing),
+              transform var(--animation-duration) var(--animation-easing);
+}
+
+/* Hover state - subtle, not jarring */
+.btn:hover:not(:disabled) {
+  background-color: var(--theme-primary-dark);
+  box-shadow: var(--shadow-md);
+}
+
+/* Focus state - WCAG compliant, high visibility */
+.btn:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+/* Active/pressed state */
+.btn:active:not(:disabled) {
+  transform: scale(0.98);
+  box-shadow: var(--shadow-xs);
+}
+
+/* Disabled state - clear visual feedback */
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   Button Variants
+   ───────────────────────────────────────────────────────────────── */
+
+/* Secondary - outlined style */
+.btn-secondary {
+  background-color: transparent;
+  border-color: var(--theme-primary);
+  color: var(--theme-primary);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--theme-primary-light);
+  border-color: var(--theme-primary-dark);
+  color: var(--theme-primary-dark);
+}
+
+/* Ghost - minimal style */
+.btn-ghost {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--theme-text);
+  box-shadow: none;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background-color: var(--color-gray-100);
+}
+
+/* Danger - for destructive actions */
+.btn-danger {
+  background-color: var(--color-error);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: #DC2626; /* Darker red */
+}
+
+/* Success */
+.btn-success {
+  background-color: var(--color-success);
+}
+
+.btn-success:hover:not(:disabled) {
+  background-color: var(--color-green-600);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   Button Sizes
+   ───────────────────────────────────────────────────────────────── */
+
+.btn-sm {
+  font-size: var(--text-sm);
+  padding: var(--space-2) var(--space-4);
+  min-height: 36px;
+}
+
+.btn-lg {
+  font-size: var(--text-lg);
+  padding: var(--space-4) var(--space-8);
+  min-height: 52px;
+}
+
+.btn-xl {
+  font-size: var(--text-xl);
+  padding: var(--space-5) var(--space-10);
+  min-height: 60px;
+}
+
+/* Full width button */
+.btn-block {
+  width: 100%;
+}
+
+/* Icon-only button (square) */
+.btn-icon {
+  padding: var(--space-3);
+  min-width: 44px;
+  aspect-ratio: 1;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   🗂️ CARD COMPONENTS - Calm Containers
+   ═══════════════════════════════════════════════════════════════════ */
+
+.card {
+  /* Structure */
+  display: flex;
+  flex-direction: column;
+
+  /* Spacing */
+  padding: var(--space-6);
+  gap: var(--space-4);
+
+  /* Visual */
+  background-color: var(--theme-surface);
+  border: var(--border-width) solid var(--color-gray-200);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+
+  /* Transition */
+  transition: box-shadow var(--animation-duration) var(--animation-easing),
+              border-color var(--animation-duration) var(--animation-easing);
+}
+
+/* Interactive card (clickable) */
+.card-interactive {
+  cursor: pointer;
+  user-select: none;
+}
+
+.card-interactive:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--theme-primary);
+}
+
+.card-interactive:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+/* Card with accent border */
+.card-accent {
+  border-left: 4px solid var(--theme-primary);
+}
+
+/* Compact card */
+.card-compact {
+  padding: var(--space-4);
+  gap: var(--space-2);
+}
+
+/* Elevated card */
+.card-elevated {
+  box-shadow: var(--shadow-lg);
+  border: none;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   📝 INPUT COMPONENTS - Clear & Accessible
+   ═══════════════════════════════════════════════════════════════════ */
+
+.input {
+  /* Structure */
+  display: block;
+  width: 100%;
+
+  /* Typography */
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--theme-text);
+
+  /* Spacing */
+  padding: var(--space-3) var(--space-4);
+  min-height: 44px;
+
+  /* Visual */
+  background-color: var(--theme-surface);
+  border: 2px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+
+  /* Interaction */
+  transition: border-color var(--animation-duration) var(--animation-easing),
+              box-shadow var(--animation-duration) var(--animation-easing);
+}
+
+.input::placeholder {
+  color: var(--color-gray-400);
+}
+
+.input:hover:not(:disabled) {
+  border-color: var(--color-gray-400);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--theme-primary);
+  box-shadow: 0 0 0 3px var(--theme-primary-light);
+}
+
+.input:disabled {
+  background-color: var(--color-gray-50);
+  color: var(--color-gray-500);
+  cursor: not-allowed;
+}
+
+/* Input with error */
+.input-error {
+  border-color: var(--color-error);
+}
+
+.input-error:focus {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Input with success */
+.input-success {
+  border-color: var(--color-success);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   🏷️ BADGE & TAG COMPONENTS
+   ═══════════════════════════════════════════════════════════════════ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+
+  padding: var(--space-1) var(--space-3);
+
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  line-height: var(--leading-tight);
+
+  background-color: var(--theme-primary-light);
+  color: var(--theme-primary-dark);
+  border-radius: var(--radius-full);
+
+  white-space: nowrap;
+}
+
+.badge-secondary {
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-700);
+}
+
+.badge-success {
+  background-color: var(--color-green-100);
+  color: var(--color-green-700);
+}
+
+.badge-warning {
+  background-color: var(--color-amber-100);
+  color: var(--color-amber-700);
+}
+
+.badge-error {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #DC2626;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   🎯 FOCUS INDICATORS - Accessibility First
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* All focusable elements get clear focus indication */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Remove default outlines (but keep for :focus-visible above) */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   📱 RESPONSIVE BREAKPOINTS
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+/* Mobile-first approach with progressive enhancement */
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   🌐 GLOBAL RESETS & BASE STYLES
+   ═══════════════════════════════════════════════════════════════════ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Prevent text size adjustment on orientation change */
+  -webkit-text-size-adjust: 100%;
+
+  /* Smooth scrolling (respects prefers-reduced-motion) */
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--theme-background);
+
+  /* Better text rendering */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Remove built-in form typography styles */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* Improve list semantics */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   ♿ SCREEN READER UTILITIES
+   ═══════════════════════════════════════════════════════════════════ */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   🎨 UTILITY CLASSES
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Text utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.font-light { font-weight: var(--font-light); }
+.font-normal { font-weight: var(--font-normal); }
+.font-medium { font-weight: var(--font-medium); }
+.font-semibold { font-weight: var(--font-semibold); }
+.font-bold { font-weight: var(--font-bold); }
+
+.uppercase { text-transform: uppercase; }
+.lowercase { text-transform: lowercase; }
+.capitalize { text-transform: capitalize; }
+
+/* Color utilities */
+.text-primary { color: var(--theme-primary); }
+.text-secondary { color: var(--theme-text-secondary); }
+.text-success { color: var(--color-success); }
+.text-warning { color: var(--color-warning); }
+.text-error { color: var(--color-error); }
+
+/* Spacing utilities */
+.m-0 { margin: 0; }
+.mt-auto { margin-top: auto; }
+.mb-auto { margin-bottom: auto; }
+
+/* Display utilities */
+.hidden { display: none; }
+.block { display: block; }
+.inline-block { display: inline-block; }
+.flex { display: flex; }
+.inline-flex { display: inline-flex; }
+.grid { display: grid; }
+
+/* Flexbox utilities */
+.flex-col { flex-direction: column; }
+.flex-row { flex-direction: row; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-start { justify-content: flex-start; }
+.justify-end { justify-content: flex-end; }
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.gap-6 { gap: var(--space-6); }
+.gap-8 { gap: var(--space-8); }
+
+/* Width utilities */
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   END OF DESIGN SYSTEM
+   ═══════════════════════════════════════════════════════════════════ */
