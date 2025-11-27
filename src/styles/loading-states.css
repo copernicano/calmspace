@@ -1,0 +1,495 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════
+ * Loading States & Skeleton Screens
+ * ═══════════════════════════════════════════════════════════════════
+ *
+ * Autism-friendly loading patterns with minimal motion
+ */
+
+/* ═══════════════════════════════════════════════════════════════════
+   Base Skeleton Styles
+   ═══════════════════════════════════════════════════════════════════ */
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-neutral-200) 0%,
+    var(--color-neutral-100) 50%,
+    var(--color-neutral-200) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 2s ease-in-out infinite;
+  border-radius: var(--radius-md);
+  display: block;
+}
+
+/* Animation disabled in animations-off mode */
+.animations-off .skeleton {
+  animation: none;
+  background: var(--color-neutral-200);
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Skeleton Variants
+   ═══════════════════════════════════════════════════════════════════ */
+
+.skeleton-text {
+  height: 1em;
+  margin-bottom: 0.5em;
+}
+
+.skeleton-circle {
+  border-radius: 50%;
+}
+
+.skeleton-rectangle {
+  border-radius: var(--radius-lg);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Skeleton Container
+   ═══════════════════════════════════════════════════════════════════ */
+
+.skeleton-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Skeleton Card
+   ═══════════════════════════════════════════════════════════════════ */
+
+.skeleton-card {
+  background: white;
+  border: 2px solid var(--color-neutral-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.skeleton-card-content {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Skeleton List Item
+   ═══════════════════════════════════════════════════════════════════ */
+
+.skeleton-list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: white;
+  border: 1px solid var(--color-neutral-200);
+  border-radius: var(--radius-md);
+}
+
+.skeleton-list-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Emotion Selector Loading
+   ═══════════════════════════════════════════════════════════════════ */
+
+.loading-emotion-selector {
+  padding: var(--space-6);
+}
+
+.emotion-cards-skeleton {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--space-4);
+}
+
+.emotion-card-skeleton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: white;
+  border: 2px solid var(--color-neutral-200);
+  border-radius: var(--radius-lg);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Strategies Loading
+   ═══════════════════════════════════════════════════════════════════ */
+
+.loading-strategies {
+  padding: var(--space-6);
+}
+
+.strategies-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.strategy-card-skeleton {
+  padding: var(--space-5);
+  background: white;
+  border: 2px solid var(--color-neutral-200);
+  border-radius: var(--radius-lg);
+}
+
+.strategy-header-skeleton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Calm Space Loading
+   ═══════════════════════════════════════════════════════════════════ */
+
+.loading-calm-space {
+  padding: var(--space-6);
+}
+
+.calm-space-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.pattern-display-skeleton {
+  margin: var(--space-4) 0;
+}
+
+.controls-skeleton {
+  margin-top: var(--space-6);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Timer Loading
+   ═══════════════════════════════════════════════════════════════════ */
+
+.loading-timer {
+  padding: var(--space-6);
+  text-align: center;
+}
+
+.timer-display-skeleton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-8) 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Routine List Loading
+   ═══════════════════════════════════════════════════════════════════ */
+
+.loading-routine-list {
+  padding: var(--space-6);
+}
+
+.routine-cards-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.routine-card-skeleton {
+  padding: var(--space-5);
+  background: white;
+  border: 2px solid var(--color-neutral-200);
+  border-radius: var(--radius-lg);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Settings Loading
+   ═══════════════════════════════════════════════════════════════════ */
+
+.loading-settings {
+  padding: var(--space-6);
+}
+
+.settings-sections-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.settings-section-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Page Loading (Centered)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.loading-page {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+}
+
+.loading-page-content {
+  text-align: center;
+  max-width: 300px;
+}
+
+.loading-message {
+  font-size: var(--font-size-lg);
+  color: var(--color-neutral-700);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--space-4);
+}
+
+.loading-progress-dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.loading-progress-dots .dot {
+  width: 8px;
+  height: 8px;
+  background: var(--color-blue-500);
+  border-radius: 50%;
+  animation: dot-pulse 1.4s ease-in-out infinite;
+}
+
+.loading-progress-dots .dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-progress-dots .dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes dot-pulse {
+  0%,
+  80%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+.animations-off .loading-progress-dots .dot {
+  animation: none;
+  opacity: 0.5;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Inline Loading
+   ═══════════════════════════════════════════════════════════════════ */
+
+.inline-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.inline-loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--color-neutral-300);
+  border-top-color: var(--color-blue-500);
+  border-radius: 50%;
+  animation: spinner-rotate 0.8s linear infinite;
+}
+
+.inline-loading-medium .inline-loading-spinner {
+  width: 20px;
+  height: 20px;
+  border-width: 3px;
+}
+
+.inline-loading-large .inline-loading-spinner {
+  width: 32px;
+  height: 32px;
+  border-width: 4px;
+}
+
+@keyframes spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animations-off .inline-loading-spinner {
+  animation: none;
+  border-color: var(--color-neutral-300);
+  border-top-color: var(--color-neutral-300);
+  border-left-color: var(--color-blue-500);
+}
+
+.inline-loading-message {
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral-700);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Error State
+   ═══════════════════════════════════════════════════════════════════ */
+
+.error-state {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+}
+
+.error-state-content {
+  text-align: center;
+  max-width: 400px;
+  padding: var(--space-6);
+  background: var(--color-red-50);
+  border: 2px solid var(--color-red-200);
+  border-radius: var(--radius-xl);
+}
+
+.error-icon {
+  font-size: 4rem;
+  margin-bottom: var(--space-4);
+}
+
+.error-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-neutral-900);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.error-message {
+  font-size: var(--font-size-base);
+  color: var(--color-neutral-700);
+  margin: 0 0 var(--space-5) 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Empty State
+   ═══════════════════════════════════════════════════════════════════ */
+
+.empty-state {
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+}
+
+.empty-state-content {
+  text-align: center;
+  max-width: 400px;
+}
+
+.empty-state-icon {
+  font-size: 4rem;
+  margin-bottom: var(--space-4);
+  opacity: 0.6;
+}
+
+.empty-state-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-neutral-900);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.empty-state-message {
+  font-size: var(--font-size-base);
+  color: var(--color-neutral-600);
+  margin: 0 0 var(--space-5) 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Reduced Motion Support
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton,
+  .loading-progress-dots .dot,
+  .inline-loading-spinner {
+    animation: none;
+  }
+
+  .skeleton {
+    background: var(--color-neutral-200);
+  }
+
+  .loading-progress-dots .dot {
+    opacity: 0.5;
+  }
+
+  .inline-loading-spinner {
+    border-color: var(--color-neutral-300);
+    border-left-color: var(--color-blue-500);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   High Contrast Mode
+   ═══════════════════════════════════════════════════════════════════ */
+
+.high-contrast .skeleton {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--color-neutral-300),
+    var(--color-neutral-300) 10px,
+    var(--color-neutral-200) 10px,
+    var(--color-neutral-200) 20px
+  );
+  animation: none;
+}
+
+.high-contrast .error-state-content {
+  border-width: 3px;
+}
+
+.high-contrast .empty-state-icon {
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Responsive Design
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 640px) {
+  .emotion-cards-skeleton {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .loading-page,
+  .error-state,
+  .empty-state {
+    min-height: 300px;
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .error-icon,
+  .empty-state-icon {
+    font-size: 3rem;
+  }
+}

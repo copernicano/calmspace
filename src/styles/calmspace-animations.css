@@ -1316,20 +1316,20 @@
   }
   25% {
     transform: translate(
-      calc(cos(var(--direction, 0deg)) * var(--move-distance, 30px)),
-      calc(sin(var(--direction, 0deg)) * var(--move-distance, 30px))
+      calc(var(--move-distance, 30px) * 0.7),
+      calc(var(--move-distance, 30px) * 0.7)
     );
   }
   50% {
     transform: translate(
-      calc(cos(calc(var(--direction, 0deg) + 90deg)) * var(--move-distance, 30px)),
-      calc(sin(calc(var(--direction, 0deg) + 90deg)) * var(--move-distance, 30px))
+      calc(var(--move-distance, 30px) * -0.5),
+      calc(var(--move-distance, 30px) * 1)
     );
   }
   75% {
     transform: translate(
-      calc(cos(calc(var(--direction, 0deg) + 180deg)) * var(--move-distance, 30px)),
-      calc(sin(calc(var(--direction, 0deg) + 180deg)) * var(--move-distance, 30px))
+      calc(var(--move-distance, 30px) * -0.7),
+      calc(var(--move-distance, 30px) * -0.5)
     );
   }
   100% {

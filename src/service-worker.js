@@ -61,6 +61,21 @@ registerRoute(
   })
 );
 
+// Runtime caching for audio files (large files not precached)
+registerRoute(
+  ({ url }) => url.origin === self.location.origin && url.pathname.endsWith('.mp3'),
+  new StaleWhileRevalidate({
+    cacheName: 'audio',
+    plugins: [
+      // Cache audio files with size limit and expiration
+      new ExpirationPlugin({
+        maxEntries: 10,
+        maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+      }),
+    ],
+  })
+);
+
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener('message', (event) => {
