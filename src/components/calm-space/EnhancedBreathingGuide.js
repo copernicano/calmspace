@@ -112,7 +112,7 @@ const EnhancedBreathingGuide = ({ isFullscreen, audioVolume = 0.5, audioEnabled 
      ═══════════════════════════════════════════════════════════════════ */
 
   return (
-    <div className={`breathing-guide ${isFullscreen ? 'fullscreen-mode' : ''}`}>
+    <div className="breathing-guide">
       {/* Pattern Selector (when not active) */}
       {!isActive && (
         <div className="breathing-pattern-selector">

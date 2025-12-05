@@ -1,7 +1,17 @@
 {
   "permissions": {
     "allow": [
-      "Skill(frontend-design)"
+      "Skill(frontend-design)",
+      "Skill(frontend-design:frontend-design)",
+      "Bash(npm start)",
+      "Bash(timeout:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(npm run build:*)",
+      "Bash(cd:*)",
+      "Bash(dir:*)",
+      "Bash(npm install:*)",
+      "Bash(ping:*)"
     ],
     "deny": [],
     "ask": []

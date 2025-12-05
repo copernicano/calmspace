@@ -259,8 +259,22 @@
   display: none;
 }
 
-/* Maximal focus mode: hide entire navigation (handled in component) */
+/* Maximal focus mode: NAVIGATION ALWAYS VISIBLE to prevent users getting trapped
+   Previously hidden, but this caused critical navigation bugs (especially in Settings)
+   Users must always have a way to navigate back */
 .focus-mode-maximal .bottom-navigation {
+  /* Keep navigation visible but make it less intrusive */
+  opacity: 0.7;
+  background-color: transparent;
+  box-shadow: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.focus-mode-maximal .nav-item:not(.active) {
+  opacity: 0.5;
+}
+
+.focus-mode-maximal .nav-item:not(.active) .nav-label {
   display: none;
 }
 

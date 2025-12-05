@@ -376,7 +376,7 @@ body {
   --animation-duration: var(--duration-fast);
 }
 
-.animations-minimal * {
+.animations-minimal *:not(.pattern-display):not(.pattern-display *) {
   animation-duration: var(--duration-fast) !important;
   transition-duration: var(--duration-fast) !important;
 }

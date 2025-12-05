@@ -1,20 +1,27 @@
 /**
  * ═══════════════════════════════════════════════════════════════════
- * Enhanced Simple Patterns - With Sensory Customization
+ * Enhanced Simple Patterns - Modern Beautiful Animations
  * ═══════════════════════════════════════════════════════════════════
  *
- * Wrapper around existing SimplePatterns with enhanced controls
+ * NEW: Completely redesigned with stunning, soul-touching animations
  */
 
 import React, { useEffect, useRef } from 'react';
 import '../../styles/calmspace.css';
-import '../../styles/calmspace-animations.css';
+
+// Import new animation components
+import BubblesAnimation from './BubblesAnimation';
+import WavesAnimation from './WavesAnimation';
+import StarsAnimation from './StarsAnimation';
+import GeometricAnimation from './GeometricAnimation';
+import FireflyMeadowAnimation from './FireflyMeadowAnimation';
 
 // Import sounds
 import bubblesSound from '../../assets/sounds/bubbles.mp3';
 import wavesSound from '../../assets/sounds/waves.mp3';
 import nightSound from '../../assets/sounds/summer-night.mp3';
 import whitenoiseBinauralSound from '../../assets/sounds/whitenoise-binaural.mp3';
+import forestAmbienceSound from '../../assets/sounds/135796592-morning-forest-ambience.m4a';
 
 const EnhancedSimplePatterns = ({
   isFullscreen,
@@ -32,6 +39,7 @@ const EnhancedSimplePatterns = ({
     waves: new Audio(wavesSound),
     stars: new Audio(nightSound),
     abstract: new Audio(whitenoiseBinauralSound),
+    countryside: new Audio(forestAmbienceSound),
   });
 
   // Configure all audio elements
@@ -81,178 +89,30 @@ const EnhancedSimplePatterns = ({
 
   return (
     <div
-      className={`pattern-display ${activePattern} speed-${animationSpeed} ${
-        isFullscreen ? 'fullscreen-mode' : ''
-      }`}
+      className={`pattern-display ${activePattern} speed-${animationSpeed}`}
       style={{
         '--visual-intensity': visualIntensity,
         '--animation-speed-multiplier': animationSpeed === 'slow' ? '1.5' : '1',
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden'
       }}
     >
-      {/* Bubbles Pattern */}
-      {activePattern === 'bubbles' && (
-        <div className="bubbles-pattern">
-          {Array.from({ length: 25 }).map((_, i) => (
-            <div
-              key={i}
-              className={`bubble bubble-${(i % 4) + 1}`}
-              style={{
-                '--delay': `${Math.random() * 5}s`,
-                '--size': `${30 + Math.random() * 70}px`,
-                '--left': `${Math.random() * 100}%`,
-                '--drift': `${Math.random() * 60 - 30}px`,
-              }}
-            />
-          ))}
-          {/* Foam particles for depth */}
-          {Array.from({ length: 15 }).map((_, i) => (
-            <div
-              key={`foam-${i}`}
-              className="foam-particle"
-              style={{
-                '--delay': `${Math.random() * 8}s`,
-                '--left': `${Math.random() * 100}%`,
-                '--drift': `${Math.random() * 40 - 20}px`,
-              }}
-            />
-          ))}
-        </div>
-      )}
+      {/* Bubbles Pattern - NEW */}
+      {activePattern === 'bubbles' && <BubblesAnimation />}
 
-      {/* Waves Pattern */}
-      {activePattern === 'waves' && (
-        <div className="waves-pattern">
-          {/* Deep ocean layers */}
-          {Array.from({ length: 6 }).map((_, i) => (
-            <div
-              key={i}
-              className={`wave-layer wave-layer-${i + 1}`}
-              style={{
-                '--delay': `${i * 0.5}s`,
-              }}
-            />
-          ))}
-          {/* Surface waves */}
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div
-              key={`surface-${i}`}
-              className={`surface-wave surface-wave-${i + 1}`}
-              style={{
-                '--delay': `${i * 0.3}s`,
-              }}
-            />
-          ))}
-          {/* Floating particles */}
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div
-              key={`particle-${i}`}
-              className="floating-particle"
-              style={{
-                '--left': `${Math.random() * 100}%`,
-                '--delay': `${Math.random() * 10}s`,
-              }}
-            />
-          ))}
-        </div>
-      )}
+      {/* Waves Pattern - NEW */}
+      {activePattern === 'waves' && <WavesAnimation />}
 
-      {/* Stars Pattern */}
-      {activePattern === 'stars' && (
-        <div className="stars-pattern">
-          {/* Cross-shaped stars */}
-          {Array.from({ length: 60 }).map((_, i) => (
-            <div
-              key={i}
-              className={`star star-${(i % 5) + 1}`}
-              style={{
-                '--left': `${Math.random() * 100}%`,
-                '--top': `${Math.random() * 100}%`,
-                '--delay': `${Math.random() * 5}s`,
-                '--scale': 0.3 + Math.random() * 1.2,
-              }}
-            />
-          ))}
-          {/* Meteors */}
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div
-              key={`meteor-${i}`}
-              className="meteor"
-              style={{
-                '--delay': `${Math.random() * 15 + 5}s`,
-                '--duration': `${0.8 + Math.random() * 0.5}s`,
-                '--start-x': `${Math.random() * 100}%`,
-              }}
-            />
-          ))}
-          {/* Nebulae */}
-          {Array.from({ length: 6 }).map((_, i) => (
-            <div
-              key={`nebula-${i}`}
-              className={`nebula nebula-${(i % 3) + 1}`}
-              style={{
-                '--left': `${20 + Math.random() * 60}%`,
-                '--top': `${20 + Math.random() * 60}%`,
-                '--hue': Math.random() * 360,
-              }}
-            />
-          ))}
-          {/* Stardust */}
-          {Array.from({ length: 50 }).map((_, i) => (
-            <div
-              key={`dust-${i}`}
-              className="stardust"
-              style={{
-                '--left': `${Math.random() * 100}%`,
-                '--top': `${Math.random() * 100}%`,
-                '--delay': `${Math.random() * 3}s`,
-              }}
-            />
-          ))}
-        </div>
-      )}
+      {/* Stars Pattern - NEW */}
+      {activePattern === 'stars' && <StarsAnimation />}
 
-      {/* Abstract Geometric Pattern */}
-      {activePattern === 'abstract' && (
-        <div className="abstract-pattern">
-          {/* Hexagonal grid */}
-          <div className="hex-grid">
-            {Array.from({ length: 30 }).map((_, i) => (
-              <div
-                key={i}
-                className="hex"
-                style={{
-                  '--delay': `${Math.random() * 8}s`,
-                  '--row': Math.floor(i / 6),
-                  '--col': i % 6,
-                }}
-              />
-            ))}
-          </div>
-          {/* Concentric circles */}
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div
-              key={`circle-${i}`}
-              className="concentric-circle"
-              style={{
-                '--size': `${100 + i * 80}px`,
-                '--delay': `${i * 0.5}s`,
-              }}
-            />
-          ))}
-          {/* Rotating shapes */}
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div
-              key={`shape-${i}`}
-              className={`rotating-shape shape-${(i % 3) + 1}`}
-              style={{
-                '--angle': `${i * 30}deg`,
-                '--distance': `${150 + Math.random() * 100}px`,
-                '--delay': `${Math.random() * 5}s`,
-              }}
-            />
-          ))}
-        </div>
-      )}
+      {/* Geometric Pattern - NEW */}
+      {activePattern === 'abstract' && <GeometricAnimation />}
+
+      {/* Countryside Pattern - Firefly Meadow */}
+      {activePattern === 'countryside' && <FireflyMeadowAnimation />}
     </div>
   );
 };

@@ -41,7 +41,7 @@ const EnhancedCalmSpace = () => {
   const [audioEnabled, setAudioEnabled] = useState(settings.soundEnabled || false);
 
   // Pattern/Breathing specific
-  const [activePattern, setActivePattern] = useState('bubbles');
+  const [activePattern, setActivePattern] = useState('countryside'); // Start with new animation!
   const [animationSpeed, setAnimationSpeed] = useState('medium');
 
   const fullscreenRef = useRef(null);
@@ -111,12 +111,17 @@ const EnhancedCalmSpace = () => {
   const toggleFullscreen = () => {
     if (!isFullscreen) {
       if (fullscreenRef.current.requestFullscreen) {
-        fullscreenRef.current.requestFullscreen();
+        fullscreenRef.current.requestFullscreen().catch(err => {
+          console.error('Fullscreen request failed:', err);
+        });
       }
       setIsFullscreen(true);
     } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
+      // Check if actually in fullscreen before trying to exit
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(err => {
+          console.error('Exit fullscreen failed:', err);
+        });
       }
       setIsFullscreen(false);
     }
@@ -293,6 +298,13 @@ const EnhancedCalmSpace = () => {
             {/* Pattern Selector (when in patterns mode) */}
             {mode === 'patterns' && (
               <div className="pattern-selector-mini">
+                <button
+                  className={`pattern-mini-btn ${activePattern === 'countryside' ? 'active' : ''}`}
+                  onClick={() => setActivePattern('countryside')}
+                  title="Campagna"
+                >
+                  🌾
+                </button>
                 <button
                   className={`pattern-mini-btn ${activePattern === 'bubbles' ? 'active' : ''}`}
                   onClick={() => setActivePattern('bubbles')}

@@ -22,7 +22,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
   width: 100%;
-  overflow: hidden;
+  overflow: auto; /* Changed from hidden to auto for scrolling */
   line-height: 1.5;
 }
 
@@ -30,9 +30,21 @@ body {
 .app-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh; /* Changed from height to min-height */
   width: 100%;
   position: relative;
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  padding-bottom: 80px; /* Space for bottom navigation */
+}
+
+/* Increased padding for large text modes */
+.app-container.text-size-large {
+  padding-bottom: 100px;
+}
+
+.app-container.text-size-xlarge {
+  padding-bottom: 120px;
 }
 
 /* Temi di colore migliorati con colori più vivaci e armoniosi */

@@ -38,7 +38,7 @@ const defaultSettings = {
      SENSORY CONTROLS - Granular control over stimulation
      ───────────────────────────────────────────────────────────────── */
   // Visual
-  animationLevel: 'off',            // off | minimal | standard | full
+  animationLevel: 'minimal',        // off | minimal | standard | full
   visualIntensity: 0.7,             // 0.5 (very low) to 1.5 (high)
   colorSaturation: 0.8,             // 0.7 (muted) to 1.2 (vivid)
   blurEffects: false,               // Enable/disable blur effects
@@ -97,6 +97,17 @@ const defaultSettings = {
      ───────────────────────────────────────────────────────────────── */
   saveHistory: true,                // Save emotion logs & session history
   analyticsEnabled: false,          // Usage analytics (always opt-in)
+
+  /* ─────────────────────────────────────────────────────────────────
+     AI ASSISTANT
+     ───────────────────────────────────────────────────────────────── */
+  aiAssistant: {
+    enabled: true,                  // Show/hide chat button
+    useCustomKey: false,            // Use personal API key instead of default
+    customApiKey: '',               // User's personal OpenRouter API key
+    model: 'google/gemma-2-9b-it:free',  // Default model (can be changed)
+    customModel: '',                // Custom model ID if user wants to specify one
+  },
 
   /* ─────────────────────────────────────────────────────────────────
      LEGACY SUPPORT (for backward compatibility)
@@ -373,17 +384,25 @@ function applySettingsToDOM(settings) {
   // Apply high contrast
   if (settings.highContrast) {
     body.classList.add('high-contrast');
+  } else {
+    body.classList.remove('high-contrast');
   }
 
   // Apply dyslexia font
   if (settings.dyslexiaFont) {
     body.classList.add('dyslexia-mode');
+  } else {
+    body.classList.remove('dyslexia-mode');
   }
 
   // Apply focus mode
   if (settings.focusModeEnabled) {
     body.classList.add('focus-mode');
     body.classList.add(`focus-mode-${settings.focusModeLevel}`);
+  } else {
+    body.classList.remove('focus-mode');
+    body.classList.remove(`focus-mode-minimal`);
+    body.classList.remove(`focus-mode-maximal`);
   }
 
   // Apply CSS variables for granular controls

@@ -16,45 +16,92 @@ CalmSpace is a React-based PWA (Progressive Web App) designed for emotional well
 ## Architecture
 
 ### Core Structure
-- **Entry Point**: `src/index.js` - renders the main app
+- **Entry Point**: `src/index.js` - renders the main app wrapped in `EnhancedSettingsProvider`
 - **Main App**: `src/components/core/App.js` - primary application logic (not `src/App.js` which is unused)
-- **Routing**: React Router v6 with client-side routing
-- **State Management**: React Context API via `SettingsContext`
+- **Routing**: React Router v7.5 with client-side routing
+- **State Management**: React Context API via `EnhancedSettingsContext` (V2 settings system)
 - **Storage**: Local storage utilities in `src/utils/storage.js`
+- **Animation Library**: GSAP 3.13 for all animations (DO NOT use CSS animations for complex movements)
 
 ### Key Components Organization
 ```
 src/components/
-├── core/           # Main app structure
-│   ├── App.js      # Primary app component with routing
-│   ├── Navigation.js # Draggable home button
-│   └── Settings.js # App settings management
-├── calm-space/     # Meditation and relaxation tools
-├── emotion-support/# Emotion tracking and coping strategies  
-├── chat/          # Chatbot functionality
-└── timers/        # Visual timers and routines
+├── core/                    # Main app structure
+│   ├── App.js               # Primary app component with routing
+│   ├── BottomNavigation.js  # Fixed bottom navigation bar (ALWAYS visible)
+│   ├── EnhancedSettings.js  # Comprehensive settings UI
+│   └── home/
+│       └── EnhancedHomePage.js
+├── calm-space/              # Meditation and relaxation tools
+│   ├── EnhancedCalmSpace.js       # Main container with fullscreen support
+│   ├── EnhancedSimplePatterns.js  # Pattern selector
+│   ├── BubblesAnimation.js        # GSAP bubble animation
+│   ├── WavesAnimation.js          # GSAP organic wave animation
+│   ├── StarsAnimation.js          # GSAP stars/meteors animation
+│   ├── GeometricAnimation.js      # GSAP geometric patterns
+│   └── [Other animation components]
+├── emotion-support/         # Emotion tracking and coping strategies
+│   ├── EnhancedEmotionSelector.js
+│   ├── EnhancedIntensitySlider.js
+│   └── EnhancedStrategies.js
+├── chat/                    # Chatbot functionality
+│   ├── ChatBot.js
+│   └── ChatButton.js
+└── timers/                  # Visual timers and routines
+    ├── EnhancedVisualTimer.js
+    └── RoutineBuilder.js
 ```
 
-### Settings System
-The app uses a comprehensive settings system managed through React Context:
-- **Theme**: blue, green, purple, orange color schemes
-- **UI Size**: standard, large accessibility options
-- **Animation Level**: low, medium performance options
-- **Stimulation Level**: low, medium, high sensory options
+### Enhanced Settings System (V2)
+The app uses a comprehensive autism-friendly settings system (`EnhancedSettingsContext.js`):
 
-Settings are persisted in localStorage and applied via CSS classes on the main container.
+**Appearance Settings:**
+- Theme: blue, green, amber, lavender
+- Color mode: light, dark, auto
+- High contrast mode
+
+**Text & Typography:**
+- Text size: standard, large, xlarge
+- Dyslexia font support (OpenDyslexic)
+- Line spacing: tight, normal, relaxed, loose
+- Letter spacing: normal, wide, wider
+
+**Sensory Controls (critical for autism-friendly design):**
+- Animation level: off, minimal, standard, full
+- Visual intensity: 0.5 to 1.5
+- Color saturation: 0.7 to 1.2
+- Blur effects toggle
+- Shadow intensity: 0 to 1
+- Sound enabled with volume control
+- Vibration feedback (mobile)
+
+**Cognitive & Focus:**
+- Information density: low, medium, high
+- Focus mode: minimal, moderate, maximal
+- Reduced choices option
+- Auto-advance settings
+
+**Preset Profiles:**
+- Low-sensory: minimal stimulation for comfort
+- High-focus: reduces distractions
+- Energy-conserving: reduces cognitive load
+- Balanced: general use
+
+Settings persist to `localStorage` with key `calmspace-settings-v2` and are applied via CSS classes and CSS custom properties.
 
 ### Navigation Pattern
-- Draggable home button (`Navigation.js`) that persists position in localStorage
-- Only visible when not on home page
-- Supports both mouse and touch interactions
+**CRITICAL:** `BottomNavigation.js` is ALWAYS visible (even in focus mode) to prevent users from getting trapped on a page. This was a critical bug fix - the navigation must never be hidden with `display: none`.
+
+- Fixed bottom navigation bar with 5 tabs: Home, Emozioni, Spazio, Timer, Impostazioni
+- Active state indication with visual indicators
+- Keyboard accessible with proper ARIA labels
+- Responsive design with safe-area-inset support
 
 ### State Persistence
 The app extensively uses localStorage for:
-- User settings (`calmspace-settings` key)
-- Last selected emotion (`lastEmotion` key)  
-- Home button position (`homeButtonPosition` key)
-- Helper message state (`homeButtonHelperSeen` key)
+- User settings V2 (`calmspace-settings-v2` key)
+- Legacy settings migration from V1 (`userSettings` key)
+- Last selected emotion (`lastEmotion` key)
 
 ### Audio Assets
 Sound files are stored in `src/assets/sounds/` and include:
@@ -69,83 +116,169 @@ CSS is organized by feature in `src/styles/`:
 - Component-specific stylesheets (e.g., `calmspace.css`, `emotion.css`)
 - Animation-specific styles in `calmspace-animations.css`
 
-## Il Mio Spazio - Animation Redesign (2024)
+## Animation System - GSAP-Based Artistic Animations
 
-The "Il Mio Spazio" (My Space) section has been completely redesigned with modern, artistic animations to replace the outdated "anni 90" (90s style) effects. Key improvements:
+**CRITICAL:** All animations in the "Il Mio Spazio" section use GSAP (GreenSock Animation Platform), NOT CSS animations. This is a fundamental architectural decision.
 
-### Animation Components
-- **SimplePatterns.js**: Core component managing four animation patterns with enhanced visual effects
-- **CalmSpace.js**: Container component supporting fullscreen mode and section switching
+### Animation Philosophy
+Animations must look like **artistic illustrations** (Japanese animation, Studio Ghibli style), NOT mathematical graphs or "anni 90" effects. Avoid:
+- ❌ Mathematical sine waves or trigonometric patterns
+- ❌ Symmetrical, regular shapes
+- ❌ Flat, band-like layers
+- ❌ Rainbow gradients or neon colors
 
-### Animation Types
+Instead, create:
+- ✅ Organic, asymmetric curves (Bezier paths)
+- ✅ Layered depth with varying opacity
+- ✅ Artistic color palettes (blues for ocean, purples for space)
+- ✅ Natural, fluid movement with parallax
 
-#### 🫧 Bolle (Bubbles) - COMPLETED ✅
-- **Issue Fixed**: Square bubble shapes on left side
-- **Solution**: Perfect circular constraints using `aspect-ratio: 1/1` and CSS variables
-- **Features**: 
-  - 25 main bubbles with 4 types (normal, large, micro, sparkly)
-  - 15 foam particles for depth
-  - Modern gradients with HSL color variations
-  - Realistic floating physics with drift and rotation
-  - Enhanced backdrop filters and borders
+### Animation Components Architecture
 
-#### 🌊 Onde (Waves) - COMPLETED ✅  
-- **Previous Issues**: Ugly triangular SVG paths, yellow sky gradient
-- **Complete Redesign**: Poetic fluid waves using CSS-only approach
-- **Features**:
-  - Deep ocean gradient (blues from sky to night)
-  - 6 organic wave layers using `clip-path` polygons
-  - 4 surface waves with delicate reflections  
-  - 12 floating particles with organic movement
-  - 8 water shimmers with dancing light effects
-  - Smooth atmospheric animations over 45s cycles
+Each animation is a standalone React component using GSAP:
 
-#### ✨ Stelle (Stars) - COMPLETED ✅
-- **Previous Issue**: Stars remained largely unchanged, invisible due to CSS bugs
-- **Complete Redesign**: Spectacular modern universe
-- **Features**:
-  - 60 cross-shaped stars with 5 color variants (white, red, blue, gold, pink)
-  - 4 constellations with connecting lines and mathematical positioning
-  - 8 spectacular meteors with long luminous trails
-  - 6 vibrant nebulae with HSL color control and breathing effects
-  - 50 sparkling stardust particles
-  - Modern CSS animations with dynamic brightness and blur effects
+**BubblesAnimation.js** - Floating bubbles with realistic physics
+- 25+ bubbles with varied sizes and types
+- GSAP for float, drift, and rotation animations
+- Radial gradients for depth
+- Foam particles for surface detail
 
-#### 📐 Geometrico (Geometric) - EXISTING
-- Sophisticated geometric patterns with hexagonal grids, concentric circles, rotating shapes
+**WavesAnimation.js** - Organic ocean waves (recently redesigned)
+- **3 SVG layers** with different speeds (parallax effect)
+- **Hand-crafted Bezier paths** (NOT sin/cos functions)
+- Path morphing with `gsap.to(path, { attr: { d: newPath } })`
+- Organic curves: `M 0,280 C 150,260 300,290 ...`
+- Night ocean gradient background
+- 12 sparkle particles on surface
+- Duration: 4s (foreground), 6s (middle), 8s (background)
+
+**StarsAnimation.js** - Starry night with meteors
+- 100 twinkling stars with GSAP scale/opacity animations
+- 6 nebulae with color breathing effects
+- **12 meteors** with realistic physics:
+  - 4 different trajectory angles (-30°, -45°, -60°, -70°)
+  - Trail rotation aligned to movement direction
+  - Speed: 0.5-2 seconds (fast like real meteors)
+  - Random spawn delays (0-120s) for natural frequency
+  - `power2.in` easing for acceleration
+- 80 stardust particles with subtle sparkle
+
+**GeometricAnimation.js** - Abstract geometric patterns
+- Hexagonal grids, concentric circles
+- Rotating shapes with mathematical precision
 - Fractal elements and energy waves
-- Orbiting particles with complex mathematics
 
-### Technical Implementation
-- **CSS Variables**: Extensive use for dynamic styling and animation control
-- **Modern CSS**: Advanced properties like `clip-path`, `mix-blend-mode`, `backdrop-filter`
-- **Performance**: Optimized animations using `transform` and `opacity` for GPU acceleration
-- **Responsive**: Fluid layouts that work across all screen sizes
-- **Accessibility**: Speed controls (slow/medium) for motion sensitivity
+### GSAP Animation Patterns
 
-### Animation Architecture
+**Basic GSAP Setup:**
+```javascript
+useEffect(() => {
+  const element = document.createElement('div');
+  container.appendChild(element);
+
+  gsap.to(element, {
+    x: 100,
+    y: 50,
+    duration: 2,
+    repeat: -1,
+    yoyo: true,
+    ease: 'sine.inOut'
+  });
+
+  return () => gsap.killTweensOf(element);
+}, []);
 ```
-src/styles/calmspace-animations.css
-├── Modern Bubble Animations    # Lines 100-316
-├── Poetic Fluid Waves         # Lines 317-607  
-├── Spectacular Star Universe  # Lines 609-786
-└── Modern Geometric Patterns  # Lines 787-1087
+
+**SVG Path Morphing:**
+```javascript
+const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+path.setAttribute('d', startPath);
+
+gsap.to(path, {
+  attr: { d: endPath },
+  duration: 8,
+  repeat: -1,
+  yoyo: true,
+  ease: 'sine.inOut'
+});
 ```
 
-All animations now feature:
-- Artistic color palettes
-- Organic, natural movement patterns  
-- Layered depth and visual hierarchy
-- Smooth performance across devices
-- Poetic and contemplative aesthetics
+**Cleanup is CRITICAL:**
+Always use `gsap.killTweensOf()` in the cleanup function to prevent memory leaks.
+
+### Performance Considerations
+- Use `transform` (x, y, scale, rotate) for GPU acceleration
+- Avoid animating `width`, `height`, `top`, `left` directly
+- Limit number of animated elements on screen
+- Use `will-change: transform` sparingly
+- Test on mobile devices for 60fps performance
+
+## CSS Design System
+
+The app uses a comprehensive design system with CSS custom properties defined in `src/styles/design-system.css`:
+
+### CSS Custom Properties
+**Theme Colors** are applied dynamically via classes:
+- `.theme-blue`, `.theme-green`, `.theme-amber`, `.theme-lavender`
+- Each theme defines `--theme-primary`, `--theme-surface`, `--theme-background`
+
+**Dynamic Variables** set by settings:
+- `--visual-intensity`: Controls brightness/saturation (0.5-1.5)
+- `--color-saturation`: Color vibrancy (0.7-1.2)
+- `--shadow-intensity`: Shadow opacity (0-1)
+- `--blur-amount`: Blur filter amount
+- `--leading-normal`: Line height
+- `--tracking-normal`: Letter spacing
+
+### CSS Class Patterns
+Components receive settings-based classes from the main container:
+- `theme-{blue|green|amber|lavender}` - Color scheme
+- `text-size-{standard|large|xlarge}` - Typography scale
+- `animations-{off|minimal|standard|full}` - Animation level
+- `focus-mode-{minimal|moderate|maximal}` - UI simplification
+- `high-contrast` - Enhanced contrast mode
+- `dyslexia-font` - OpenDyslexic font
+
+### Styling Best Practices
+- Use CSS custom properties for dynamic values
+- Respect `prefers-reduced-motion` media query
+- Ensure 48x48px minimum touch targets
+- Test with all theme combinations
+- Maintain WCAG AA contrast ratios (AAA in high-contrast mode)
 
 ## Development Notes
 
-- The project uses Italian language strings throughout the UI
-- Components follow a pattern of accepting `settings` props and applying theme classes
-- Many components support fullscreen modes with keyboard shortcuts (Escape key)
-- The app is designed for both desktop and mobile with touch gesture support
-- PWA functionality is enabled via service worker registration
+- **Language**: Italian UI strings throughout (labels, buttons, messages)
+- **Accessibility-First**: Designed for neurodivergent users (autism-friendly)
+- **Keyboard Support**: Escape key exits fullscreen, Tab navigation works everywhere
+- **Touch & Mouse**: All interactions support both input methods
+- **PWA Features**: Service worker enables offline functionality
+- **No External APIs**: All functionality is client-side (privacy-focused)
+
+## Common Development Patterns
+
+### Adding a New Animation
+1. Create `[Name]Animation.js` in `src/components/calm-space/`
+2. Use GSAP for all animations (import from 'gsap')
+3. Create elements in `useEffect`, animate with GSAP
+4. **Always** cleanup with `gsap.killTweensOf()` in return function
+5. Add to `EnhancedSimplePatterns.js` pattern selector
+6. Follow artistic style guide (organic, illustrated, NOT mathematical)
+
+### Modifying Settings
+1. Update `defaultSettings` in `EnhancedSettingsContext.js`
+2. Add UI control in `EnhancedSettings.js`
+3. Apply via CSS class or custom property in `applySettingsToDOM()`
+4. Test with preset profiles (low-sensory, high-focus, etc.)
+
+### Navigation Bug Prevention
+**NEVER** hide `BottomNavigation` with `display: none`. Users must always have a way to navigate back. Use opacity/transparency if needed to reduce visual weight in focus mode.
 
 ## Testing
 Tests are configured with Jest and React Testing Library. Run individual tests with standard Jest patterns.
+
+## Known Issues & Technical Debt
+- Legacy `src/App.js` exists but is unused (entry point is `src/components/core/App.js`)
+- Some legacy components (non-Enhanced versions) may still exist but are not used in routes
+- Audio file `135796592-morning-forest-ambience.m4a` referenced but may be missing
+- per ogni modifica sostanziosa nel frontend usa sempre il plugin frontend-designer per ottenere risultati migliori

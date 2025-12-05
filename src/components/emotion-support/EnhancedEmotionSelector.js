@@ -108,13 +108,9 @@ const EnhancedEmotionSelector = () => {
     setSelectedEmotion(emotion);
     saveToStorage('lastEmotion', JSON.stringify(emotion));
 
-    // Se informationDensity è low, salta l'intensità e vai diretto alle strategie
-    if (settings.informationDensity === 'low' && settings.reducedChoices) {
-      setIntensity(2); // Default medio
-      setStep(3);
-    } else {
-      setStep(2);
-    }
+    // ALWAYS go to step 2 (intensity selection)
+    // This is important for user awareness and control
+    setStep(2);
 
     setShowPreview(null); // Close preview
   };
@@ -126,11 +122,19 @@ const EnhancedEmotionSelector = () => {
 
   const handleIntensitySelect = (level) => {
     setIntensity(level);
+    // Salva anche l'intensità insieme all'emozione per il chatbot
+    if (selectedEmotion) {
+      saveToStorage('lastEmotion', JSON.stringify({ ...selectedEmotion, intensity: level }));
+    }
     setStep(3);
   };
 
   const handleSkipIntensity = () => {
     setIntensity(2); // Default medio
+    // Salva anche l'intensità default per il chatbot
+    if (selectedEmotion) {
+      saveToStorage('lastEmotion', JSON.stringify({ ...selectedEmotion, intensity: 2 }));
+    }
     setStep(3);
   };
 

@@ -544,6 +544,149 @@ const EnhancedSettings = () => {
           />
         </SettingGroup>
       </SettingsCategory>
+
+      {/* ═══════════════════════════════════════════════════════════════
+          AI ASSISTANT CATEGORY
+          ═══════════════════════════════════════════════════════════════ */}
+      <SettingsCategory
+        id="ai-assistant"
+        icon="🤖"
+        title="Assistente AI"
+        description="Configurazione chatbot e API"
+        expanded={expandedCategory === 'ai-assistant'}
+        onToggle={() => toggleCategory('ai-assistant')}
+      >
+        {/* Enable/Disable */}
+        <SettingGroup
+          label="Mostra assistente"
+          description="Mostra o nascondi il pulsante dell'assistente"
+        >
+          <ToggleSwitch
+            checked={settings.aiAssistant?.enabled ?? true}
+            onChange={(checked) => updateSettings({
+              aiAssistant: { ...settings.aiAssistant, enabled: checked }
+            })}
+            label="Abilita assistente AI"
+          />
+        </SettingGroup>
+
+        {/* Use Custom API Key */}
+        <SettingGroup
+          label="Usa chiave personale"
+          description="Usa la tua API key di OpenRouter invece di quella predefinita"
+        >
+          <ToggleSwitch
+            checked={settings.aiAssistant?.useCustomKey ?? false}
+            onChange={(checked) => updateSettings({
+              aiAssistant: { ...settings.aiAssistant, useCustomKey: checked }
+            })}
+            label="Usa chiave personale"
+          />
+
+          {settings.aiAssistant?.useCustomKey && (
+            <div className="nested-setting">
+              <label className="input-label">
+                API Key OpenRouter
+              </label>
+              <input
+                type="password"
+                className="input"
+                placeholder="sk-or-v1-..."
+                value={settings.aiAssistant?.customApiKey || ''}
+                onChange={(e) => updateSettings({
+                  aiAssistant: { ...settings.aiAssistant, customApiKey: e.target.value }
+                })}
+                style={{ fontFamily: 'monospace', fontSize: '0.9em' }}
+              />
+
+              <div className="api-key-help" style={{
+                marginTop: '12px',
+                padding: '12px',
+                backgroundColor: 'var(--color-surface-alt, #f5f5f5)',
+                borderRadius: '8px',
+                fontSize: '0.85em',
+                lineHeight: '1.5'
+              }}>
+                <strong>Come ottenere la tua API Key gratuita:</strong>
+                <ol style={{ margin: '8px 0', paddingLeft: '20px' }}>
+                  <li>Vai su <a href="https://openrouter.ai" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--theme-primary)' }}>openrouter.ai</a></li>
+                  <li>Crea un account gratuito</li>
+                  <li>Vai su "Keys" nel menu</li>
+                  <li>Clicca "Create Key"</li>
+                  <li>Copia la chiave e incollala qui</li>
+                </ol>
+                <p style={{ margin: 0, opacity: 0.8 }}>
+                  La chiave gratuita include crediti sufficienti per un uso normale.
+                </p>
+              </div>
+            </div>
+          )}
+        </SettingGroup>
+
+        {/* Model Selection */}
+        <SettingGroup
+          label="Modello AI"
+          description="Scegli quale modello usare (i modelli gratuiti cambiano spesso)"
+        >
+          <select
+            className="input"
+            value={settings.aiAssistant?.model || 'google/gemma-2-9b-it:free'}
+            onChange={(e) => updateSettings({
+              aiAssistant: { ...settings.aiAssistant, model: e.target.value }
+            })}
+            style={{ width: '100%', padding: '10px 12px', fontSize: '0.9em' }}
+          >
+            <optgroup label="Modelli Gratuiti (consigliati)">
+              <option value="google/gemma-2-9b-it:free">Google Gemma 2 9B</option>
+              <option value="meta-llama/llama-3.1-8b-instruct:free">Meta Llama 3.1 8B</option>
+              <option value="microsoft/phi-3-mini-128k-instruct:free">Microsoft Phi-3 Mini</option>
+              <option value="qwen/qwen-2-7b-instruct:free">Qwen 2 7B</option>
+              <option value="mistralai/mistral-7b-instruct:free">Mistral 7B</option>
+            </optgroup>
+            <optgroup label="Altro">
+              <option value="custom">Inserisci modello personalizzato...</option>
+            </optgroup>
+          </select>
+
+          {settings.aiAssistant?.model === 'custom' && (
+            <div className="nested-setting" style={{ marginTop: '12px' }}>
+              <label className="input-label">ID Modello personalizzato</label>
+              <input
+                type="text"
+                className="input"
+                placeholder="es: openai/gpt-3.5-turbo"
+                value={settings.aiAssistant?.customModel || ''}
+                onChange={(e) => updateSettings({
+                  aiAssistant: { ...settings.aiAssistant, customModel: e.target.value }
+                })}
+                style={{ fontFamily: 'monospace', fontSize: '0.9em' }}
+              />
+              <p style={{ fontSize: '0.8em', color: '#666', marginTop: '8px' }}>
+                Trova i modelli disponibili su <a href="https://openrouter.ai/models" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--theme-primary)' }}>openrouter.ai/models</a>
+              </p>
+            </div>
+          )}
+        </SettingGroup>
+
+        {/* Status indicator */}
+        <div className="setting-group" style={{
+          padding: '12px 16px',
+          backgroundColor: 'var(--color-surface-alt, #f0f0f0)',
+          borderRadius: '8px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px'
+        }}>
+          <span style={{ fontSize: '1.2em' }}>
+            {settings.aiAssistant?.useCustomKey && settings.aiAssistant?.customApiKey ? '🔑' : '🌐'}
+          </span>
+          <span style={{ fontSize: '0.9em' }}>
+            {settings.aiAssistant?.useCustomKey && settings.aiAssistant?.customApiKey
+              ? 'Usando chiave personale'
+              : 'Usando chiave predefinita'}
+          </span>
+        </div>
+      </SettingsCategory>
     </div>
   );
 };

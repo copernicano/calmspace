@@ -256,13 +256,21 @@ const EnhancedHomePage = () => {
                 )}
 
                 {/* Favorite Star */}
-                <button
+                <span
                   className={`favorite-button ${isFav ? 'active' : ''}`}
                   onClick={(e) => toggleFavorite(activity.id, e)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      toggleFavorite(activity.id, e);
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
                   aria-label={isFav ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti'}
                 >
                   {isFav ? '⭐' : '☆'}
-                </button>
+                </span>
 
                 {/* Activity Icon */}
                 <div className="activity-icon" aria-hidden="true">

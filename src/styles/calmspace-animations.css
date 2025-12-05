@@ -1,4 +1,90 @@
 /* ======================= MODERN CALMSPACE ANIMATIONS ======================= */
+
+/* ═══════════════════════════════════════════════════════════════
+   ORGANIC EASING FUNCTIONS - Natural, Fluid Motion
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Organic easing curves that mimic natural motion */
+  --ease-organic-in: cubic-bezier(0.68, -0.25, 0.265, 0.85);
+  --ease-organic-out: cubic-bezier(0.17, 0.84, 0.44, 1);
+  --ease-organic-in-out: cubic-bezier(0.87, 0, 0.13, 1);
+
+  /* Fluid motion curves - smoother, more graceful */
+  --ease-fluid-gentle: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-fluid-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-fluid-elegant: cubic-bezier(0.645, 0.045, 0.355, 1);
+
+  /* Bounce and spring effects for playful elements */
+  --ease-bounce-soft: cubic-bezier(0.68, -0.15, 0.265, 1.15);
+  --ease-spring-gentle: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* Nature-inspired curves */
+  --ease-float: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-drift: cubic-bezier(0.42, 0, 0.58, 1);
+  --ease-breathe: cubic-bezier(0.37, 0, 0.63, 1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ACCESSIBILITY - Reduced Motion Support
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Disable all animations for users with motion sensitivity */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Keep static visual elements, remove motion */
+  .bubble,
+  .bubble-large,
+  .bubble-micro,
+  .bubble-sparkly,
+  .fluid-wave-layer,
+  .surface-wave,
+  .floating-particle,
+  .water-shimmer,
+  .modern-star,
+  .constellation-star-modern,
+  .spectacular-meteor,
+  .vibrant-nebula,
+  .sparkling-dust,
+  .firefly,
+  .butterfly,
+  .cloud,
+  .grass,
+  .pollen {
+    animation: none !important;
+    opacity: 0.6 !important;
+  }
+
+  /* Keep container backgrounds but disable atmosphere animations */
+  .bubbles-container,
+  .waves-container,
+  .stars-container,
+  .countryside-container,
+  .abstract-container {
+    animation: none !important;
+  }
+
+  /* Disable pseudo-element lighting effects */
+  .bubbles-container::before,
+  .bubbles-container::after,
+  .waves-container::before,
+  .waves-container::after,
+  .stars-container::before,
+  .stars-container::after,
+  .countryside-container::before,
+  .countryside-container::after {
+    animation: none !important;
+    opacity: 0.5 !important;
+  }
+}
+
 .patterns-container {
   display: flex;
   flex-direction: column;
@@ -79,14 +165,7 @@
   background-color: rgba(74, 144, 226, 0.1);
 }
 
-.pattern-display {
-  flex: 1;
-  width: 100%;
-  border-radius: 16px;
-  overflow: hidden;
-  position: relative;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-}
+/* Pattern display rules are in enhanced-calmspace.css */
 
 /* Velocità di animazione */
 .slow {
@@ -99,22 +178,79 @@
 
 /* ======================= MODERN BUBBLE ANIMATIONS ======================= */
 
-/* Container migliorato con gradiente più sofisticato */
+/* Container migliorato con gradiente oceanico profondo */
 .bubbles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, 
-    #667eea 0%, 
-    #764ba2 50%, 
-    #667eea 100%);
-  position: relative;
+  background: linear-gradient(135deg,
+    #05111f 0%,      /* Blu oceano profondo */
+    #0a1e3d 15%,     /* Blu notte marina */
+    #1e3a5f 30%,     /* Blu medio profondo */
+    #2563eb 50%,     /* Blu vibrante */
+    #3b82f6 70%,     /* Blu cielo intenso */
+    #60a5fa 85%,     /* Azzurro brillante */
+    #3b82f6 100%);   /* Ritorno blu vibrante */
   overflow: hidden;
   animation: gentle-color-shift 20s ease-in-out infinite alternate;
 }
 
+/* Lighting overlay - simulates underwater light rays */
+.bubbles-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at 30% 20%,
+    rgba(96, 165, 250, 0.15) 0%,
+    rgba(59, 130, 246, 0.08) 30%,
+    transparent 70%);
+  animation: light-shift 25s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* Atmospheric depth overlay */
+.bubbles-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(to top,
+    rgba(5, 17, 31, 0.4) 0%,
+    rgba(5, 17, 31, 0.2) 50%,
+    transparent 100%);
+  pointer-events: none;
+  z-index: 99;
+}
+
+@keyframes light-shift {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(10%, 15%) rotate(5deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-5%, 10%) rotate(-3deg);
+    opacity: 0.6;
+  }
+}
+
 @keyframes gentle-color-shift {
-  0% { filter: hue-rotate(0deg) saturate(1); }
-  100% { filter: hue-rotate(15deg) saturate(1.1); }
+  0% { filter: hue-rotate(0deg) saturate(1.2) brightness(1); }
+  50% { filter: hue-rotate(8deg) saturate(1.4) brightness(1.05); }
+  100% { filter: hue-rotate(15deg) saturate(1.3) brightness(1.02); }
 }
 
 /* Bolle principali moderne - forma perfettamente circolare */
@@ -124,7 +260,7 @@
   border-radius: 50%;
   backdrop-filter: blur(2px);
   border: 2px solid rgba(255, 255, 255, 0.3);
-  animation: modern-float var(--float-duration, 12s) infinite ease-out;
+  animation: modern-float var(--float-duration, 50s) var(--ease-float) infinite;
   transform-origin: center center;
   will-change: transform, opacity;
   /* Forza forma perfettamente circolare */
@@ -169,27 +305,32 @@
 /* Varianti di bolle - tutte perfettamente circolari */
 .bubble-large {
   border: 3px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 
-    0 0 25px hsla(var(--hue, 210), 70%, 80%, 0.6),
-    inset 0 0 15px rgba(255, 255, 255, 0.2);
-  animation: large-bubble-float var(--float-duration, 15s) infinite ease-out;
+  box-shadow:
+    0 0 35px hsla(var(--hue, 210), 75%, 85%, 0.8),
+    0 0 60px hsla(var(--hue, 210), 70%, 80%, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.3),
+    inset 0 0 40px hsla(var(--hue, 210), 60%, 90%, 0.15);
+  animation: large-bubble-float var(--float-duration, 60s) var(--ease-organic-out) infinite;
   /* Eredita dimensioni perfette dal parent */
 }
 
 .bubble-micro {
   border: 1px solid rgba(255, 255, 255, 0.5);
-  animation: micro-bubble-swarm var(--float-duration, 8s) infinite linear;
+  animation: micro-bubble-swarm var(--float-duration, 35s) infinite linear;
   opacity: 0.7;
   /* Eredita dimensioni perfette dal parent */
 }
 
 .bubble-sparkly {
   border: 2px solid rgba(255, 255, 255, 0.6);
-  animation: sparkly-float var(--float-duration, 10s) infinite ease-out,
-             sparkle-effect 2s infinite ease-in-out;
-  box-shadow: 
-    0 0 15px hsla(var(--hue, 210), 80%, 90%, 0.8),
-    inset 0 0 10px rgba(255, 255, 255, 0.3);
+  animation: sparkly-float var(--float-duration, 45s) var(--ease-spring-gentle) infinite,
+             sparkle-effect 3s var(--ease-breathe) infinite;
+  box-shadow:
+    0 0 20px hsla(var(--hue, 210), 85%, 92%, 0.9),
+    0 0 40px hsla(var(--hue, 210), 80%, 90%, 0.6),
+    0 0 60px hsla(var(--hue, 210), 75%, 88%, 0.3),
+    inset 0 0 15px rgba(255, 255, 255, 0.4),
+    inset 0 0 30px hsla(var(--hue, 210), 70%, 95%, 0.2);
   /* Eredita dimensioni perfette dal parent */
 }
 
@@ -200,7 +341,7 @@
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.8);
-  animation: foam-rise var(--duration, 8s) infinite linear;
+  animation: foam-rise var(--duration, 35s) infinite linear;
   opacity: 0.8;
   /* Dimensioni controllate da variabile CSS */
   width: var(--size, 6px);
@@ -218,18 +359,32 @@
     transform: translateY(0) translateX(0) scale(0.3) rotate(0deg);
     opacity: 0;
   }
-  8% {
-    opacity: 0.9;
-    transform: translateY(-60px) translateX(var(--drift-x, 0px)) scale(0.7) rotate(3deg);
+  5% {
+    opacity: 0.5;
+    transform: translateY(-30px) translateX(calc(var(--drift-x, 0px) * 0.2)) scale(0.5) rotate(1deg);
   }
-  25% {
-    transform: translateY(-25vh) translateX(calc(var(--drift-x, 0px) * 0.8)) scale(var(--final-scale, 1)) rotate(6deg);
+  10% {
+    opacity: 0.9;
+    transform: translateY(-60px) translateX(calc(var(--drift-x, 0px) * 0.4)) scale(0.7) rotate(3deg);
+  }
+  20% {
+    transform: translateY(-20vh) translateX(calc(var(--drift-x, 0px) * 0.85)) scale(0.9) rotate(5deg);
+  }
+  35% {
+    transform: translateY(-35vh) translateX(calc(var(--drift-x, 0px) * 0.95)) scale(var(--final-scale, 1)) rotate(8deg);
   }
   50% {
-    transform: translateY(-50vh) translateX(calc(var(--drift-x, 0px) * 0.6)) scale(var(--final-scale, 1)) rotate(10deg);
+    transform: translateY(-50vh) translateX(calc(var(--drift-x, 0px) * 0.8)) scale(var(--final-scale, 1)) rotate(10deg);
   }
-  75% {
-    transform: translateY(-75vh) translateX(calc(var(--drift-x, 0px) * 0.4)) scale(calc(var(--final-scale, 1) * 0.9)) rotate(15deg);
+  65% {
+    transform: translateY(-65vh) translateX(calc(var(--drift-x, 0px) * 0.6)) scale(calc(var(--final-scale, 1) * 0.95)) rotate(13deg);
+  }
+  80% {
+    transform: translateY(-80vh) translateX(calc(var(--drift-x, 0px) * 0.35)) scale(calc(var(--final-scale, 1) * 0.85)) rotate(18deg);
+  }
+  90% {
+    transform: translateY(-95vh) translateX(calc(var(--drift-x, 0px) * 0.1)) scale(0.4) rotate(22deg);
+    opacity: 0.6;
   }
   100% {
     transform: translateY(-110vh) translateX(0px) scale(0.2) rotate(25deg);
@@ -316,30 +471,83 @@
 
 /* ======================= POETIC FLUID WAVES ======================= */
 
-/* Container oceanico poetico con sfumature profonde */
+/* Container oceanico con tramonto poetico - transizione cielo a mare */
 .waves-container {
-  background: linear-gradient(180deg,
-    #1e3c72 0%,     /* Blu profondo del cielo */
-    #2a5298 15%,    /* Blu intermedio */
-    #3498db 30%,    /* Azzurro chiaro */
-    #74b9ff 50%,    /* Celeste */
-    #0984e3 70%,    /* Blu oceano */
-    #2d3436 85%,    /* Grigio blu profondo */
-    #0c2461 100%    /* Blu notte */
-  );
-  position: relative;
-  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
+  background: linear-gradient(180deg,
+    #ff6b6b 0%,     /* Rosa-rosso tramonto caldo */
+    #ff8e53 10%,    /* Arancione tramonto */
+    #ffa726 20%,    /* Arancio dorato */
+    #ffd93d 30%,    /* Giallo-oro orizzonte */
+    #6bcf7f 45%,    /* Verde-acqua transizione */
+    #4facfe 60%,    /* Azzurro mare */
+    #2c6fbb 75%,    /* Blu oceano medio */
+    #1b4d89 85%,    /* Blu profondo */
+    #0d2436 100%    /* Blu notte marino */
+  );
+  overflow: hidden;
   animation: serene-ocean-atmosphere 45s ease-in-out infinite alternate;
 }
 
+/* Sun glow atmospheric effect */
+.waves-container::before {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle,
+    rgba(255, 215, 61, 0.25) 0%,
+    rgba(255, 165, 38, 0.15) 30%,
+    rgba(255, 107, 107, 0.08) 60%,
+    transparent 100%);
+  transform: translateX(-50%);
+  animation: sun-pulse 30s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 5;
+  filter: blur(40px);
+}
+
+/* Ocean depth shadow */
+.waves-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background: linear-gradient(to top,
+    rgba(13, 36, 54, 0.5) 0%,
+    rgba(13, 36, 54, 0.2) 50%,
+    transparent 100%);
+  pointer-events: none;
+  z-index: 30;
+}
+
+@keyframes sun-pulse {
+  0%, 100% {
+    opacity: 0.8;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+  }
+}
+
 @keyframes serene-ocean-atmosphere {
-  0% { filter: hue-rotate(0deg) saturate(1) brightness(1) contrast(1); }
-  25% { filter: hue-rotate(3deg) saturate(1.1) brightness(1.02) contrast(1.05); }
-  50% { filter: hue-rotate(-2deg) saturate(0.95) brightness(1.05) contrast(0.98); }
-  75% { filter: hue-rotate(4deg) saturate(1.05) brightness(0.98) contrast(1.02); }
-  100% { filter: hue-rotate(0deg) saturate(1) brightness(1) contrast(1); }
+  0% { filter: hue-rotate(0deg) saturate(1.15) brightness(1.02) contrast(1.05); }
+  25% { filter: hue-rotate(5deg) saturate(1.25) brightness(1.05) contrast(1.08); }
+  50% { filter: hue-rotate(-3deg) saturate(1.1) brightness(1.08) contrast(1.03); }
+  75% { filter: hue-rotate(6deg) saturate(1.2) brightness(1.03) contrast(1.06); }
+  100% { filter: hue-rotate(0deg) saturate(1.15) brightness(1.02) contrast(1.05); }
 }
 
 /* Onde principali fluide con forme organiche */
@@ -349,6 +557,7 @@
   left: -10%;
   width: 120%;
   height: var(--wave-height, 50px);
+  will-change: transform, clip-path;
   background: linear-gradient(90deg,
     hsla(var(--wave-hue, 210), 70%, 60%, 0) 0%,
     hsla(var(--wave-hue, 210), 70%, 65%, var(--wave-opacity, 0.4)) 20%,
@@ -358,20 +567,17 @@
   );
   clip-path: polygon(
     0% 100%,
-    5% 85%,
-    15% 75%,
-    25% 80%,
-    35% 70%,
-    45% 75%,
-    55% 65%,
-    65% 70%,
-    75% 60%,
-    85% 65%,
-    95% 55%,
-    100% 60%,
+    2% 95%, 5% 88%, 8% 82%,
+    12% 78%, 16% 76%, 20% 77%,
+    25% 80%, 30% 84%, 35% 86%,
+    40% 85%, 45% 82%, 50% 78%,
+    55% 75%, 60% 74%, 65% 76%,
+    70% 79%, 75% 82%, 80% 84%,
+    85% 85%, 90% 83%, 95% 80%,
+    98% 77%, 100% 75%,
     100% 100%
   );
-  animation: organic-wave-flow var(--wave-speed, 15s) infinite ease-in-out;
+  animation: organic-wave-flow var(--wave-speed, 15s) var(--ease-fluid-elegant) infinite;
   animation-delay: var(--wave-delay, 0s);
   mix-blend-mode: normal;
   filter: blur(1px);
@@ -380,92 +586,68 @@
 
 @keyframes organic-wave-flow {
   0% {
-    transform: translateX(-8%) scaleY(1);
+    transform: translateX(-5%) scaleY(1);
     clip-path: polygon(
       0% 100%,
-      5% 85%,
-      15% 75%,
-      25% 80%,
-      35% 70%,
-      45% 75%,
-      55% 65%,
-      65% 70%,
-      75% 60%,
-      85% 65%,
-      95% 55%,
-      100% 60%,
+      2% 95%, 5% 88%, 8% 82%, 12% 78%, 16% 76%, 20% 77%,
+      25% 80%, 30% 84%, 35% 86%, 40% 85%, 45% 82%, 50% 78%,
+      55% 75%, 60% 74%, 65% 76%, 70% 79%, 75% 82%, 80% 84%,
+      85% 85%, 90% 83%, 95% 80%, 98% 77%, 100% 75%,
       100% 100%
     );
   }
-  25% {
-    transform: translateX(-2%) scaleY(1.1);
+  20% {
+    transform: translateX(-2%) scaleY(1.08);
     clip-path: polygon(
       0% 100%,
-      8% 80%,
-      18% 70%,
-      28% 85%,
-      38% 65%,
-      48% 80%,
-      58% 60%,
-      68% 75%,
-      78% 55%,
-      88% 70%,
-      98% 50%,
-      100% 55%,
+      3% 92%, 7% 86%, 11% 81%, 15% 79%, 19% 79%, 23% 81%,
+      28% 84%, 33% 87%, 38% 88%, 43% 86%, 48% 82%, 53% 77%,
+      58% 73%, 63% 71%, 68% 73%, 73% 77%, 78% 81%, 83% 84%,
+      88% 86%, 92% 85%, 96% 82%, 99% 78%, 100% 75%,
       100% 100%
     );
   }
-  50% {
-    transform: translateX(4%) scaleY(1);
+  40% {
+    transform: translateX(2%) scaleY(1.05);
     clip-path: polygon(
       0% 100%,
-      7% 90%,
-      17% 80%,
-      27% 75%,
-      37% 85%,
-      47% 70%,
-      57% 75%,
-      67% 65%,
-      77% 70%,
-      87% 60%,
-      97% 65%,
-      100% 70%,
+      3% 90%, 7% 84%, 11% 80%, 15% 78%, 19% 79%, 23% 82%,
+      28% 86%, 33% 89%, 38% 90%, 43% 88%, 48% 84%, 53% 79%,
+      58% 75%, 63% 73%, 68% 75%, 73% 79%, 78% 83%, 83% 86%,
+      88% 87%, 92% 86%, 96% 83%, 99% 79%, 100% 76%,
       100% 100%
     );
   }
-  75% {
-    transform: translateX(-1%) scaleY(1.05);
+  60% {
+    transform: translateX(4%) scaleY(1.1);
     clip-path: polygon(
       0% 100%,
-      6% 85%,
-      16% 90%,
-      26% 70%,
-      36% 80%,
-      46% 85%,
-      56% 70%,
-      66% 80%,
-      76% 65%,
-      86% 75%,
-      96% 70%,
-      100% 65%,
+      3% 88%, 7% 82%, 11% 78%, 15% 77%, 19% 78%, 23% 81%,
+      28% 85%, 33% 88%, 38% 89%, 43% 87%, 48% 83%, 53% 78%,
+      58% 74%, 63% 72%, 68% 74%, 73% 78%, 78% 82%, 83% 85%,
+      88% 86%, 92% 85%, 96% 82%, 99% 78%, 100% 75%,
+      100% 100%
+    );
+  }
+  80% {
+    transform: translateX(1%) scaleY(1.03);
+    clip-path: polygon(
+      0% 100%,
+      3% 94%, 7% 87%, 11% 83%, 15% 80%, 19% 80%, 23% 82%,
+      28% 85%, 33% 88%, 38% 89%, 43% 87%, 48% 83%, 53% 79%,
+      58% 75%, 63% 73%, 68% 75%, 73% 79%, 78% 83%, 83% 85%,
+      88% 86%, 92% 84%, 96% 81%, 99% 77%, 100% 74%,
       100% 100%
     );
   }
   100% {
-    transform: translateX(-8%) scaleY(1);
+    transform: translateX(-5%) scaleY(1);
     clip-path: polygon(
       0% 100%,
-      5% 85%,
-      15% 75%,
-      25% 80%,
-      35% 70%,
-      45% 75%,
-      55% 65%,
-      65% 70%,
-      75% 60%,
-      85% 65%,
-      95% 55%,
-      100% 60%,
+      2% 95%, 5% 88%, 8% 82%, 12% 78%, 16% 76%, 20% 77%,
+      25% 80%, 30% 84%, 35% 86%, 40% 85%, 45% 82%, 50% 78%,
+      55% 75%, 60% 74%, 65% 76%, 70% 79%, 75% 82%, 80% 84%,
+      85% 85%, 90% 83%, 95% 80%, 98% 77%, 100% 75%,
       100% 100%
     );
   }
@@ -485,8 +667,8 @@
     rgba(255, 255, 255, 0.3) 75%,
     rgba(255, 255, 255, 0) 100%
   );
-  border-radius: 50% / 100%;
-  animation: gentle-surface-ripple var(--surface-speed, 10s) infinite ease-in-out;
+  border-radius: 50%;
+  animation: gentle-surface-ripple var(--surface-speed, 10s) var(--ease-fluid-gentle) infinite;
   animation-delay: var(--surface-delay, 0s);
   filter: blur(0.5px);
   z-index: 20;
@@ -521,6 +703,7 @@
   position: absolute;
   width: var(--particle-size, 3px);
   height: var(--particle-size, 3px);
+  will-change: transform, opacity;
   background: radial-gradient(circle,
     rgba(255, 255, 255, 0.8) 0%,
     rgba(173, 216, 230, 0.6) 40%,
@@ -528,7 +711,7 @@
     transparent 100%
   );
   border-radius: 50%;
-  animation: organic-float var(--float-duration, 12s) infinite ease-in-out;
+  animation: organic-float var(--float-duration, 12s) var(--ease-drift) infinite;
   animation-delay: var(--float-delay, 0s);
   z-index: 15;
   filter: blur(0.5px);
@@ -562,13 +745,14 @@
   position: absolute;
   width: 8px;
   height: 8px;
+  will-change: transform, opacity;
   background: radial-gradient(ellipse,
     rgba(255, 255, 255, 1) 0%,
     rgba(255, 255, 255, 0.6) 30%,
     rgba(135, 206, 235, 0.4) 60%,
     transparent 100%
   );
-  border-radius: 50% / 80%;
+  border-radius: 50%;
   animation: water-shimmer-dance var(--shimmer-duration, 4s) infinite ease-in-out;
   animation-delay: var(--shimmer-delay, 0s);
   z-index: 25;
@@ -608,110 +792,145 @@
 
 /* ======================= SPECTACULAR STAR UNIVERSE ======================= */
 
-/* Container del cielo stellato moderno */
+/* Container del cielo stellato cosmico - viola vibrante a nero profondo */
 .stars-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
   background: linear-gradient(180deg,
-    #0B0D1E 0%,
-    #1A1C35 25%,
-    #2D1B69 50%,
-    #1E0A3C 75%,
-    #0F0A1A 100%);
-  position: relative;
+    #1a0b2e 0%,     /* Viola cosmico profondo */
+    #2d1b4e 15%,    /* Viola-blu intenso */
+    #3b2667 30%,    /* Viola reale */
+    #1e0a3c 50%,    /* Viola scuro magnetico */
+    #0f051d 70%,    /* Quasi nero con tracce viola */
+    #050208 85%,    /* Nero cosmico */
+    #000000 100%);  /* Nero assoluto infinito */
   overflow: hidden;
   animation: cosmic-atmosphere 50s ease-in-out infinite alternate;
 }
 
-@keyframes cosmic-atmosphere {
-  0% { filter: hue-rotate(0deg) brightness(1) saturate(1); }
-  25% { filter: hue-rotate(3deg) brightness(1.05) saturate(1.1); }
-  50% { filter: hue-rotate(-2deg) brightness(0.98) saturate(1.05); }
-  75% { filter: hue-rotate(5deg) brightness(1.02) saturate(1.08); }
-  100% { filter: hue-rotate(0deg) brightness(1) saturate(1); }
+/* Cosmic glow - distant galaxies */
+.stars-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(ellipse at 20% 30%,
+      rgba(139, 69, 219, 0.12) 0%,
+      transparent 40%),
+    radial-gradient(ellipse at 75% 45%,
+      rgba(99, 102, 241, 0.1) 0%,
+      transparent 45%),
+    radial-gradient(ellipse at 60% 80%,
+      rgba(168, 85, 247, 0.08) 0%,
+      transparent 35%);
+  animation: galaxy-drift 60s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 5;
+  filter: blur(50px);
 }
 
-/* Stelle principali moderne con forma a croce */
+/* Atmospheric stardust veil */
+.stars-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%,
+    transparent 0%,
+    rgba(26, 11, 46, 0.3) 70%,
+    rgba(0, 0, 0, 0.5) 100%);
+  pointer-events: none;
+  z-index: 30;
+}
+
+@keyframes galaxy-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate(5%, 3%) scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-3%, 5%) scale(0.98);
+    opacity: 0.7;
+  }
+}
+
+@keyframes cosmic-atmosphere {
+  0% { filter: hue-rotate(0deg) brightness(1.05) saturate(1.2); }
+  25% { filter: hue-rotate(5deg) brightness(1.1) saturate(1.35); }
+  50% { filter: hue-rotate(-3deg) brightness(1.02) saturate(1.25); }
+  75% { filter: hue-rotate(8deg) brightness(1.08) saturate(1.3); }
+  100% { filter: hue-rotate(0deg) brightness(1.05) saturate(1.2); }
+}
+
+/* Stelle principali moderne con forma circolare */
 .modern-star {
   position: absolute;
   top: var(--star-top, 50%);
   left: var(--star-left, 50%);
-  width: var(--star-size, 3px);
-  height: var(--star-size, 3px);
-  background: var(--star-color, #FFFFFF);
-  animation: modern-star-twinkle var(--star-duration, 4s) infinite ease-in-out;
+  width: var(--star-size, 4px);
+  height: var(--star-size, 4px);
+  background: radial-gradient(circle, var(--star-color, #FFFFFF) 0%, var(--star-color, #FFFFFF) 70%, transparent 100%);
+  border-radius: 50%;
+  box-shadow:
+    0 0 10px var(--star-color, #FFFFFF),
+    0 0 20px rgba(255, 255, 255, 0.7),
+    0 0 30px rgba(255, 255, 255, 0.4),
+    0 0 40px rgba(255, 255, 255, 0.2);
+  animation: modern-star-twinkle var(--star-duration, 5s) var(--ease-breathe) infinite;
   animation-delay: var(--star-delay, 0s);
   z-index: 15;
   filter: brightness(var(--star-intensity, 1));
 }
 
-.modern-star::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: 50%;
-  width: 1px;
-  height: calc(var(--star-size, 3px) * 2);
-  background: var(--star-color, #FFFFFF);
-  transform: translateX(-50%);
-  box-shadow: 0 0 8px var(--star-color, #FFFFFF);
-}
-
-.modern-star::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: -50%;
-  width: calc(var(--star-size, 3px) * 2);
-  height: 1px;
-  background: var(--star-color, #FFFFFF);
-  transform: translateY(-50%);
-  box-shadow: 0 0 8px var(--star-color, #FFFFFF);
-}
-
 /* Varianti di stelle colorate */
 .modern-star-red {
-  background: #FF4757;
-  box-shadow: 0 0 15px rgba(255, 71, 87, 0.8);
-}
-
-.modern-star-red::before,
-.modern-star-red::after {
-  background: #FF4757;
-  box-shadow: 0 0 10px rgba(255, 71, 87, 0.9);
+  background: radial-gradient(circle, #FF4757 0%, #FF4757 70%, transparent 100%);
+  box-shadow:
+    0 0 12px rgba(255, 71, 87, 1),
+    0 0 24px rgba(255, 71, 87, 0.8),
+    0 0 40px rgba(255, 71, 87, 0.5),
+    0 0 60px rgba(255, 71, 87, 0.3);
 }
 
 .modern-star-blue {
-  background: #3742FA;
-  box-shadow: 0 0 15px rgba(55, 66, 250, 0.8);
-}
-
-.modern-star-blue::before,
-.modern-star-blue::after {
-  background: #3742FA;
-  box-shadow: 0 0 10px rgba(55, 66, 250, 0.9);
+  background: radial-gradient(circle, #3742FA 0%, #3742FA 70%, transparent 100%);
+  box-shadow:
+    0 0 12px rgba(55, 66, 250, 1),
+    0 0 24px rgba(55, 66, 250, 0.8),
+    0 0 40px rgba(55, 66, 250, 0.5),
+    0 0 60px rgba(55, 66, 250, 0.3);
 }
 
 .modern-star-gold {
-  background: #FFD700;
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
-}
-
-.modern-star-gold::before,
-.modern-star-gold::after {
-  background: #FFD700;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.9);
+  background: radial-gradient(circle, #FFD700 0%, #FFD700 70%, transparent 100%);
+  box-shadow:
+    0 0 15px rgba(255, 215, 0, 1),
+    0 0 30px rgba(255, 215, 0, 0.8),
+    0 0 50px rgba(255, 215, 0, 0.5),
+    0 0 70px rgba(255, 215, 0, 0.3);
 }
 
 .modern-star-pink {
-  background: #FF6B9D;
-  box-shadow: 0 0 15px rgba(255, 107, 157, 0.8);
-}
-
-.modern-star-pink::before,
-.modern-star-pink::after {
-  background: #FF6B9D;
-  box-shadow: 0 0 10px rgba(255, 107, 157, 0.9);
+  background: radial-gradient(circle, #FF6B9D 0%, #FF6B9D 70%, transparent 100%);
+  box-shadow:
+    0 0 12px rgba(255, 107, 157, 1),
+    0 0 24px rgba(255, 107, 157, 0.8),
+    0 0 40px rgba(255, 107, 157, 0.5),
+    0 0 60px rgba(255, 107, 157, 0.3);
 }
 
 /* Stelle delle costellazioni */
@@ -754,9 +973,10 @@
   left: var(--meteor-start-left, 20%);
   width: 6px;
   height: 6px;
+  will-change: transform, opacity;
   background: radial-gradient(circle, #FFFFFF 0%, #87CEEB 100%);
   border-radius: 50%;
-  animation: spectacular-meteor-trail var(--meteor-duration, 3s) infinite linear;
+  animation: spectacular-meteor-trail var(--meteor-duration, 8s) infinite linear;
   animation-delay: var(--meteor-delay, 0s);
   opacity: 0;
   z-index: 25;
@@ -788,6 +1008,7 @@
   left: var(--nebula-left, 50%);
   width: var(--nebula-size, 200px);
   height: var(--nebula-size, 200px);
+  will-change: transform, opacity;
   background: radial-gradient(ellipse,
     hsla(var(--nebula-hue), var(--nebula-saturation), var(--nebula-lightness), 0.4) 0%,
     hsla(var(--nebula-hue), var(--nebula-saturation), var(--nebula-lightness), 0.2) 30%,
@@ -818,17 +1039,27 @@
 
 /* Animazioni principali stelle moderne */
 @keyframes modern-star-twinkle {
-  0%, 100% {
+  0% {
     opacity: 0.7;
     transform: scale(1);
     filter: brightness(var(--star-intensity, 1)) blur(0px);
   }
-  25% {
+  15% {
+    opacity: 0.85;
+    transform: scale(1.15);
+    filter: brightness(calc(var(--star-intensity, 1) * 1.2)) blur(0.2px);
+  }
+  30% {
     opacity: 1;
     transform: scale(1.3);
     filter: brightness(calc(var(--star-intensity, 1) * 1.4)) blur(0.5px);
   }
-  50% {
+  45% {
+    opacity: 0.95;
+    transform: scale(0.9);
+    filter: brightness(calc(var(--star-intensity, 1) * 1.15)) blur(0.1px);
+  }
+  60% {
     opacity: 0.9;
     transform: scale(0.8);
     filter: brightness(calc(var(--star-intensity, 1) * 1.2)) blur(0px);
@@ -837,6 +1068,16 @@
     opacity: 1;
     transform: scale(1.1);
     filter: brightness(calc(var(--star-intensity, 1) * 1.3)) blur(0.3px);
+  }
+  90% {
+    opacity: 0.8;
+    transform: scale(1.05);
+    filter: brightness(calc(var(--star-intensity, 1) * 1.1)) blur(0.1px);
+  }
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+    filter: brightness(var(--star-intensity, 1)) blur(0px);
   }
 }
 
@@ -1038,6 +1279,11 @@
 
 /* Container geometrico moderno */
 .abstract-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
   background: linear-gradient(135deg,
@@ -1046,7 +1292,6 @@
     #f093fb 50%,
     #f5576c 75%,
     #4facfe 100%);
-  position: relative;
   overflow: hidden;
   animation: geometric-atmosphere 30s ease-in-out infinite alternate;
 }
@@ -1374,6 +1619,368 @@
   }
   to {
     transform: rotate(360deg) translateX(var(--orbit-radius, 50px)) rotate(-360deg);
+  }
+}
+
+/* ======================= COUNTRYSIDE ANIMATION - TEMA CAMPAGNA ======================= */
+
+/* Paesaggio campestre al tramonto - cielo infuocato a prato serale */
+.countryside-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg,
+    #ff6f3c 0%,      /* Arancio tramonto infuocato */
+    #ff8c42 15%,     /* Arancio caldo luminoso */
+    #ffa552 30%,     /* Arancio-oro splendente */
+    #d4a574 45%,     /* Ocra dorato orizzonte */
+    #8ab88f 60%,     /* Verde prato primaverile */
+    #5a8f6f 75%,     /* Verde prato intenso */
+    #3d6b4e 85%,     /* Verde bosco profondo */
+    #2d3e1f 100%     /* Verde scuro notturno */
+  );
+  overflow: hidden;
+  animation: sunset-glow 60s ease-in-out infinite alternate;
+}
+
+/* Sunset glow - warm atmospheric light */
+.countryside-container::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: radial-gradient(ellipse at 50% 20%,
+    rgba(255, 140, 66, 0.25) 0%,
+    rgba(255, 165, 82, 0.15) 30%,
+    rgba(212, 165, 116, 0.08) 60%,
+    transparent 100%);
+  animation: golden-hour 40s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 5;
+  filter: blur(60px);
+}
+
+/* Meadow depth - darker foreground grass */
+.countryside-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 25%;
+  background: linear-gradient(to top,
+    rgba(45, 62, 31, 0.6) 0%,
+    rgba(61, 107, 78, 0.3) 50%,
+    transparent 100%);
+  pointer-events: none;
+  z-index: 50;
+}
+
+@keyframes golden-hour {
+  0% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+}
+
+@keyframes sunset-glow {
+  0% {
+    filter: brightness(1.05) saturate(1.2) hue-rotate(0deg);
+  }
+  33% {
+    filter: brightness(1.15) saturate(1.4) hue-rotate(8deg);
+  }
+  66% {
+    filter: brightness(1.08) saturate(1.3) hue-rotate(-5deg);
+  }
+  100% {
+    filter: brightness(1.05) saturate(1.2) hue-rotate(0deg);
+  }
+}
+
+/* Lucciole che brillano - fireflies */
+.firefly {
+  position: absolute;
+  width: var(--size, 4px);
+  height: var(--size, 4px);
+  will-change: transform, opacity, filter;
+  background: radial-gradient(circle,
+    rgba(255, 255, 200, 1) 0%,
+    rgba(255, 230, 100, 0.8) 30%,
+    rgba(255, 200, 50, 0) 100%
+  );
+  border-radius: 50%;
+  box-shadow:
+    0 0 15px rgba(255, 255, 150, 1),
+    0 0 30px rgba(255, 255, 100, 0.8),
+    0 0 50px rgba(255, 230, 80, 0.6),
+    0 0 80px rgba(255, 200, 50, 0.4);
+  animation:
+    firefly-float var(--duration, 8s) var(--ease-organic-out) infinite,
+    firefly-glow var(--glow-duration, 2s) var(--ease-breathe) infinite;
+  animation-delay: var(--delay, 0s);
+  left: var(--left, 50%);
+  top: var(--top, 50%);
+  opacity: 0;
+}
+
+@keyframes firefly-float {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(
+      calc(var(--drift-x, 0px) * 1),
+      calc(var(--drift-y, -50px) * 1)
+    );
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(
+      calc(var(--drift-x, 0px) * 2),
+      calc(var(--drift-y, -100px) * 2)
+    );
+    opacity: 0;
+  }
+}
+
+@keyframes firefly-glow {
+  0% {
+    filter: brightness(1) blur(1px);
+    transform: scale(1);
+  }
+  20% {
+    filter: brightness(1.3) blur(1.3px);
+    transform: scale(1.2);
+  }
+  40% {
+    filter: brightness(1.6) blur(1.7px);
+    transform: scale(1.4);
+  }
+  50% {
+    filter: brightness(1.8) blur(2px);
+    transform: scale(1.5);
+  }
+  60% {
+    filter: brightness(1.5) blur(1.6px);
+    transform: scale(1.35);
+  }
+  80% {
+    filter: brightness(1.2) blur(1.2px);
+    transform: scale(1.15);
+  }
+  100% {
+    filter: brightness(1) blur(1px);
+    transform: scale(1);
+  }
+}
+
+/* Farfalle che volano - butterflies */
+.butterfly {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: var(--start-x, -10%);
+  top: var(--start-y, 50%);
+  animation: butterfly-flight var(--duration, 15s) infinite linear;
+  animation-delay: var(--delay, 0s);
+  opacity: 0.8;
+  will-change: transform, opacity;
+}
+
+.butterfly::before,
+.butterfly::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 15px;
+  background: linear-gradient(135deg,
+    rgba(255, 200, 150, 0.9) 0%,
+    rgba(255, 150, 100, 0.7) 50%,
+    rgba(200, 100, 50, 0.5) 100%
+  );
+  border-radius: 50% 50% 50% 10%;
+  animation: wing-flap 0.3s infinite ease-in-out;
+}
+
+.butterfly::before {
+  left: 0;
+  transform-origin: right center;
+}
+
+.butterfly::after {
+  right: 0;
+  transform-origin: left center;
+  animation-delay: 0.15s;
+}
+
+@keyframes butterfly-flight {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(120vw, var(--drift-y, -30vh)) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes wing-flap {
+  0%, 100% {
+    transform: scaleX(1) rotateY(0deg);
+  }
+  50% {
+    transform: scaleX(0.3) rotateY(30deg);
+  }
+}
+
+/* Nuvole che scorrono - clouds */
+.cloud {
+  position: absolute;
+  top: var(--cloud-top, 10%);
+  left: var(--start-x, -20%);
+  width: var(--cloud-width, 100px);
+  height: var(--cloud-height, 40px);
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50px;
+  animation: cloud-drift var(--duration, 40s) infinite linear;
+  animation-delay: var(--delay, 0s);
+  filter: blur(2px);
+  box-shadow:
+    0 0 20px rgba(255, 255, 255, 0.3),
+    inset 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+}
+
+.cloud::before {
+  width: 50px;
+  height: 50px;
+  top: -25px;
+  left: 10px;
+}
+
+.cloud::after {
+  width: 60px;
+  height: 40px;
+  top: -15px;
+  right: 10px;
+}
+
+@keyframes cloud-drift {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateX(130vw);
+    opacity: 0;
+  }
+}
+
+/* Erba che ondeggia - grass blades */
+.grass {
+  position: absolute;
+  bottom: 0;
+  left: var(--left, 50%);
+  width: 3px;
+  height: var(--height, 40px);
+  background: linear-gradient(to top,
+    rgba(80, 120, 50, 0.9) 0%,
+    rgba(100, 150, 70, 0.7) 50%,
+    rgba(120, 180, 90, 0) 100%
+  );
+  transform-origin: bottom center;
+  animation: grass-sway var(--duration, 3s) infinite ease-in-out;
+  animation-delay: var(--delay, 0s);
+  border-radius: 50% 50% 0 0;
+}
+
+@keyframes grass-sway {
+  0%, 100% {
+    transform: rotate(-3deg) scaleY(1);
+  }
+  25% {
+    transform: rotate(5deg) scaleY(0.98);
+  }
+  50% {
+    transform: rotate(-2deg) scaleY(1.02);
+  }
+  75% {
+    transform: rotate(4deg) scaleY(0.99);
+  }
+}
+
+/* Particelle di polline - pollen particles */
+.pollen {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(255, 255, 200, 0.6);
+  border-radius: 50%;
+  left: var(--left, 50%);
+  top: var(--top, 30%);
+  animation: pollen-drift var(--duration, 12s) infinite linear;
+  animation-delay: var(--delay, 0s);
+  filter: blur(0.5px);
+}
+
+@keyframes pollen-drift {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translate(
+      var(--drift-x, 50px),
+      var(--drift-y, 100vh)
+    ) rotate(360deg);
+    opacity: 0;
   }
 }
 

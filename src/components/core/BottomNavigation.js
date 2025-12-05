@@ -21,10 +21,8 @@ const BottomNavigation = () => {
   const location = useLocation();
   const { settings } = useEnhancedSettings();
 
-  // Don't show navigation in focus mode (maximal level)
-  if (settings.focusModeEnabled && settings.focusModeLevel === 'maximal') {
-    return null;
-  }
+  // Navigation is ALWAYS shown to prevent users from getting trapped in settings
+  // Previously hidden in maximal focus mode, but this caused navigation bugs
 
   /* ═══════════════════════════════════════════════════════════════════
      Navigation Items Definition
