@@ -11,7 +11,11 @@
       "Bash(cd:*)",
       "Bash(dir:*)",
       "Bash(npm install:*)",
-      "Bash(ping:*)"
+      "Bash(ping:*)",
+      "Bash(grep:*)",
+      "Bash(set GENERATE_SOURCEMAP=false)",
+      "Bash(npx update-browserslist-db@latest:*)",
+      "Bash(npm update:*)"
     ],
     "deny": [],
     "ask": []

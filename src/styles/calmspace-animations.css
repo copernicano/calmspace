@@ -264,7 +264,7 @@
   transform-origin: center center;
   will-change: transform, opacity;
   /* Forza forma perfettamente circolare */
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1;
   box-sizing: border-box;
   overflow: visible;
   /* Previeni deformazione */
@@ -351,7 +351,7 @@
   max-width: var(--size, 6px);
   max-height: var(--size, 6px);
   box-sizing: border-box;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1;
 }
 
 @keyframes modern-float {
@@ -1608,7 +1608,7 @@
     opacity: 1;
   }
   100% {
-    transform: translate(-50%, -50%) scale(calc(var(--max-radius, 150px) / 10));
+    transform: translate(-50%, -50%) scale(15);
     opacity: 0;
   }
 }
