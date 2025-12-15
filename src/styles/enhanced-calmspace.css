@@ -915,3 +915,200 @@
     display: none;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   Tactile Breathing Mode - Three.js Heart Particles
+   ═══════════════════════════════════════════════════════════════════ */
+
+.tactile-breathing-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.tactile-breathing-container canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.tactile-ui-overlay {
+  pointer-events: none;
+}
+
+.tactile-ui-overlay button,
+.tactile-ui-overlay input {
+  pointer-events: auto;
+}
+
+/* Webcam toggle button */
+.tactile-breathing-container .webcam-toggle {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-lg);
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: var(--text-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: background 0.2s;
+}
+
+.tactile-breathing-container .webcam-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.tactile-breathing-container .webcam-toggle.active {
+  background: rgba(34, 197, 94, 0.3);
+}
+
+/* Phase display */
+.tactile-breathing-container .phase-display {
+  text-align: center;
+}
+
+.tactile-breathing-container .phase-icon {
+  font-size: 64px;
+  margin-bottom: var(--space-2);
+}
+
+.tactile-breathing-container .phase-label {
+  font-size: var(--text-3xl);
+  font-weight: bold;
+  color: white;
+  margin-bottom: var(--space-2);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.tactile-breathing-container .countdown {
+  font-size: 80px;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+/* Openness bar */
+.tactile-breathing-container .openness-bar {
+  width: 200px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  margin: var(--space-3) auto 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.tactile-breathing-container .openness-target {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  width: 4px;
+  background: white;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  box-shadow: 0 0 10px white;
+}
+
+.tactile-breathing-container .openness-value {
+  height: 100%;
+  transition: width 0.1s, background 0.3s;
+}
+
+/* Start/Stop button */
+.tactile-breathing-container .start-stop-btn {
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-xl);
+  border: none;
+  color: white;
+  font-size: var(--text-lg);
+  font-weight: bold;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.tactile-breathing-container .start-stop-btn:hover {
+  transform: scale(1.05);
+}
+
+.tactile-breathing-container .start-stop-btn.start {
+  background: rgba(34, 197, 94, 0.8);
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+}
+
+.tactile-breathing-container .start-stop-btn.stop {
+  background: rgba(239, 68, 68, 0.8);
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+}
+
+/* Calibration indicator */
+.tactile-breathing-container .calibration-indicator {
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-lg);
+  background: rgba(59, 130, 246, 0.3);
+  color: white;
+  text-align: center;
+}
+
+.tactile-breathing-container .calibration-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  margin-top: var(--space-2);
+  overflow: hidden;
+}
+
+.tactile-breathing-container .calibration-progress {
+  height: 100%;
+  background: #3b82f6;
+  transition: width 0.1s;
+}
+
+/* Instructions */
+.tactile-breathing-container .instructions {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: var(--text-sm);
+  max-width: 300px;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .tactile-breathing-container .phase-icon {
+    font-size: 48px;
+  }
+
+  .tactile-breathing-container .phase-label {
+    font-size: var(--text-xl);
+  }
+
+  .tactile-breathing-container .countdown {
+    font-size: 56px;
+  }
+
+  .tactile-breathing-container .openness-bar {
+    width: 150px;
+  }
+
+  .tactile-breathing-container .start-stop-btn {
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--text-base);
+  }
+}
+
+@media (max-width: 400px) {
+  .tactile-breathing-container .countdown {
+    font-size: 48px;
+  }
+
+  .tactile-breathing-container .start-stop-btn {
+    padding: var(--space-2) var(--space-4);
+  }
+}

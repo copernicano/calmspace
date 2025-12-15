@@ -18,6 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import SessionTimer from '../common/SessionTimer';
 import EnhancedSimplePatterns from './EnhancedSimplePatterns';
 import EnhancedBreathingGuide from './EnhancedBreathingGuide';
+import TactileBreathingMode from './TactileBreathingMode';
 import '../../styles/design-system.css';
 import '../../styles/enhanced-calmspace.css';
 
@@ -25,7 +26,7 @@ const EnhancedCalmSpace = () => {
   const { settings } = useEnhancedSettings();
   const navigate = useNavigate();
 
-  const [mode, setMode] = useState('patterns'); // 'patterns' | 'breathing'
+  const [mode, setMode] = useState('patterns'); // 'patterns' | 'breathing' | 'tactile'
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [controlsMinimized, setControlsMinimized] = useState(false);
 
@@ -243,6 +244,14 @@ const EnhancedCalmSpace = () => {
             <span className="mode-icon">🫁</span>
             <span className="mode-label">Respirazione</span>
           </button>
+          <button
+            className={`mode-button ${mode === 'tactile' ? 'active' : ''}`}
+            onClick={() => setMode('tactile')}
+            aria-pressed={mode === 'tactile'}
+          >
+            <span className="mode-icon">🤲</span>
+            <span className="mode-label">Tattile</span>
+          </button>
         </div>
       )}
 
@@ -273,10 +282,10 @@ const EnhancedCalmSpace = () => {
       )}
 
       {/* ═══════════════════════════════════════════════════════════════
-          Content Area (Pattern or Breathing)
+          Content Area (Pattern, Breathing, or Tactile)
           ═══════════════════════════════════════════════════════════════ */}
       <div className="calmspace-content">
-        {mode === 'patterns' ? (
+        {mode === 'patterns' && (
           <EnhancedSimplePatterns
             isFullscreen={isFullscreen}
             visualIntensity={visualIntensity}
@@ -287,10 +296,18 @@ const EnhancedCalmSpace = () => {
             onPatternChange={setActivePattern}
             onSpeedChange={setAnimationSpeed}
           />
-        ) : (
+        )}
+        {mode === 'breathing' && (
           <EnhancedBreathingGuide
             isFullscreen={isFullscreen}
             audioVolume={audioVolume}
+            audioEnabled={audioEnabled}
+          />
+        )}
+        {mode === 'tactile' && (
+          <TactileBreathingMode
+            isFullscreen={isFullscreen}
+            visualIntensity={visualIntensity}
             audioEnabled={audioEnabled}
           />
         )}
@@ -325,14 +342,23 @@ const EnhancedCalmSpace = () => {
                 <button
                   className={`mode-switch-btn ${mode === 'patterns' ? 'active' : ''}`}
                   onClick={() => setMode('patterns')}
+                  title="Pattern"
                 >
                   🌊
                 </button>
                 <button
                   className={`mode-switch-btn ${mode === 'breathing' ? 'active' : ''}`}
                   onClick={() => setMode('breathing')}
+                  title="Respirazione"
                 >
                   🫁
+                </button>
+                <button
+                  className={`mode-switch-btn ${mode === 'tactile' ? 'active' : ''}`}
+                  onClick={() => setMode('tactile')}
+                  title="Tattile"
+                >
+                  🤲
                 </button>
               </div>
             )}
