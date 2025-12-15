@@ -33,13 +33,18 @@ src/components/
 │   └── home/
 │       └── EnhancedHomePage.js
 ├── calm-space/              # Meditation and relaxation tools
-│   ├── EnhancedCalmSpace.js       # Main container with fullscreen support
+│   ├── EnhancedCalmSpace.js       # Main container (3 modes: patterns, breathing, tactile)
 │   ├── EnhancedSimplePatterns.js  # Pattern selector
+│   ├── EnhancedBreathingGuide.js  # Breathing with circle animation
+│   ├── TactileBreathingMode.js    # Three.js heart + hand tracking
 │   ├── BubblesAnimation.js        # GSAP bubble animation
 │   ├── WavesAnimation.js          # GSAP organic wave animation
 │   ├── StarsAnimation.js          # GSAP stars/meteors animation
 │   ├── GeometricAnimation.js      # GSAP geometric patterns
-│   └── [Other animation components]
+│   ├── CountrysideAnimation.js    # GSAP countryside scene
+│   └── utils/
+│       ├── heartParticles.js      # Three.js particle system for heart
+│       └── handTracking.js        # MediaPipe hand tracking utility
 ├── emotion-support/         # Emotion tracking and coping strategies
 │   ├── EnhancedEmotionSelector.js
 │   ├── EnhancedIntensitySlider.js
@@ -277,8 +282,165 @@ Components receive settings-based classes from the main container:
 ## Testing
 Tests are configured with Jest and React Testing Library. Run individual tests with standard Jest patterns.
 
+## Tactile Breathing Mode - Three.js + Hand Tracking
+
+### Overview
+La modalità "Respirazione Tattile" è una funzionalità avanzata che combina:
+- **Three.js** per rendering 3D di un cuore fatto di particelle luminose
+- **MediaPipe Hands** per rilevamento della mano via webcam
+- **Timer respirazione 4-4-4-4** (box breathing)
+
+L'utente controlla l'espansione/contrazione del cuore con la mano:
+- Mano aperta → cuore espanso
+- Mano chiusa → cuore contratto
+
+### Dipendenze Aggiuntive
+```bash
+npm install three @mediapipe/hands @mediapipe/camera_utils
+```
+
+- **three**: Rendering 3D WebGL per sistema particelle
+- **@mediapipe/hands**: ML hand tracking (Google MediaPipe)
+- **@mediapipe/camera_utils**: Gestione webcam per MediaPipe
+
+### File Structure
+```
+src/components/calm-space/
+├── TactileBreathingMode.js      # Componente principale
+├── utils/
+│   ├── heartParticles.js        # Three.js particle system
+│   └── handTracking.js          # MediaPipe hand tracking
+```
+
+### TactileBreathingMode.js - Componente Principale
+Orchestratore che gestisce:
+- Inizializzazione Three.js canvas
+- Webcam e hand tracking
+- Timer respirazione con 4 fasi
+- Touch fallback (tieni premuto = chiuso, rilascia = aperto)
+- UI overlay con indicatori
+
+**Props:**
+```javascript
+<TactileBreathingMode
+  isFullscreen={boolean}      // Modalità fullscreen
+  visualIntensity={number}    // Intensità visiva (0.5-1.5)
+  audioEnabled={boolean}      // Audio abilitato (per future espansioni)
+/>
+```
+
+**State principali:**
+- `webcamEnabled` - Webcam attiva
+- `handDetected` - Mano rilevata
+- `handOpenness` - Apertura mano (0-1)
+- `isBreathing` - Timer attivo
+- `currentPhaseIndex` - Fase corrente (0-3)
+- `countdown` - Secondi rimanenti nella fase
+
+### heartParticles.js - Sistema Particelle Three.js
+
+**Funzione principale:** `createHeartParticleSystem(container, theme)`
+
+**Caratteristiche:**
+- ~1500 particelle su desktop, ~800 su mobile
+- Forma cuore generata con equazione parametrica
+- Shader custom per effetto glow luminoso
+- Colori che seguono il tema app (blue, green, amber, lavender)
+
+**API restituita:**
+```javascript
+const particleSystem = createHeartParticleSystem(containerElement, 'blue');
+
+particleSystem.setExpansion(0.8);  // 0 = contratto, 1 = espanso
+particleSystem.setTheme('green');  // Cambia colori
+particleSystem.update();           // Chiamare in animation loop
+particleSystem.dispose();          // Cleanup
+```
+
+**Colori tema:**
+```javascript
+const THEME_COLORS = {
+  blue: { primary: 0x3b82d6, secondary: 0x60a5fa, glow: 0x93c5fd },
+  green: { primary: 0x22c55e, secondary: 0x4ade80, glow: 0x86efac },
+  amber: { primary: 0xf59e0b, secondary: 0xfbbf24, glow: 0xfde68a },
+  lavender: { primary: 0x9061f9, secondary: 0xac94fa, glow: 0xcabffd }
+};
+```
+
+### handTracking.js - MediaPipe Hand Tracking
+
+**Funzione principale:** `createHandTracker(videoElement, onHandUpdate)`
+
+**Caratteristiche:**
+- Rileva apertura mano (0 = pugno chiuso, 1 = mano aperta)
+- Auto-calibrazione nei primi ~30 frame
+- Smoothing con media mobile (5 frame) per evitare jitter
+- Cleanup corretto dello stream webcam
+
+**Callback `onHandUpdate`:**
+```javascript
+onHandUpdate({
+  detected: boolean,           // Mano visibile
+  openness: number | null,     // 0-1, null se non rilevata
+  isCalibrating: boolean,      // In fase calibrazione
+  calibrationProgress: number  // 0-1 progresso calibrazione
+});
+```
+
+**Calcolo apertura mano:**
+- Usa 21 landmarks MediaPipe
+- Calcola distanza media punta dita → base dita
+- Normalizza con min/max rilevati durante calibrazione
+
+### Fasi Respirazione 4-4-4-4
+```javascript
+const BREATHING_PHASES = [
+  { name: 'inhale', label: 'Inspira', duration: 4, targetOpenness: 1 },
+  { name: 'hold-in', label: 'Trattieni', duration: 4, targetOpenness: 1 },
+  { name: 'exhale', label: 'Espira', duration: 4, targetOpenness: 0 },
+  { name: 'hold-out', label: 'Trattieni', duration: 4, targetOpenness: 0 }
+];
+```
+
+### Integrazione in EnhancedCalmSpace.js
+Il componente è integrato come terzo mode:
+- `patterns` - Animazioni visive (GSAP)
+- `breathing` - Respirazione guidata con cerchio
+- `tactile` - Respirazione tattile con Three.js
+
+**Mode selector:** 3 bottoni con icone 🌊 🫁 🤲
+**Fullscreen mode switcher:** 3 bottoni compatti
+
+### CSS Styles
+Stili in `src/styles/enhanced-calmspace.css` sezione "Tactile Breathing Mode":
+- `.tactile-breathing-container` - Container principale
+- `.tactile-ui-overlay` - Overlay UI (pointer-events: none)
+- Responsive per mobile (768px, 400px breakpoints)
+
+### Touch Fallback
+Se webcam non disponibile/abilitata:
+- **Tocca e tieni premuto** → mano chiusa (openness = 0)
+- **Rilascia** → mano aperta (openness = 1)
+
+Implementato con `onTouchStart`, `onTouchEnd`, `onMouseDown`, `onMouseUp`.
+
+### Performance Notes
+- Three.js usa `requestAnimationFrame` per render loop
+- Particelle ridotte su mobile per performance
+- MediaPipe usa modello "full" (modelComplexity: 1)
+- Cleanup aggressivo su unmount (dispose Three.js, stop webcam)
+
+### Future Improvements (TODO)
+- [ ] Audio guida per cambio fase (suoni opzionali)
+- [ ] Haptic feedback su mobile quando posizione corretta
+- [ ] Statistiche sessione (cicli completati, precisione)
+- [ ] Diversi pattern respirazione (4-7-8, 5-5, ecc.)
+
+---
+
 ## Known Issues & Technical Debt
 - Legacy `src/App.js` exists but is unused (entry point is `src/components/core/App.js`)
 - Some legacy components (non-Enhanced versions) may still exist but are not used in routes
 - Audio file `135796592-morning-forest-ambience.m4a` referenced but may be missing
-- per ogni modifica sostanziosa nel frontend usa sempre il plugin frontend-designer per ottenere risultati migliori
+- Per ogni modifica sostanziosa nel frontend usa sempre il plugin frontend-designer per ottenere risultati migliori
+- Three.js aggiunge ~147KB al bundle (gzipped) - accettabile per la funzionalità offerta

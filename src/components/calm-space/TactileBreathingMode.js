@@ -31,8 +31,8 @@ const TactileBreathingMode = ({ isFullscreen, visualIntensity = 1, audioEnabled 
 
   // State
   const [webcamEnabled, setWebcamEnabled] = useState(false);
-  // eslint-disable-next-line no-unused-vars
-  const [webcamPermission, setWebcamPermission] = useState('prompt'); // 'prompt', 'granted', 'denied'
+  const [webcamError, setWebcamError] = useState(null); // Errore webcam per feedback
+  const [webcamLoading, setWebcamLoading] = useState(false); // Loading state
   const [handDetected, setHandDetected] = useState(false);
   const [handOpenness, setHandOpenness] = useState(0.5);
   const [isCalibrating, setIsCalibrating] = useState(false);
@@ -121,7 +121,15 @@ const TactileBreathingMode = ({ isFullscreen, visualIntensity = 1, audioEnabled 
    * Avvia webcam e hand tracking
    */
   const startWebcam = async () => {
+    setWebcamLoading(true);
+    setWebcamError(null);
+
     try {
+      // Verifica supporto
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error('Webcam non supportata su questo browser');
+      }
+
       // Richiedi permesso webcam
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: 'user', width: 640, height: 480 }
@@ -132,16 +140,31 @@ const TactileBreathingMode = ({ isFullscreen, visualIntensity = 1, audioEnabled 
         await videoRef.current.play();
 
         // Inizializza hand tracker
-        handTrackerRef.current = createHandTracker(videoRef.current, handleHandUpdate);
-        await handTrackerRef.current.start();
+        try {
+          handTrackerRef.current = createHandTracker(videoRef.current, handleHandUpdate);
+          await handTrackerRef.current.start();
+        } catch (handError) {
+          console.error('Hand tracking init error:', handError);
+          // Webcam funziona ma hand tracking no - continua comunque
+          setWebcamError('Hand tracking non disponibile');
+        }
 
-        setWebcamPermission('granted');
         setWebcamEnabled(true);
       }
     } catch (error) {
-      console.error('Webcam access denied:', error);
-      setWebcamPermission('denied');
+      console.error('Webcam error:', error);
+      let errorMsg = 'Errore webcam';
+      if (error.name === 'NotAllowedError') {
+        errorMsg = 'Permesso webcam negato';
+      } else if (error.name === 'NotFoundError') {
+        errorMsg = 'Webcam non trovata';
+      } else if (error.message) {
+        errorMsg = error.message;
+      }
+      setWebcamError(errorMsg);
       setWebcamEnabled(false);
+    } finally {
+      setWebcamLoading(false);
     }
   };
 
@@ -223,17 +246,32 @@ const TactileBreathingMode = ({ isFullscreen, visualIntensity = 1, audioEnabled 
 
   /**
    * Touch handlers per fallback
+   * IMPORTANTE: Non catturare eventi se provengono da bottoni/UI
    */
   const handleTouchStart = (e) => {
+    // Ignora se il touch è su un elemento interattivo
+    const target = e.target;
+    if (target.tagName === 'BUTTON' || target.closest('button')) {
+      return; // Lascia che il bottone gestisca l'evento
+    }
+
     if (!webcamEnabled) {
       e.preventDefault();
+      e.stopPropagation();
       setIsTouching(true);
     }
   };
 
   const handleTouchEnd = (e) => {
+    // Ignora se il touch è su un elemento interattivo
+    const target = e.target;
+    if (target.tagName === 'BUTTON' || target.closest('button')) {
+      return;
+    }
+
     if (!webcamEnabled) {
       e.preventDefault();
+      e.stopPropagation();
       setIsTouching(false);
     }
   };
@@ -254,6 +292,15 @@ const TactileBreathingMode = ({ isFullscreen, visualIntensity = 1, audioEnabled 
   const isCorrectPosition = Math.abs(effectiveOpenness - currentPhase.targetOpenness) < 0.3;
   const feedbackColor = isCorrectPosition ? '#22c55e' : '#f59e0b';
 
+  // Stile comune per bottoni (previene selezione testo)
+  const buttonBaseStyle = {
+    WebkitTouchCallout: 'none',
+    WebkitUserSelect: 'none',
+    userSelect: 'none',
+    touchAction: 'manipulation',
+    WebkitTapHighlightColor: 'transparent',
+  };
+
   return (
     <div
       ref={containerRef}
@@ -268,7 +315,10 @@ const TactileBreathingMode = ({ isFullscreen, visualIntensity = 1, audioEnabled 
         height: '100%',
         background: 'linear-gradient(180deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%)',
         overflow: 'hidden',
-        touchAction: 'none'
+        touchAction: 'none',
+        WebkitUserSelect: 'none',
+        userSelect: 'none',
+        WebkitTouchCallout: 'none',
       }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
@@ -330,27 +380,63 @@ const TactileBreathingMode = ({ isFullscreen, visualIntensity = 1, audioEnabled 
             width: '100%',
             maxWidth: '600px',
             pointerEvents: 'auto',
-            marginBottom: 'var(--space-4)'
+            marginBottom: 'var(--space-4)',
+            position: 'relative'
           }}
         >
           {/* Webcam Toggle */}
-          <button
-            onClick={toggleWebcam}
-            style={{
-              padding: 'var(--space-2) var(--space-4)',
-              borderRadius: 'var(--radius-lg)',
-              border: 'none',
-              background: webcamEnabled ? 'rgba(34, 197, 94, 0.3)' : 'rgba(255, 255, 255, 0.1)',
-              color: 'white',
-              fontSize: 'var(--text-sm)',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 'var(--space-2)'
-            }}
-          >
-            {webcamEnabled ? '📹 Webcam ON' : '📷 Abilita Webcam'}
-          </button>
+          <div style={{ position: 'relative' }}>
+            <button
+              onPointerUp={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (!webcamLoading) toggleWebcam();
+              }}
+              onPointerDown={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+              disabled={webcamLoading}
+              style={{
+                ...buttonBaseStyle,
+                padding: '8px 16px',
+                borderRadius: '12px',
+                border: webcamError ? '2px solid #ef4444' : 'none',
+                background: webcamEnabled
+                  ? 'rgba(34, 197, 94, 0.3)'
+                  : webcamError
+                    ? 'rgba(239, 68, 68, 0.2)'
+                    : 'rgba(255, 255, 255, 0.1)',
+                color: 'white',
+                fontSize: '14px',
+                cursor: webcamLoading ? 'wait' : 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                opacity: webcamLoading ? 0.7 : 1,
+              }}
+            >
+              {webcamLoading ? '⏳ Caricamento...' : webcamEnabled ? '📹 ON' : '📷 Webcam'}
+            </button>
+
+            {/* Webcam Error Message */}
+            {webcamError && (
+              <div style={{
+                color: '#ef4444',
+                fontSize: '11px',
+                position: 'absolute',
+                top: '100%',
+                left: 0,
+                marginTop: '4px',
+                whiteSpace: 'nowrap',
+                background: 'rgba(0,0,0,0.8)',
+                padding: '4px 8px',
+                borderRadius: '4px'
+              }}>
+                ⚠️ {webcamError}
+              </div>
+            )}
+          </div>
 
           {/* Cycle Counter */}
           <div
@@ -510,26 +596,37 @@ const TactileBreathingMode = ({ isFullscreen, visualIntensity = 1, audioEnabled 
 
         {/* Start/Stop Button */}
         <button
-          onClick={toggleBreathing}
+          onPointerDown={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
+          onPointerUp={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleBreathing();
+          }}
           style={{
-            padding: 'var(--space-4) var(--space-8)',
-            borderRadius: 'var(--radius-xl)',
+            ...buttonBaseStyle,
+            padding: '16px 32px',
+            borderRadius: '16px',
             border: 'none',
             background: isBreathing
-              ? 'rgba(239, 68, 68, 0.8)'
-              : 'rgba(34, 197, 94, 0.8)',
+              ? 'rgba(239, 68, 68, 0.9)'
+              : 'rgba(34, 197, 94, 0.9)',
             color: 'white',
-            fontSize: 'var(--text-lg)',
+            fontSize: '18px',
             fontWeight: 'bold',
             cursor: 'pointer',
             pointerEvents: 'auto',
             boxShadow: isBreathing
-              ? '0 0 20px rgba(239, 68, 68, 0.5)'
-              : '0 0 20px rgba(34, 197, 94, 0.5)',
-            marginBottom: 'var(--space-8)'
+              ? '0 0 30px rgba(239, 68, 68, 0.6)'
+              : '0 0 30px rgba(34, 197, 94, 0.6)',
+            marginBottom: '32px',
+            minWidth: '200px',
+            zIndex: 100,
           }}
         >
-          {isBreathing ? '⏹️ Ferma' : '▶️ Inizia Respirazione'}
+          {isBreathing ? '⏹️ Ferma' : '▶️ Inizia'}
         </button>
 
         {/* Instructions (when not breathing) */}
