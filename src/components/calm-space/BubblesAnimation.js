@@ -1,6 +1,6 @@
 /**
  * 🫧 Bubbles Animation - GSAP Version
- * GUARANTEED TO WORK - Uses professional GSAP library
+ * Immersive underwater experience with smooth fluid bubbles
  */
 
 import React, { useEffect, useRef } from 'react';
@@ -8,125 +8,221 @@ import { gsap } from 'gsap';
 
 const BubblesAnimation = () => {
   const containerRef = useRef(null);
+  const animationsRef = useRef([]);
 
   useEffect(() => {
     if (!containerRef.current) return;
 
     const container = containerRef.current;
+    const parent = container.parentElement;
 
-    // Create 30 bubbles with GSAP animations
-    for (let i = 0; i < 30; i++) {
+    // Clear any existing content
+    container.innerHTML = '';
+    animationsRef.current = [];
+
+    // Get container dimensions for responsive sizing
+    const getContainerHeight = () => parent?.clientHeight || window.innerHeight;
+
+    // Create bubbles - varied sizes for depth effect
+    const bubbleCount = 35;
+
+    for (let i = 0; i < bubbleCount; i++) {
       const bubble = document.createElement('div');
-      const size = 30 + Math.random() * 100;
+      // Size varies from small (20px) to large (120px)
+      const size = 20 + Math.random() * 100;
       const startX = Math.random() * 100;
-      const hue = 200 + Math.random() * 40;
+      const hue = 195 + Math.random() * 35; // Blue-cyan range
 
-      // Bubble style
+      // Bubble with beautiful glass effect
       Object.assign(bubble.style, {
         position: 'absolute',
-        bottom: '-100px',
+        bottom: '-150px',
         left: `${startX}%`,
         width: `${size}px`,
         height: `${size}px`,
         borderRadius: '50%',
         background: `radial-gradient(circle at 30% 30%,
-          rgba(255, 255, 255, 0.4) 0%,
-          rgba(255, 255, 255, 0.1) 30%,
-          hsla(${hue}, 75%, 85%, 0.15) 60%,
+          rgba(255, 255, 255, 0.5) 0%,
+          rgba(255, 255, 255, 0.2) 25%,
+          hsla(${hue}, 80%, 80%, 0.2) 50%,
+          hsla(${hue}, 70%, 60%, 0.1) 75%,
           transparent 100%
         )`,
-        border: '2px solid rgba(255, 255, 255, 0.3)',
-        backdropFilter: 'blur(2px)',
-        boxShadow: `0 0 20px hsla(${hue}, 75%, 85%, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.2)`,
+        border: '1.5px solid rgba(255, 255, 255, 0.4)',
+        boxShadow: `
+          0 0 ${size * 0.3}px hsla(${hue}, 80%, 70%, 0.5),
+          inset 0 0 ${size * 0.2}px rgba(255, 255, 255, 0.3),
+          inset -${size * 0.1}px ${size * 0.1}px ${size * 0.15}px rgba(255, 255, 255, 0.1)
+        `,
         pointerEvents: 'none',
+        willChange: 'transform, opacity',
       });
 
-      // Add highlight
+      // Glossy highlight
       const highlight = document.createElement('div');
       Object.assign(highlight.style, {
         position: 'absolute',
-        top: '15%',
-        left: '20%',
-        width: '25%',
+        top: '12%',
+        left: '18%',
+        width: '30%',
         height: '25%',
-        background: 'rgba(255, 255, 255, 0.8)',
+        background: 'rgba(255, 255, 255, 0.9)',
         borderRadius: '50%',
-        filter: 'blur(1px)',
+        filter: 'blur(2px)',
+        transform: 'rotate(-20deg)',
       });
       bubble.appendChild(highlight);
 
+      // Secondary highlight for realism
+      const highlight2 = document.createElement('div');
+      Object.assign(highlight2.style, {
+        position: 'absolute',
+        top: '25%',
+        left: '55%',
+        width: '12%',
+        height: '10%',
+        background: 'rgba(255, 255, 255, 0.6)',
+        borderRadius: '50%',
+        filter: 'blur(1px)',
+      });
+      bubble.appendChild(highlight2);
+
       container.appendChild(bubble);
 
-      // GSAP Animation - GUARANTEED to work
-      const duration = 60 + Math.random() * 80;
-      const driftX = (Math.random() - 0.5) * 200;
-      const delay = Math.random() * 30;
+      // Animation parameters - slower and more organic
+      const containerHeight = getContainerHeight();
+      const duration = 25 + Math.random() * 45; // 25-70 seconds
+      const driftX = (Math.random() - 0.5) * 180;
+      const delay = Math.random() * 20;
+      const wobbleAmount = 10 + Math.random() * 20;
 
-      gsap.fromTo(bubble,
+      // Main rise animation
+      const riseAnim = gsap.fromTo(bubble,
         {
           y: 0,
           x: 0,
-          scale: 0.3,
+          scale: 0.2,
           opacity: 0,
-          rotation: 0,
         },
         {
-          y: `${-110}vh`,
+          y: -(containerHeight + 200),
           x: driftX,
-          scale: 0.7 + Math.random() * 0.6,
-          opacity: 1,
-          rotation: 360,
+          scale: 0.6 + Math.random() * 0.5,
           duration: duration,
           delay: delay,
           repeat: -1,
           ease: 'none',
-          keyframes: {
-            '0%': { opacity: 0, scale: 0.3 },
-            '10%': { opacity: 0.9, scale: 0.7 },
-            '90%': { opacity: 0.8 },
-            '100%': { opacity: 0, scale: 0.3 },
-          },
+          onUpdate: function() {
+            // Fade in/out based on progress
+            const progress = this.progress();
+            if (progress < 0.1) {
+              bubble.style.opacity = progress * 10;
+            } else if (progress > 0.9) {
+              bubble.style.opacity = (1 - progress) * 10;
+            } else {
+              bubble.style.opacity = '0.85';
+            }
+          }
         }
       );
+
+      // Gentle wobble animation
+      const wobbleAnim = gsap.to(bubble, {
+        x: `+=${wobbleAmount}`,
+        duration: 2 + Math.random() * 2,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        delay: Math.random(),
+      });
+
+      animationsRef.current.push(riseAnim, wobbleAnim);
     }
 
     // Cleanup
     return () => {
-      gsap.killTweensOf(container.children);
+      animationsRef.current.forEach(anim => anim.kill());
+      animationsRef.current = [];
     };
   }, []);
 
   return (
     <div style={{
       position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
+      inset: 0,
       width: '100%',
       height: '100%',
-      background: 'linear-gradient(135deg, #05111f 0%, #0a1e3d 15%, #1e3a5f 30%, #2563eb 50%, #3b82f6 70%, #60a5fa 85%, #3b82f6 100%)',
+      background: `linear-gradient(180deg,
+        #020a18 0%,
+        #051428 10%,
+        #0a2040 25%,
+        #0f3060 40%,
+        #1e4a80 55%,
+        #2d6aa0 70%,
+        #3d8ac0 85%,
+        #4da0d8 100%
+      )`,
       overflow: 'hidden',
     }}>
-      {/* Light rays */}
+      {/* Underwater light rays */}
       <div style={{
         position: 'absolute',
-        top: '-50%',
-        left: '-50%',
-        width: '200%',
-        height: '200%',
-        background: 'radial-gradient(ellipse at 30% 20%, rgba(96, 165, 250, 0.15) 0%, rgba(59, 130, 246, 0.08) 30%, transparent 70%)',
+        top: '-20%',
+        left: '10%',
+        width: '80%',
+        height: '80%',
+        background: `radial-gradient(ellipse 80% 50% at 50% 0%,
+          rgba(120, 200, 255, 0.15) 0%,
+          rgba(80, 160, 220, 0.08) 40%,
+          transparent 70%
+        )`,
         pointerEvents: 'none',
-        zIndex: 100,
+        zIndex: 1,
+      }} />
+
+      {/* Additional light beam effects */}
+      <div style={{
+        position: 'absolute',
+        top: '0',
+        left: '20%',
+        width: '15%',
+        height: '100%',
+        background: 'linear-gradient(180deg, rgba(180, 220, 255, 0.08) 0%, transparent 60%)',
+        transform: 'skewX(-15deg)',
+        pointerEvents: 'none',
+        zIndex: 1,
+      }} />
+      <div style={{
+        position: 'absolute',
+        top: '0',
+        right: '25%',
+        width: '10%',
+        height: '100%',
+        background: 'linear-gradient(180deg, rgba(180, 220, 255, 0.06) 0%, transparent 50%)',
+        transform: 'skewX(10deg)',
+        pointerEvents: 'none',
+        zIndex: 1,
       }} />
 
       {/* Bubbles container */}
       <div ref={containerRef} style={{
         position: 'absolute',
-        top: 0,
-        left: 0,
+        inset: 0,
         width: '100%',
         height: '100%',
+        zIndex: 2,
+      }} />
+
+      {/* Subtle depth overlay at bottom */}
+      <div style={{
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: '30%',
+        background: 'linear-gradient(180deg, transparent 0%, rgba(5, 20, 40, 0.5) 100%)',
+        pointerEvents: 'none',
+        zIndex: 3,
       }} />
     </div>
   );

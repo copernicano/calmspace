@@ -1,6 +1,6 @@
 /**
- * WavesAnimation - GSAP only (no CSS animations)
- * Pattern copiato da BubblesAnimation che funziona
+ * 🌊 WavesAnimation - Serene Ocean Night Scene
+ * Organic waves with moonlight reflections
  */
 
 import React, { useEffect, useRef } from 'react';
@@ -8,13 +8,17 @@ import { gsap } from 'gsap';
 
 const WavesAnimation = ({ intensity = 1 }) => {
   const containerRef = useRef(null);
+  const animationsRef = useRef([]);
 
   useEffect(() => {
     if (!containerRef.current) return;
     const container = containerRef.current;
     container.innerHTML = '';
+    animationsRef.current = [];
 
-    const W = window.innerWidth;
+    // Get container width for responsive wave calculations
+    const getContainerWidth = () => container.clientWidth || window.innerWidth;
+    const W = getContainerWidth();
 
     // === STARS ===
     for (let i = 0; i < 50; i++) {
@@ -32,7 +36,7 @@ const WavesAnimation = ({ intensity = 1 }) => {
       });
       container.appendChild(star);
 
-      gsap.to(star, {
+      const starAnim = gsap.to(star, {
         opacity: 0.15,
         duration: 1.5 + Math.random() * 2,
         repeat: -1,
@@ -40,6 +44,7 @@ const WavesAnimation = ({ intensity = 1 }) => {
         ease: 'sine.inOut',
         delay: Math.random() * 2,
       });
+      animationsRef.current.push(starAnim);
     }
 
     // === MOON ===
@@ -154,7 +159,7 @@ const WavesAnimation = ({ intensity = 1 }) => {
       container.appendChild(waveContainer);
 
       // GSAP: scorrimento orizzontale
-      gsap.fromTo(waveContainer,
+      const scrollAnim = gsap.fromTo(waveContainer,
         { x: 0 },
         {
           x: -W,
@@ -163,9 +168,10 @@ const WavesAnimation = ({ intensity = 1 }) => {
           ease: 'none',
         }
       );
+      animationsRef.current.push(scrollAnim);
 
       // GSAP: leggero movimento verticale
-      gsap.to(waveContainer, {
+      const verticalAnim = gsap.to(waveContainer, {
         y: cfg.yOffset,
         duration: 3 + idx * 0.5,
         repeat: -1,
@@ -173,6 +179,7 @@ const WavesAnimation = ({ intensity = 1 }) => {
         ease: 'sine.inOut',
         delay: idx * 0.3,
       });
+      animationsRef.current.push(verticalAnim);
     });
 
     // === PAPER BOAT ===
@@ -205,28 +212,31 @@ const WavesAnimation = ({ intensity = 1 }) => {
     container.appendChild(boat);
 
     // Boat: bobbing
-    gsap.to(boat, {
+    const bobbingAnim = gsap.to(boat, {
       y: -15,
       duration: 2.2 / intensity,
       repeat: -1,
       yoyo: true,
       ease: 'sine.inOut',
     });
+    animationsRef.current.push(bobbingAnim);
 
     // Boat: rotation
-    gsap.to(boat, {
+    const rotationAnim = gsap.to(boat, {
       rotation: 6,
       duration: 2.8 / intensity,
       repeat: -1,
       yoyo: true,
       ease: 'sine.inOut',
     });
+    animationsRef.current.push(rotationAnim);
 
     // Boat: drift
     const drift = gsap.timeline({ repeat: -1 });
     drift.to(boat, { x: 70, duration: 20 / intensity, ease: 'sine.inOut' });
     drift.to(boat, { x: -50, duration: 25 / intensity, ease: 'sine.inOut' });
     drift.to(boat, { x: 0, duration: 15 / intensity, ease: 'sine.inOut' });
+    animationsRef.current.push(drift);
 
     // === SPARKLES ===
     for (let i = 0; i < 15; i++) {
@@ -244,7 +254,7 @@ const WavesAnimation = ({ intensity = 1 }) => {
       });
       container.appendChild(sparkle);
 
-      gsap.to(sparkle, {
+      const sparkleAnim = gsap.to(sparkle, {
         opacity: 0.6,
         duration: 1.2 + Math.random() * 1.5,
         repeat: -1,
@@ -252,11 +262,13 @@ const WavesAnimation = ({ intensity = 1 }) => {
         ease: 'sine.inOut',
         delay: Math.random() * 3,
       });
+      animationsRef.current.push(sparkleAnim);
     }
 
-    // Cleanup
+    // Cleanup - kill all tracked animations
     return () => {
-      gsap.killTweensOf(container.querySelectorAll('*'));
+      animationsRef.current.forEach(anim => anim.kill());
+      animationsRef.current = [];
     };
   }, [intensity]);
 
@@ -265,9 +277,21 @@ const WavesAnimation = ({ intensity = 1 }) => {
       ref={containerRef}
       style={{
         position: 'absolute',
-        inset: 0,
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: '100%',
+        height: '100%',
         overflow: 'hidden',
-        background: 'linear-gradient(180deg, #050a15 0%, #0a1525 35%, #152535 100%)',
+        background: `linear-gradient(180deg,
+          #020510 0%,
+          #050a18 15%,
+          #0a1525 35%,
+          #101e35 55%,
+          #152535 75%,
+          #1a2d40 100%
+        )`,
       }}
     />
   );

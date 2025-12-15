@@ -105,29 +105,53 @@ const EnhancedCalmSpace = () => {
   };
 
   /* ═══════════════════════════════════════════════════════════════════
-     Fullscreen Management
+     Fullscreen Management - Mobile Optimized
      ═══════════════════════════════════════════════════════════════════ */
 
   const toggleFullscreen = () => {
     if (!isFullscreen) {
-      if (fullscreenRef.current.requestFullscreen) {
-        fullscreenRef.current.requestFullscreen().catch(err => {
-          console.error('Fullscreen request failed:', err);
+      // Enter fullscreen - try native API first, fallback to CSS-only
+      const elem = fullscreenRef.current;
+      const requestFS = elem.requestFullscreen ||
+                       elem.webkitRequestFullscreen ||
+                       elem.mozRequestFullScreen ||
+                       elem.msRequestFullscreen;
+
+      if (requestFS) {
+        requestFS.call(elem).catch(err => {
+          // Native fullscreen failed (common on mobile), use CSS fullscreen
+          console.log('Native fullscreen unavailable, using CSS fullscreen');
         });
       }
+      // Always set state - CSS handles the visual fullscreen
       setIsFullscreen(true);
+
+      // Lock screen orientation to portrait if possible (better mobile experience)
+      if (window.screen?.orientation?.lock) {
+        window.screen.orientation.lock('portrait').catch(() => {});
+      }
     } else {
-      // Check if actually in fullscreen before trying to exit
-      if (document.fullscreenElement) {
-        document.exitFullscreen().catch(err => {
-          console.error('Exit fullscreen failed:', err);
-        });
+      // Exit fullscreen
+      const exitFS = document.exitFullscreen ||
+                    document.webkitExitFullscreen ||
+                    document.mozCancelFullScreen ||
+                    document.msExitFullscreen;
+
+      if (document.fullscreenElement || document.webkitFullscreenElement) {
+        if (exitFS) {
+          exitFS.call(document).catch(() => {});
+        }
       }
       setIsFullscreen(false);
+
+      // Unlock orientation
+      if (window.screen?.orientation?.unlock) {
+        window.screen.orientation.unlock();
+      }
     }
   };
 
-  // Listen for ESC key
+  // Listen for ESC key and fullscreen change events
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape' && isFullscreen) {
@@ -135,8 +159,26 @@ const EnhancedCalmSpace = () => {
       }
     };
 
+    // Handle native fullscreen exit (browser back button, etc.)
+    const handleFullscreenChange = () => {
+      const isNativeFullscreen = document.fullscreenElement ||
+                                 document.webkitFullscreenElement ||
+                                 document.mozFullScreenElement;
+      if (!isNativeFullscreen && isFullscreen) {
+        // Native fullscreen exited, but keep CSS fullscreen unless ESC was pressed
+        // This handles the case where user swipes to exit on mobile
+      }
+    };
+
     document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+    };
   }, [isFullscreen]);
 
   /* ═══════════════════════════════════════════════════════════════════

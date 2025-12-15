@@ -93,22 +93,30 @@ const EnhancedSimplePatterns = ({
       style={{
         '--visual-intensity': visualIntensity,
         '--animation-speed-multiplier': animationSpeed === 'slow' ? '1.5' : '1',
-        position: 'relative',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
         width: '100%',
         height: '100%',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        // GPU acceleration
+        transform: 'translateZ(0)',
+        WebkitTransform: 'translateZ(0)',
+        willChange: 'transform'
       }}
     >
-      {/* Bubbles Pattern - NEW */}
+      {/* Bubbles Pattern */}
       {activePattern === 'bubbles' && <BubblesAnimation />}
 
-      {/* Waves Pattern - NEW */}
+      {/* Waves Pattern */}
       {activePattern === 'waves' && <WavesAnimation />}
 
-      {/* Stars Pattern - NEW */}
+      {/* Stars Pattern */}
       {activePattern === 'stars' && <StarsAnimation />}
 
-      {/* Geometric Pattern - NEW */}
+      {/* Geometric Pattern */}
       {activePattern === 'abstract' && <GeometricAnimation />}
 
       {/* Countryside Pattern - Firefly Meadow */}
